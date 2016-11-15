@@ -1,0 +1,110 @@
+%%
+%% This is file `docultex.tex', 
+%% Documentation for siam supplemental file macros for use with LaTeX 2e
+%% 
+%% December 19, 2013
+%%
+%% Supplemental Files Supported Version 1.0.0
+%% 
+%% You are not allowed to change this file. 
+%% 
+%% You are allowed to distribute this file under the condition that 
+%% it is distributed together with all of the files in the siam macro 
+%% distribution. These are:
+%%
+%%  siamltex1213.cls (main LaTeX macro for SIAM)
+%%  siam10.clo   (size option for 10pt papers)
+%%  subeqn.clo   (allows equation numbners with lettered subelements)
+%%  siam.bst     (bibliographic style file for BibTeX)
+%%  docultex.tex (this file)
+%%
+%% If you receive only some of these files from someone, complain! 
+%% 
+%% You are NOT ALLOWED to distribute this file alone. You are NOT 
+%% ALLOWED to take money for the distribution or use of either this 
+%% file or a changed version, except for a nominal charge for copying 
+%% etc. 
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+\documentclass[final,leqno,onefignum,onetabnum]{siamltex1213}
+
+%-------------------------------------------------------------------------
+%
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%
+%-------------------------------------------------------------------------
+
+\usepackage{./pkg/packages}
+
+
+\title{Structure Preserving Model Reduction of Parametric Hamiltonian Systems} 
+
+\author{
+	Babak Maboudi Afkham\thanks{Department of Mathematics, Chair of Computational Mathematics and Simulation Schience (MCSS), \'Ecole Polytechnique F\'ed\'erale de Lausanne, Switzerland (babak.maboudi@epfl.ch)} 
+	\and 
+	Jan S. Hesthaven\thanks{Department of Mathematics, Chair of Computational Mathematics and Simulation Schience (MCSS), \'Ecole Polytechnique F\'ed\'erale de Lausanne, Switzerland (jan.hesthaven@epfl.ch)}}
+
+
+\begin{document}
+\maketitle
+\slugger{mms}{xxxx}{xx}{x}{x--x}%slugger should be set to mms, siap, sicomp, sicon, sidma, sima, simax, sinum, siopt, sisc, or sirev
+
+\begin{abstract}
+While reduced-order models (ROMs) are popular for approximately solving large systems of differential equations, the stability of reduced models over long-time integration remains an open question. We present a greedy approach for ROM generation of parametric Hamiltonian systems which captures the symplectic structure of Hamiltonian systems to ensure stability of the reduced model. Through the greedy selection of basis vectors, two new vectors are added at each iteration to the set of basis vectors to increase the overall accuracy of the reduce basis. We used the error in the Hamiltonian function due to model reduction, as an error indicator to search the parameter space and find the next best basis vectors. We show that the greedy algorithm converges with exponential rate, under natural assumptions on the set of all solutions of the Hamiltonian system under variation of the parameters. Moreover, we demonstrate that combining the greedy basis with the discrete empirical interpolation method also preserves the symplectic structure. This enables the reduction of computational cost for nonlinear Hamiltonian systems. The efficiency, accuracy, and stability of this model reduction technique is illustrated through simulations of the parametric wave equation and the parametric Schr\"odinger equation.
+
+
+%Through the greedy selection of basis vectors, we used the Hamiltonian function as an error estimator to search for the 
+
+
+%to add basis vectors, two at a time, and increase the overall accuracy of the reduced basis. It therefor requires a single numerical solution to be computed at each iteration which can save computational costs in stage offline stage. Under
+
+
+%We also illustrated that convergence rate of the greedy approach is proportional to the best possible convergence rate of any possible iterative update of the reduced basis. Moreover, for nonlinear Hamiltonian systems, we combined the reduced basis obtained from the greedy method with discrete empirical interpolation method and demonstrated the
+
+\end{abstract}
+
+\begin{keywords}Symplectic model reduction, Hamiltonian system, Greedy basis generation, Symplectic Discrete Empirical Interpolation (SDEIM) \end{keywords}
+
+\begin{AMS}\end{AMS}
+
+
+\pagestyle{myheadings}
+\thispagestyle{plain}
+\markboth{Babak Maboudi Afkham and Jan S. Hesthaven}{Symplectic Model reduction of Parametric Hamiltonian Systems}
+
+
+\input{./chapters/1.introduction.tex}
+
+\input{./chapters/2.mor.tex}
+
+\input{./chapters/3.ham.tex}
+
+\input{./chapters/4.sympmor.tex}
+
+\input{./chapters/5.numres.tex}
+
+\input{./chapters/6.conclusion.tex}
+
+\input{./chapters/appendix.tex}
+
+\bibliography{ref}
+\bibliographystyle{plain}
+
+
+
+\end{document}
+%% end of file `docultex.tex'

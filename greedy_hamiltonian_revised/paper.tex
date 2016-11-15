@@ -1,0 +1,78 @@
+% SIAM Article Template
+\documentclass[review]{siamart}
+\usepackage{mwe}
+\usepackage{subfig}
+
+% Information that is shared between the article and the supplement
+% (title and author information, macros, packages, etc.) goes into
+% ex_shared.tex. If there is no supplement, this file can be included
+% directly.
+
+\input{ex_shared}
+
+% Optional PDF information
+\ifpdf
+\hypersetup{
+  pdftitle={\TheTitle},
+  pdfauthor={\TheAuthors}
+}
+\fi
+
+% The next statement enables references to information in the
+% supplement. See the xr-hyperref package for details.
+
+\externaldocument{ex_supplement}
+
+% FundRef data to be entered by SIAM
+%<funding-group>
+%<award-group>
+%<funding-source>
+%<named-content content-type="funder-name"> 
+%</named-content> 
+%<named-content content-type="funder-identifier"> 
+%</named-content>
+%</funding-source>
+%<award-id> </award-id>
+%</award-group>
+%</funding-group>
+
+
+\newcommand{\edit}{\color{red}}
+
+\begin{document}
+
+\maketitle
+
+% REQUIRED
+\begin{abstract}
+While reduced-order models (ROMs) {\edit has been} popular for approximately solving large systems of differential equations, the stability of reduced models over long-time integration remains an open question. We present a greedy approach for ROM generation of parametric Hamiltonian systems which captures the symplectic structure of Hamiltonian systems to ensure stability of the reduced model. Through the greedy selection of basis vectors, two new vectors are added at each iteration to the set of basis vectors to increase the overall accuracy of the {\edit reduced} basis. We {\edit use} the error in the Hamiltonian function due to model reduction, as an error indicator to search the parameter space and find the next best basis vectors. We show that the greedy algorithm converges with exponential rate, under natural assumptions on the set of all solutions of the Hamiltonian system under variation of the parameters. Moreover, we demonstrate that combining the greedy basis with the discrete empirical interpolation method also preserves the symplectic structure. This enables the reduction of computational cost for nonlinear Hamiltonian systems. The efficiency, accuracy, and stability of this model reduction technique is illustrated through simulations of the parametric wave equation and the parametric Schr\"odinger equation.
+\end{abstract}
+
+% REQUIRED
+\begin{keywords}
+  Symplectic model reduction, Hamiltonian system, Greedy basis generation, Symplectic Discrete Empirical Interpolation (SDEIM)
+\end{keywords}
+
+% REQUIRED
+\begin{AMS}
+
+\end{AMS}
+
+\input{./chapters/1.introduction.tex}
+
+\input{./chapters/2.mor.tex}
+
+\input{./chapters/3.ham.tex}
+
+\input{./chapters/4.sympmor.tex}
+
+\input{./chapters/5.numres.tex}
+
+\input{./chapters/6.conclusion.tex}
+
+%\appendix
+%\input{./chapters/appendix.tex}
+
+\bibliographystyle{siamplain}
+\bibliography{ref}
+\end{document}

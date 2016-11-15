@@ -1,0 +1,476 @@
+\section{Symplectic Model Reduction} \label{chap:SyMo:1}
+We now propose how to modify reduced order modeling to ensure that they preserve the symplectic structure of Hamiltonian system. 
+
+
+Consider a Hamiltonian system (\ref{eq:Hasy:7}) on a $2n$-dimensional symplectic vector space $(P,\Omega)$. Suppose that the solution manifold $\mathcal M_H$ is well approximated, by a low dimensional symplectic subspace $(Q,\Omega)$ of dimension $2k$ $(k\ll n)$. We can construct a symplectic basis $A$ for $Q$ and approximate the solution to (\ref{eq:Hasy:7}) as
+\begin{equation} \label{eq:SyMo:1}
+	\mathbf z \approx A\mathbf y.
+\end{equation}
+Substituting this into (\ref{eq:Hasy:7}) we obtain
+\begin{equation} \label{eq:SyMo:2}
+	A\mathbf y = \mathbb{J}_{2n} \nabla_{\mathbf z} H(A \mathbf y). 
+\end{equation}
+Multiplying both sides with the symplectic inverse of $A$ and using the chain rule we have
+\begin{equation} \label{eq:SyMo:3}
+	\mathbf y = A^+ \mathbb J_{2n} (A^+)^T \nabla_{\mathbf y} H(A\mathbf y).
+\end{equation}
+Since $A$ is a symplectic basis, Lemma \ref{lemma:Hasy:1} ensures that $(A^+)^T$ is a symplectic matrix i.e. $A^+ \mathbb J_{2n} (A^+)^T = \mathbb{J}_{2k}$. By defining the reduced Hamiltonian $\tilde H:\mathbb R^{2k} \to \mathbb R$ as $\tilde H (y) = H(Ay)$ we obtain the reduced system
+\begin{equation} \label{eq:SyMo:4}
+\left\{
+\begin{aligned}
+	 \frac{d}{dt} \mathbf y &= \mathbb J_{2k} \nabla_{\mathbf y} \tilde H(\mathbf y), \\
+	 \mathbf y_0 &= A^+ \mathbf z_0.
+\end{aligned}
+\right.
+\end{equation}
+The system obtained from the Petrov-Galerkin projection in (\ref{eq:MoOr:5}) is not a Hamiltonian system and therefore does not guarantee conservation of the symplectic structure. On the other hand we observe that the reduced system in (\ref{eq:SyMo:4}) is of the form (\ref{eq:Hasy:7}) and, hence, is a Hamiltonian system, i.e. the symplectic structure will be conserved along integral curves of (\ref{eq:SyMo:4}). Note that the original and the reduced systems are derived from different Hamiltonians. In the next proposition we show that the error in the Hamiltonian is constant in time. 
+
+
+\begin{proposition}
+Let $\mathbf{z} (t)$ be the solution of (\ref{eq:Hasy:7}) at time $t$. Further suppose that $\tilde{\mathbf{z}} (t)$ is the approximate solution of the reduced system (\ref{eq:SyMo:4}) in the original coordinate system. Then the error in the Hamiltonian defined by
+\begin{equation} \label{eq:SyMo:5}
+	\Delta H(t)  = |H(\mathbf z(t)) - H(\tilde{\mathbf z}(t))|,
+\end{equation}
+is constant for all $t\in \mathbb R$.
+\end{proposition}
+
+\begin{proof}
+	Let $\phi_t$ and $\psi_t$ be the Hamiltonian flow of the original and the reduced system respectively. By definition $\mathbf z(t) = \phi_t(\mathbf z_0)$ and $\mathbf y(t) = \psi_t(\mathbf y_0)$. Using Theorem \ref{theorem:Hasy:1} we have
+\begin{equation} \label{eq:SyMo:6}
+\begin{aligned}
+	H(\tilde{\mathbf{z}} (t)) = H( A\mathbf y (t) ) = \tilde H(\mathbf y (t)) = \tilde H(\psi_t(\mathbf y_0)) = \tilde H(\mathbf y_0) = \tilde H(A^+ \mathbf z_0) = H(AA^+\mathbf z_0).
+\end{aligned}
+\end{equation}
+Also $H(\phi_t(\mathbf z_0)) = H(\mathbf z_0)$. The error in the Hamiltonian can be written in terms of $\mathbf z_0$ and the symplectic basis $A$ as
+\begin{equation} \label{eq:SyMo:7}
+	\Delta H(t) = |H(\mathbf z_0) - H(AA^+\mathbf z_0)|
+\end{equation}
+\end{proof}
+
+The following theorems guarantees stability of the original and the reduced Hamiltonian systems. We refer the reader to \cite{Peng:2014di} for the proofs. 
+
+\begin{theorem} \label{theorem:SyMo:1}
+Consider the initial value problem (\ref{eq:Hasy:7}) with its symplectic reduced system (\ref{eq:SyMo:4}). If we can find a bounded neighborhood $N$ of $z_0$ in $P$ such that $H(z) < H(z_0)$ or $H(z) > H(z_0)$, for all $z\in \partial N$, then the original system and the reduced system are bounded for all $t\in \mathbb R$.
+\end{theorem}
+
+\begin{theorem} \label{theorem:SyMo:2}
+If the original system (\ref{eq:Hasy:7}) is a linear Hamiltonian system, i.e. $H(x) = \frac 1 2 x^T L x$ with $L$ a $2n\times 2n$ real symmetric matrix, then both the original system and the reduced system (\ref{eq:SyMo:4}) are stable.
+\end{theorem}
+
+
+While the symplectic structure is not guaranteed to be preserved in the reduced systems obtained by the Petrov-Galerkin projection, the reduced system obtained by the symplectic projection guarantees the preservation of the energy up to the error in the Hamiltonian (\ref{eq:SyMo:5}). In the next section we discuss  different methods for obtaining a symplectic basis.
+
+\subsection{Proper Symplectic Decomposition (PSD)} \label{chap:SyMo.PrSy:1}
+
+Similar to Section \ref{chap:MoOr.PrOr:1} we gather snapshots $\mathbf z_i = [q_i^T , p_i^T]^T$ in the snapshot matrix $S$. Suppose that a symplectic basis $A$ of size $2n\times2k$ and its symplectic inverse $A^+$ is provided. The proper symplectic decomposition requires that the error of the symplectic projection onto the symplectic subspace to be minimum. Analogous to the minimization (\ref{eq:MoOr:6}), the PSD symplectic basis of size $2k$ is the solution of the optimization problem
+
+\begin{equation} \label{eq:SyMo:8}
+\begin{aligned}
+& \underset{V\in \mathbb R^{2n\times 2k}}{\text{minimize}}
+& & \| S - AA^+S\|_F \\
+& \text{subject to}
+& & A^T \mathbb{J}_{2n}A = \mathbb{J}_{2k}
+\end{aligned}
+\end{equation}
+Note $A$ is not necessarily an orthogonal matrix. Compared to POD, in (\ref{eq:SyMo:8}) the orthogonal projection is replaced with a symplectic projection $AA^+$. At first, the minimization looks similar to the one obtained by POD. However, the lack of an SVD-like decomposition for symplectic subspaces, makes the minimization (\ref{eq:SyMo:8}) a harder problem than (\ref{eq:MoOr:6}). 
+
+As the optimization problem (\ref{eq:SyMo:8}) is nonlinear, direct solution usually expensive. A simplified version of the optimization (\ref{eq:SyMo:8}) can be found in \cite{Peng:2014di}, but there is no guarantee that the method provides a near optimal basis. In the following we outline non-direct methods for finding solutions to (\ref{eq:SyMo:8}), proposed by \cite{Peng:2014di}, while assuming a specific structure for $A$. Finally, we introduce a greedy approach for symplectic basis generation.
+
+\subsubsection{SVD Based Methods for Symplectic Basis Generation} \label{chap:SyMo.PrSy:2} 
+
+
+\paragraph{\bf Cotangent lift} Suppose that $A$ is of the form
+\begin{equation} \label{eq:SyMo:9}
+	A = 
+	\begin{pmatrix}
+		\Phi & 0 \\
+		0 & \Phi
+	\end{pmatrix},
+\end{equation}
+where $\Phi \in \mathbb{R}^{n\times k}$ is an orthonormal matrix. It is easy to check that $A$ is a symplectic matrix, i.e., $A^T \mathbb J_{2n} A = \mathbb J_{2k}$. The construction of $A$ suggests that the range of $\Phi$ should cover both the potential and the momentum spaces. Hence, we can construct $A$ by forming the combined snapshot matrix
+\begin{equation} \label{eq:SyMo:10}
+	S_{\text{combined}} = [q_1,\dots,q_n,p_1,\dots,p_n], \qquad \mathbf z_i = (q_i^T,p_i^T)^T,
+\end{equation}
+and define $\Phi=[u_1,\dots,u_k]$, where $u_i$ is the $i$-th left singular vector of $S_{\text{combined}}$. It is shown in \cite{Peng:2014di} that among all symplectic bases of the form (\ref{eq:SyMo:9}) cotangent lift minimizes the projection error.
+
+
+%Algorithm \ref{alg:SyMo:1} summarizes the cotengent lift method for finding a symplectic basis.
+%
+%\begin{algorithm} 
+%\caption{Real SVD method for symplectic basis generation} \label{alg:SyMo:1}
+%{\bf Input:} Snapshots $\{ q_i , p_i \}_{i=1}^N$ of the solution manifold and $2k$ the size of the symplectic basis.
+%\begin{enumerate}
+%\item Construct the combined snapshot matrix $S_{\text{combined}}$ in (\ref{eq:SyMo:10}).
+%\item Compute the SVD decomposition of $S_{\text{combined}}=U\Sigma V^T$.
+%\item Define $\Phi = [u_1,\dots,u_k]$ with $u_i$ the $i$-th left singular vector.
+%\item Construct $A$ according to (\ref{eq:SyMo:9}).
+%\end{enumerate}
+%\vspace{0.5cm}
+%{\bf Output:} Symplectic matrix $A$ of the size $2n\times 2k$.
+%\end{algorithm}
+%
+
+\paragraph{\bf Complex SVD} We now consider another form of symplectic basis $A$. Suppose that $A$ takes the form
+\begin{equation} \label{eq:SyMo:11}
+	A = 
+	\begin{pmatrix}
+		\Phi & -\Psi \\
+		\Psi & \Phi
+	\end{pmatrix},
+\end{equation}
+such that $\Phi$ and $\Psi$ are real matrices of the size $n\times k$ satisfying conditions
+\begin{equation} \label{eq:SyMo:12}
+\Phi^T \Phi + \Psi^T \Psi = I_k,\quad \Phi^T \Psi = \Psi^T \Phi.
+\end{equation}
+It can be checked that $A$ forms a symplectic matrix. To construct $A$ we first define the complex snapshot matrix
+\begin{equation} \label{eq:SyMo:13}
+	S_{\text{complex}} = [ q_1 + i p_1, \dots , q_N + i p_N ].
+\end{equation}
+The SVD decomposition of $S_{\text{complex}}$ can be written as $S_{\text{complex}} = U \Sigma V^H$ with the superscript $H$ indicating the conjugate transpose of a complex valued matrix. Each left singular vector of $S_{\text{complex}}$ takes the form $u_m = r_m + i s_m$. We define
+\begin{equation} \label{eq:SyMo:14}
+	 \Phi = [r_1,\dots, r_k], \quad \Psi = [s_1,\dots, s_k].
+\end{equation}
+Then we can easily check that conditions (\ref{eq:SyMo:12}) is satisfied since $U$ is unitary. It is shown in \cite{Peng:2014di} that among all symplectic bases of the form (\ref{eq:SyMo:11}) the complex SVD minimizes the projection error.
+
+
+%Algorithm \ref{alg:SyMo:2} summarizes the complex SVD method for finding a symplectic basis.
+%
+%\begin{algorithm} 
+%\caption{Complex SVD method for symplectic basis generation} \label{alg:SyMo:2}
+%{\bf Input:} Snapshots $\{ q_i , p_i \}_{i=1}^N$ of the solution manifold and $2k$ the size of the symplectic basis.
+%\begin{enumerate}
+%\item Construct the complex snapshot matrix $S_{\text{complex}}$ in (\ref{eq:SyMo:13}).
+%\item Compute the complex SVD decomposition $S_{\text{complex}} = U \Sigma V^H$.
+%\item Define $\Phi$ and $\Psi$ as in (\ref{eq:SyMo:14}).
+%\item Construct $A$ according to (\ref{eq:SyMo:11}).
+%\end{enumerate}
+%\vspace{0.5cm}
+%{\bf Output:} Symplectic matrix $A$ of the size $2n\times 2k$.
+%\end{algorithm}
+
+
+\subsubsection{The Greedy Approach to Symplectic Basis Generation} The greedy generation of the reduced basis is an iterative procedure which, in each iteration, adds the two best possible basis vectors to the symplectic basis to enhance overall accuracy. In contrast to the cotangent lift and the complex SVD methods, the greedy approach does not require the symplectic basis to have a specific structure. This results in more compact bases and/or more accurate reduced systems. In addition, for parametric problems, the greedy approach only requires one numerical solution to be computed per iteration which saves substantial computational cost in the offline stage. 
+
+{\bf Symplectic Gram-Schmidt:} As discussed in Section \ref{chap:Hasy:1}, any finite dimensional symplectic linear vector space has a symplectic basis that satisfies conditions (\ref{eq:Hasy:4}). Suppose that $S=\{ e_1 , \dots , e_k \} \bigcup \{ f_1 , \dots , f_k \}$ is a symplectic basis and $a$ and $b$ are two vectors such that $a,b \not \in \text{span}(S)$ and $a \not \not \parallel b$. We seek to grow the size of $S$ by the vectors $a$ and $b$. First we modify $a$ and $b$ to ensure they are symplectic (symplectic orthogonal) to $S$, i.e., we add a linear combination of elements of $S$ to $a$ and $b$, so the resulting vectors are symplectic to $S$. This can be achieved since we assumed $a,b\not \in \text{span}(S)$. So for $a$ we seek $\alpha_1,\dots,\alpha_k,\beta_1,\dots,\beta_k \in \mathbb R$ such that
+\begin{equation}
+	\Omega\left(a + \sum_{i=1}^k \alpha_i e_i + \sum_{i=1}^k \beta_i f_i , \sum_{i=1}^k \bar{\alpha}_i e_i + \sum_{i=1}^k \bar{\beta}_i f_i \right) = 0,
+\end{equation}
+for all possible $\bar{\alpha}_1,\dots,\bar{\alpha}_k,\bar{\beta}_1,\dots,\bar{\beta}_k \in \mathbb R$. It is easily seen that the unique solution is as 
+\begin{equation}
+	\alpha_i = - \Omega(a,f_i), \quad \beta_i = \Omega(a,e_i),
+\end{equation}
+for $i=1,\dots,k$. Now we define the modified vectors as
+\begin{equation}
+\begin{aligned}
+	& \tilde a = a - \sum_{i=1}^k \Omega(a,f_i) e_i + \sum_{i=1}^k \Omega(a,e_i) f_i, \\
+	& \tilde b = b - \sum_{i=1}^k \Omega(b,f_i) e_i + \sum_{i=1}^k \Omega(b,e_i) f_i.
+\end{aligned}
+\end{equation}
+Finally we construct the new basis vectors as
+\begin{equation}
+\begin{aligned}
+	& e_{k+1} = \text{sign}(\Omega(\tilde a , \tilde b)) \cdot \frac{\tilde a}{ \sqrt{ |\Omega(\tilde a , \tilde b)| } }, \quad f_{k+1} = \frac{\tilde b}{ \sqrt{ |\Omega(\tilde a , \tilde b)| } }.
+\end{aligned}
+\end{equation}
+One easily checks that the new basis vectors $e_1,\dots,e_{k+1},f_1,\dots,f_{k+1}$ satisfy all the conditions (\ref{eq:Hasy:4}). Similar to the QR decomposition, the symplectic Gram-Schmidt process leads to a matrix decomposition for any full ranked matrix of size $2n\times 2k$. More details about this matrix decomposition are given in Appendix \ref{chap:Append:1}.
+
+In the case of finite symplectic vector fields, there is an alternative way to update the symplectic basis $S$. To illustrate, we first note that if $e_i$ or $f_i$ is a basis vector in $S$, we have $\mathbb J_{2n}e_i = -f_i$ and $\mathbb J_{2n}f_i = e_i$. Since
+\begin{equation}
+	e_i^T\mathbb J_{2n} f_i = \Omega(e_i,f_i) = 1 \Longleftrightarrow \mathbb J_{2n} e_i = - f_i \text{ and } \mathbb J_{2n} f_i = e_i.
+\end{equation}
+Thus if we consider a vector $v\not \in \text{span}(S)$ then $\mathbb J_{2n}^T v $ also does not belong to span$(S)$. Since, if it did, we could write the vector as a linear combination of basis vectors of $S$ as
+\begin{equation}
+	\mathbb J_{2n}^T v = \sum_{i=1}^k \alpha_i e_i + \sum_{i=1}^k \beta_i f_i.
+\end{equation}
+Multiplying both sides by $\mathbb J_{2n}$ yields
+\begin{equation}
+	v = \sum_{i=1}^m \alpha_i \mathbb J_{2n} e_i + \sum_{i=1}^k \beta_i \mathbb J_{2n} f_i,
+\end{equation}
+But all vectors on the right hand side belong to span$(S)$, hence reaching a contradiction. For updating $S$ using $v$, we first symplectify (symplectic orthogonalize) $v$ with respect to $S$ to recover
+\begin{equation}
+	\tilde v = v - \sum_{i=1}^k \Omega(v,f_i)e_i + \sum_{i=1}^k \Omega (v,e_i)f_i.
+\end{equation}
+We can write the update for the symplectic basis as
+\begin{equation}
+	e_{k+1} = \frac{\tilde v}{\|\tilde v\|},\quad f_{k+1} = \mathbb J_{2n}^T \tilde v.
+\end{equation}
+It is easily checked that the new set of basis vectors $\{e_1,\dots,e_{k+1},f_1,\dots,f_{k+1} \}$ forms a symplectic basis. This update, not only provides a symplectic basis but also an orthonormal basis.
+
+The key element of the greedy algorithm is the availability of an error function which evaluates the error associated with the model reduction \cite{Anonymous:2016wl}. In the framework of symplectic model reduction, one possible candidate is the error in the Hamiltonian (\ref{eq:SyMo:5}). Correctly approximating symplectic systems relies on preservation of the Hamiltonian, hence the error in the Hamiltonian appears to be a natural choice. Moreover, since the error in the Hamiltonian depends on the initial condition and the reduced symplectic basis, evaluation of error does not require time integration of the full system. 
+
+Suppose that a $2k$ dimensional symplectic basis $A_{2k} = \{e_1,\dots ,e_k,f_1,\dots ,f_k\}$ is generated at the $k$-th step of the greedy method and we seek to enrich it by two additional vectors. Using the error in the Hamiltonian (\ref{eq:SyMo:7}) we search the parameter space to find the value that maximises the error in the Hamiltonian
+\begin{equation}
+	\omega_{k+1} := \underset{\omega\in \Gamma}{\text{argmax }}\Delta H(\omega).
+\end{equation}
+The goal is to approximate the Hamiltonian function as well as possible. 
+
+We then propagate (\ref{eq:Hasy:7}) in time to produce trajectory snapshots $S=\{ \mathbf z(t_i,\omega_{k+1}) | i = 1,\dots,M \}$. The next basis vector is the snapshot that maximises the projection error (\ref{eq:SyMo:8})
+\begin{equation}
+	z := \underset{s\in S}{\text{argmax }} \| s - AA^+s \|.
+\end{equation}
+Finally, we update the basis as
+\begin{equation}
+	e_{k+1} = \tilde z, \quad f_{k+1} = \mathbb J_{2n}^T \tilde z,
+\end{equation}
+where $\tilde z$ is the vector obtained from applying the symplectic Gram-Schmidt process to $z$. 
+
+Since the maximization over the entire parameter space $\Gamma$ is impossible, we discretize the parameter set into a grid with $N$ points: $\Gamma_N = \{ \omega_1,\dots,\omega_N\}$. However, since the selection of parameters only require the evaluation of the error in the Hamiltonian and not time integration of the original system, then $\Gamma_N$ can be chosen very rich. Other sampling techniques can be found in \cite{Quarteroni:2016wi}.
+
+We summarized the greedy algorithm for generation of a symplectic basis in Algorithm \ref{alg:SyMo:3}.
+
+
+
+
+
+\begin{algorithm} 
+\caption{The greedy algorithm for generation of a symplectic basis} \label{alg:SyMo:3}
+{\bf Input:} Tolerated loss in the Hamiltonian $\delta$, parameter set $\Gamma_N = \{\omega_1,\dots,\omega_N\}$, initial condition $\mathbf z_0(\omega)$
+\begin{enumerate}
+\item $\omega^* \leftarrow \omega_1$
+\item $e_1 \leftarrow \mathbf z_0(\omega^*)$
+\item $f_1 \leftarrow \mathbb J^T_{2n} \mathbf z_0(\omega^*)$
+\item $A \leftarrow [e_1,f_1]$
+\item $k \leftarrow 1$
+\item \textbf{while} $\Delta H(\omega) > \delta$ for all $\omega \in \Omega_N$
+\item \hspace{0.5cm} $w^* \leftarrow$ $\underset{\omega\in \Omega_N}{\text{argmax }}\Delta H(\omega)$
+\item \hspace{0.5cm} Compute trajectory snapshots $S=\{ \mathbf z(t_i,\omega^*) | i = 1,\dots,M \}$
+\item \hspace{0.5cm} $\mathbf z^* \leftarrow$ $\underset{s\in S}{\text{argmax }} \| s - AA^+s \|$
+\item \hspace{0.5cm} Apply symplectic Gram-Schmidt on $\mathbf z^*$
+\item \hspace{0.5cm} $e_{k+1} \leftarrow \mathbf z^*/ \| z^*\|$
+\item \hspace{0.5cm}$f_{k+1} \leftarrow \mathbb J^T_{2n} \mathbf z^*$
+\item \hspace{0.5cm} $A \leftarrow [e_1,\dots ,e_{k+1} , f_1,\dots,f_{k+1}]$
+\item \hspace{0.5cm} $k \leftarrow k+1$
+\item \textbf{end while}
+\end{enumerate}
+\vspace{0.5cm}
+{\bf Output:} Symplectic basis $A$.
+\end{algorithm}
+
+The convergence and convergence rate of the greedy algorithm with respect to Kolmogorov $n$-width is investigated in Section \ref{chap:SyMo.PrSy:3}. We finish this section by stating the advantage of using the greedy algorithm over the POD-based methods:
+\begin{itemize}
+\item Lack of a symplectic linear algebra toolbox for solving the minimization in (\ref{eq:SyMo:8}) requires a possibly very expensive nonlinear optimizations to recover near optimal symplectic bases. Alternative approaches for finding solutions to (\ref{eq:SyMo:8}) requires assumptions on the structure of the symplectic basis. The greedy algorithm on the other hand, is a cheap alternative to the nonlinear optimization and it allows flexibility in terms of the structure.
+\item The greedy method reduces the total cost of the offline stage by solving the original system (\ref{eq:Hasy:7}) only $k$ times to obtain a reduced system of size $2k$, unlike POD-based methods that require time integration of (\ref{eq:Hasy:7}) for the entire parameter space.
+\item If enrichment of the symplectic basis is required, the greedy algorithm can add new basis vectors. The POD-based methods, are bound to re-compute the basis for the refined parameter set.
+\item POD-based methods, e.g., the cotangent lift and the complex SVD, require performing SVD decompositions on possibly very large matrices. The greedy algorithm avoids this.
+\end{itemize}
+
+
+
+
+
+
+\subsubsection{Convergence of the Greedy Method} \label{chap:SyMo.PrSy:3}
+
+To show convergence of the greedy method we define a slightly different version based on the projection error. The error in the Hamiltonian is then introduced as a cheap surrogate to the projection error to accelerate parameter selection.
+
+Suppose that we are given with a compact subset $S$ of $\mathbb R^{2n}$. Our intention is to find a set of vectors $A=\{e_1,\dots,e_k,f_1,\dots,f_k\}$, such that $A$ forms a symplectic basis and any $s\in S$ is well approximated by elements of the subspace span$(A)$. The modified greedy method for generating basis vectors $e_i$ and $f_i$ is as follows. In the initial step we pick $e_1$ such that $\Omega(e_1,-\mathbb{J}_{2n}^T e_1) = \|e_1\|_2 = \max_{s\in S} \|s\|_2$, where $\|\cdot\|_2$ is the Euclidean norm. Then define $f_1 = -\mathbb{J}_{2n}^T e_1$. It is easy to check that the span of $A_2 = \{e_1,f_1\}$ is symplectic, so $A_2$ is the first subspace that approximates elements of $S$. In the $k$-th step of the greedy method, suppose we have a basis $A_{2k} = \{ e_1,\dots, e_k , f_1,\dots ,f_k \}$. We define $P_{2k}$ to be a symplectic projection operator that projects elements of $S$ onto span$(A_{2k})$ and define
+\begin{equation} \label{eq:new1}
+	\sigma_{2k}(s) := \|s-P_{2k}(s)\|_2,
+\end{equation}
+as the projection error. Moreover we denote by $\sigma_{2k}$ the maximum approximation error of $S$ using elements in span$(A_{2k})$ as
+\begin{equation} \label{eq:new2}
+	\sigma_{2k} := \max_{s\in S} \sigma_{2k}(s).
+\end{equation}
+The next set of basis vectors in the greedy selection are
+\begin{equation} \label{eq:new3}
+\begin{aligned}
+	& e_{k+1} := \underset{s\in S}{\text{argmax }}\sigma_{2k}(s), \\
+	& f_{k+1} := \mathbb{J}^T e_{k+1}.
+\end{aligned}
+\end{equation}
+We emphasise that the sequence of basis vectors generated by the greedy is generally not unique. 
+
+To estimate the quality of the reduced subspace, it is natural to compare it with the best possible $2k$-dimensional subspace in the sense of minimum projection (not necessary symplectic) error. For this we need to introduce the Kolmogorov $n$-width \cite{Kolmogoroff:1936fj,Pinkus:1985vy}.
+
+\begin{definition}
+Let $S$ be a subset of $\mathbb R^{m}$ and $Y_n$, $n\leq m$, be a general $n$-dimensional subspace of $\mathbb R^{m}$. The angle between $S$ and $Y_n$ is given by
+\begin{equation} \label{eq:new4}
+	E(S,Y_n) := \sup_{s\in S} \inf_{y\in Y_n} \|s-y\|_2.
+\end{equation}
+The Kolmogorov $n$-width of $S$ in $\mathbb R^m$ is given by
+\begin{equation} \label{eq:new5}
+	d_{n}(S,\mathbb{R}^m) := \inf_{Y_n} E(S,Y_n) = \inf_{Y_n} \sup_{s\in S} \inf_{y\in Y_n} \|s-y\|_2
+\end{equation}
+\end{definition}
+
+For a given subspace $Y_n$, the angle between $S$ and $Y_n$ measures the worst possible projection error of elements in $S$ onto $Y_n$. Hence the Kolmogorov $n$-width quantifies how well $S$ can be approximated by any $n$-dimensional subspace. 
+
+We seek to show that the decay of $\sigma_{2k}$, obtained by the greedy algorithm, has the same rate as of $d_{2k}(S)$, i.e., the greedy method provides the best possible accuracy attained by a $2k$-dimensional subspace.
+
+We start by symplectifying the vectors provided by the greedy algorithm as
+\begin{equation} \label{eq:new6}
+\begin{aligned}
+	& \xi_1 = e_i, & \bar{\xi}_1 = \mathbb{J}_{2n}^T \xi_1, &\\
+	& \xi_i = e_i - P_{2(i-1)} (e_i), & \bar{\xi}_i = \mathbb{J}_{2n}^T, \xi_i &\quad i = 2,3,\dots
+\end{aligned}
+\end{equation}
+Now the projection of a vector $s\in S$ onto span$(A_{2k})$ can be written using the symplectic basis as
+\begin{equation} \label{eq:new7}
+	P_{2k}(s) = \sum_{i=1}^k \left( \alpha_i(s) \xi_i + \bar{\alpha}_i(s) \bar{\xi}_i \right),
+\end{equation}
+where $\alpha_i(s)$ and $\bar{\alpha}_i(s)$ for $i=1,\dots,k$ are the expansion coefficients
+\begin{equation} \label{eq:new8}
+	\alpha_i(s) = - \frac{\Omega(\bar{\xi}_i,s)}{\Omega(\xi_i,\bar{\xi}_i)}, \quad \bar{\alpha}_i(s) = \frac{\Omega(\xi_i,s)}{\Omega(\xi_i,\bar{\xi}_i)},
+\end{equation}
+for any $s\in S$. Since $\bar{\xi}_i$ is symplectic to span$(A_{2(k-1)})$ we have
+\begin{equation} \label{eq:new9}
+\begin{aligned}
+	|\alpha_i(s)| = \frac{|\Omega(\bar{\xi}_i,s)|}{|\Omega(\xi_i,\bar{\xi}_i)|} &= \frac{|\Omega( \bar{\xi}_i, s - P_{2(k-1)}(s))|}{|\Omega(\xi_i,\bar{\xi}_i)|} \\
+	&\leq \frac{\|\bar{\xi}_i\|_2 \| s - P_{2(k-1)}(s) \|_2}{ \|\xi_i\|_2 \|\bar{\xi}_i\|_2 } \\
+	&= \frac{\| s - P_{2(k-1)}(s) \|_2}{\| e_i - P_{2(k-1)}(e_i) \|_2} \leq 1.
+\end{aligned}
+\end{equation}
+Here, we use the fact that $|\Omega(\xi_i,\bar{\xi}_i)| = |\xi_i^T \mathbb{J}_{2n}\bar{\xi}_i| = \| \xi_i \|^2 = \|\bar{\xi}_i\|^2$ and the last inequality follows from the greedy algorithm which maximizes $e_i$. Similarly we deduce that $|\bar{\alpha}_i(s)|\leq 1$.
+
+We write
+\begin{equation} \label{eq:new10}
+\begin{aligned}
+	\xi_j = \sum_{i=1}^j \left( \mu_i^j e_i + \gamma_i^j f_i \right), \quad \bar{\xi}_j = \sum_{i=1}^j \left( \lambda_i^j e_i + \eta_i^j f_i,  \right), \quad j=1,2,\dots
+\end{aligned}
+\end{equation}
+with
+\begin{equation} \label{eq:new11}
+\begin{aligned}
+	&\mu^j_j = 1, \quad \gamma^j_j = 0, \\
+	&\mu_i^j = \sum_{l=i}^{j-1}\left( - \alpha_l(f_j) \mu_i^l  + \bar{\alpha}_l(f_j) \gamma_i^l \right), \quad\gamma_i^j = \sum_{l=i}^{j-1}\left( - \alpha_l(f_j) \gamma_i^l  + \bar{\alpha}_l(f_j) \mu_i^l \right), \\
+	&\lambda^j_i = - \gamma ^j_i, \quad \eta^j_i = \mu^j_i.
+\end{aligned}
+\end{equation}
+for $j=2,3,\dots$. By induction and using the bound in (\ref{eq:new9}) we deduce that
+\begin{equation} \label{eq:new12}
+	\mu^j_i,\gamma^j_i,\lambda^j_i,\eta^j_i \leq 3^{j-i}, \quad \text{for } j\geq i.
+\end{equation}
+Now let $2k$ be the dimension of the desired reduced space. Looking at the definition of Kolmogorov $n$-width we observe that for any $\theta > 1$ we can find a subspace $Y_{2k}$ such that $E(S,Y_{2k}) \leq \theta d_{2k}(S,\mathbb R^n)$. Hence we can find vectors $v_1,\dots,v_k,u_1,\dots,u_k\in Y_{2k}$ such that
+\begin{equation} \label{eq:new13}
+\begin{aligned}
+	& \|e_i - v_i\|_2 \leq \theta d_{2k}(S,\mathbb R^n), \\
+	& \|f_i - u_i\|_2 \leq \theta d_{2k}(S,\mathbb R^n).
+\end{aligned}
+\end{equation}
+Now we construct a set of $2(k+1)$ new vectors
+\begin{equation} \label{eq:new14}
+\begin{aligned}
+	& \zeta_j = \sum_{i=1}^{k+1} \mu_i^j v_i + \gamma^j_i u_i,\quad \bar{\zeta}_j = \sum_{i=1}^{k+1} \lambda_i^j v_i + \eta^j_i u_i.
+\end{aligned}
+\end{equation}
+for $j = 1,\dots,k+1$. Note that since all $u_i$ and $v_i$ belong to $Y_{2k}$ so does their linear combination including all $\zeta_j$ and $\bar{\zeta}_j$. We can use the inequality (\ref{eq:new12}) to write
+\begin{equation}
+	\| \xi_i - \zeta_i \|_2 \leq 3^i \theta d_{2k}(S,\mathbb R^n),\quad \| \bar{\xi}_i - \bar{\zeta}_i \|_2 \leq 3^i \theta d_{2k}(S,\mathbb R^n).
+\end{equation}
+Moreover since $Y_{2k}$ is of dimension $2k$ we can find $\kappa_i$, $i=1,\dots,2(k+1)$ such that
+\begin{equation} \label{eq:new15}
+	\sum_{i=1}^{2(k+1)} \kappa_i^2 = 1,
+\end{equation}
+and
+\begin{equation} \label{eq:new16} 
+	\sum_{i=1}^{k+1} \kappa_i \zeta_i + \sum_{i=1}^{k+1} \kappa_{i+k+1} \bar{\zeta}_i = 0.
+\end{equation}
+We have
+\begin{equation} \label{eq:new17}
+\begin{aligned}
+	\left\| \sum_{i=1}^{k+1} \kappa_i \xi_i + \sum_{i=1}^{k+1} \kappa_{i+k+1} \bar{\xi}_i \right\|_2 &= \left\| \sum_{i=1}^{k+1} \kappa_i (\xi_i - \zeta_i) + \sum_{i=1}^{k+1} \kappa_{i+k+1} (\bar{\xi}_i-\bar{\zeta}_i) \right\|_2 \\
+	&\leq 2\cdot 3^{k+1} \sqrt{2(k+1)} \theta d_{2k}(S,\mathbb R^n).
+\end{aligned}
+\end{equation}
+We know there exists $1 \leq j\leq 2k+2$ such that $\kappa_j > 1/\sqrt{2(k+1)}$. Without loss of generality let us assume that $j\leq k+1$. This yields
+\begin{equation} \label{eq:new18}
+	\left\| \xi_j +  \kappa_j^{-1} \sum_{i=1,i\neq j}^{k+1} \kappa_i \xi_i + \kappa_j^{-1}\sum_{i=1}^{k+1} \kappa_{i+k+1} \bar{\xi}_i \right\|_2 \leq 4\cdot 3^{k+1} (k+1) \theta d_{2k}(S,\mathbb R^n).
+\end{equation}
+Define $c = \kappa_j^{-1} \sum_{i=1,i\neq j}^{k+1} \kappa_i \xi_i + \kappa_j^{-1}\sum_{i=1}^{k+1} \kappa_{i+k+1} \bar{\xi}_i$. And note that $\mathbb{J}_{2n}^T c$ is symplectic to $\xi_j$. From this we deduce
+\begin{equation} \label{eq:new19}
+\begin{aligned}
+	\| \xi_j \|_2 &\leq \| \xi_j \|_2 + \| c \|_2 \\
+		&= \Omega(\xi_j,\mathbb{J}_{2n}^T \xi_j) + \Omega(c,\mathbb{J}_{2n}^T c) \\
+	       &= \Omega(\xi_j,\mathbb{J}_{2n}^T \xi_j) + \Omega(c,\mathbb{J}_{2n}^T c) + \Omega(\xi_j,\mathbb{J}_{2n}^T c) + \Omega(c,\mathbb{J}_{2n}^T \xi_j) \\
+       	&= \Omega(\xi_j + c, \mathbb{J}^T_{2n} (\xi_j + c)) \\
+	&= \| \xi_j + c \|_2	
+\end{aligned}
+\end{equation}
+Combining this with inequality (\ref{eq:new18}) yields
+\begin{equation} \label{eq:new20}
+	\| \xi_j \|_2 \leq 4\cdot 3^{k+1} (k+1) \theta d_{2k}(S,\mathbb R^n).
+\end{equation}
+Finally using the definition of $\xi_j$ for all $s\in S$ we have
+\begin{equation} \label{eq:new21}
+	\| s - P_{2(j-1)}(s) \|_2 \leq \| f_j - P_{2(j-1)}(f_j) \|_2 = \|\xi_j \|_2 \leq 4\cdot 3^{k+1} (k+1) \theta d_{2k}(S,\mathbb R^n)
+\end{equation}
+Hence, for any given $\lambda > 1$
+\begin{equation} \label{eq:new22}
+	\| s - P_{2k}(s) \|_2 \leq \| s - P_{2(j-1)}(s) \|_2 \leq 4\cdot 3^{k+1} (k+1) \theta d_{2k}(S,\mathbb R^n).
+\end{equation}
+This establishes the following theorem.
+\begin{theorem}
+	Let $S$ be a compact subset of $\mathbb{R}^{2n}$ with exponentially small Kolmogorov $n$-width $d_{n}\leq c\exp(-\alpha k)$ with $\alpha > \log3$. Then there exists $\beta>0$ such that the symplectic subspaces $A_{2k}$ generated by the greedy algorithm provide exponential approximation properties such that
+\begin{equation} \label{eq:new23}
+	\| s - P_{2k}(s) \|_2 \leq C \exp(-\beta k)
+\end{equation}
+for all $s\in S$ and some $C>0$.
+\end{theorem}
+
+\subsection{Symplectic Discrete Empirical Interpolation Method (SDEIM)} Consider the Hamiltonian system (\ref{eq:Hasy:7}) and its reduced system (\ref{eq:SyMo:4}) equipped with a symplectic transformation $A$. One can split the Hamiltonian function $H = H_1 + H_2$ such that $\nabla H_1 = L\mathbf z$ and $\nabla H_2 = \mathbf g(\mathbf z)$, where $L$ is a constant matrix in $\mathbb R^{n\times n}$ and $\mathbf g$ is a nonlinear function. The reduced system takes the form
+\begin{equation} \label{eq:new24}
+	\frac{d}{dt} \mathbf y = \underbrace{A^+ \mathbb J_{2n} L A}_{\tilde L} \mathbf y + A^+ \mathbb J_{2n} \mathbf g(A\mathbf y)
+\end{equation}
+As discussed in Section \ref{chap:MoOr.DEIM:1}, the complexity of evaluating the nonlinear term still depends on $n$, the size of the original system. To overcome this computational bottleneck we use the DEIM approximation for evaluating the nonlinear function $\mathbf g$ as
+\begin{equation} \label{eq:new25}
+	\frac{d}{dt} \mathbf y = \tilde L \mathbf y + \underbrace{ A^+ \mathbb J_{2n} V (P^TV)^{-1} P^T \mathbf g(A\mathbf y) }_{\tilde N(\mathbf y)}
+\end{equation}
+One may argue that if DEIM's projection basis $V$ is rich enough then the approximation of the nonlinear term does not affect the symplectic structure significantly since $\mathbf g$ is already a symplectic function. Nonetheless, for a general choice of $V$ the system (\ref{eq:new25}) is not guaranteed to be a Hamiltonian system. However, we can guarantee that (\ref{eq:new25}) is a Hamiltonian system by choosing $V=(A^+)^T$. To understand why, we note that the system (\ref{eq:new25}) is a Hamiltonian system if and only if $\tilde N(\mathbf y) = \mathbb J_{2k} \nabla_{\mathbf y} \mathbf g(\mathbf y)$. Also we have 
+\begin{equation} \label{eq:new26}
+	\mathbf g(A\mathbf y) = \nabla_{\mathbf z} H_2(\mathbf z) = (A^+)^T \nabla_{\mathbf y} H_2(A \mathbf y),
+\end{equation}
+where the chain rule is used for the second equality. Substituting this into $\tilde N$ we obtain
+\begin{equation} \label{eq:new27}
+	\tilde N(\mathbf y)= A^+ \mathbb J_{2n} V (P^TV)^{-1} P^T  (A^+)^T \nabla_{\mathbf y} H_2(A \mathbf y).
+\end{equation}
+Taking $V = (A^+)^T$ yields
+\begin{equation} \label{eq:new28}
+	\tilde N(\mathbf y) = A^+ \mathbb J_{2n}(A^+)^T \nabla_{\mathbf y} H_2(A \mathbf y) = \mathbb J_{2k} \nabla_{\mathbf y} H_2(A \mathbf y),
+\end{equation}
+using that $(A^+)^T$ is a symplectic matrix. Hence, $V = (A^+)^T$ is a sufficient condition for (\ref{eq:new25}) to be a Hamiltonian system. 
+
+Regarding the construction of the projection space, suppose that we have already constructed a symplectic basis $A=\{ e_1,\dots , e_k,f_1,\dots f_k \}$ using the greedy algorithm. Note that $(A^+)^T$ is a symplectic basis and $(A^+)^+=A$. Thus, we can move between these two symplectic bases by simply using the transpose operator and the symplectic inverse operator. Let $S_{\mathbf g} = \{ \mathbf g (\mathbf x(t_i,\omega_j)) \}$ with $i = 1,\dots,M$ and $ j = 1 ,\dots,N$ be the nonlinear snapshots that were gathered in the greedy algorithm. We then form $(A^+)^T = \{ e'_1,\dots, e'_k,f'_1,\dots,f'_k\}$ and use a greedy approach for adding new basis vectors to $(A^+)^T$. At the $i$-th iteration of the symplectic DEIM, we use $(A^+)^T$ to approximate elements in $S_{\mathbf g}$ and choose the vector that maximizes error as the next basis vector. 
+\begin{equation}
+	s^* := \underset{s \in S_{\mathbf g}}{\text{argmax }}\| s - (A^+)^T A^+ s \|_2.	
+\end{equation}
+After applying the symplectic Gram-Schmidt on $s^*$, we update $(A^+)^T$ as
+\begin{equation}
+\begin{aligned}
+	e'_{k+i+1} = \frac{s^*}{\| s^* \|_2},\quad f'_{k+i+1} = \mathbb J_{2n}^T e'_{k+i+1}.
+\end{aligned}
+\end{equation}
+Finally when $(A^+)^T$ approximates elements $S_{\mathbf g}$ with the desired accuracy, we transpose and symplecticaly inverse $(A^+)^T$ to obtain $A$, yielding a Hamiltonian reduced system. Note that the above update only enriches the span of $A$, containing the basis we started with. We summarized the symplectic DEIM algorithm in Algorithm \ref{alg:SyMo:4}.
+
+
+
+\begin{algorithm} 
+\caption{Symplectic Discrete Empirical Interpolation Method} \label{alg:SyMo:4}
+{\bf Input:} Symplectic basis $A=\{ e_1,\dots,e_k,f_1,\dots,f_k \}$, nonlinear snapshots $S_{\mathbf g} = \{ \mathbf g(\mathbf x(t_i,\omega_j)) \}$ and tolerance $\delta$
+\begin{enumerate}
+\item Compute $(A^+)^T = \{ e'_1,\dots,e'_k,f'_1,\dots,f'_k \}$
+\item $i \leftarrow 1$
+\item \textbf{while} max$\| s - (A^+)^T A^+s \| > \delta$ for all $s\in S_{\mathbf g}$
+\item \hspace{0.5cm} $s^* \leftarrow \underset{s \in S_{\mathbf g}}{\text{argmax }}\| s - (A^+)^T A^+ s \|$
+\item \hspace{0.5cm} Apply symplectic Gram-Schmidt on $s^*$
+\item \hspace{0.5cm} $e'_{k+i} = s^* / \| s^* \|$
+\item \hspace{0.5cm} $f'_{k+i} = \mathbb J_{2n} e'_{k+i}$
+\item \hspace{0.5cm} $(A^+)^T \leftarrow [e'_1,\dots,e'_{k+i},f'_1,\dots,f'_{k+i}]$
+\item \hspace{0.5cm} $i\leftarrow i+1$
+\item \textbf{end while}
+\item take transpose and symplectic inverse of $(A^+)^T$
+\end{enumerate}
+\vspace{0.5cm}
+{\bf Output:} Symplectic basis $A$ that guarantees a Hamiltonian reduced system.
+\end{algorithm}
+
+When using an implicit time integration scheme we face inefficiencies when evaluating the Jacobian of nonlinear terms, as discussed in Section \ref{chap:MoOr.DEIM:1}. We recall that the key to fast approximation of the Jacobian is that the interpolating index matrix $P$ obtained in the DEIM approximation, commutes with the nonlinear function. Nonlinear terms in Hamiltonian systems often take the from
+\begin{equation}
+	\mathbf g (\mathbf z) = \mathbf g (\mathbf q,\mathbf p) = 
+	\begin{pmatrix}
+		g_1(q_1,p_1) \\
+		g_2(q_2,p_2) \\
+		\vdots \\
+		g_{2n}(q_{n},p_{n})
+	\end{pmatrix}.
+\end{equation}
+Thus, the interpolating index matrix, obtained by Algorithm \ref{alg:MoOr:1} does not necessarily commute with the function $\mathbf g$. To overcome this, when index $\mathfrak p_i$ with $\mathfrak p_i\leq n$ or $\mathfrak p_i>n$ is chosen in Algorithm \ref{alg:MoOr:1} we also include $\mathfrak p_i + n$ or $\mathfrak p_i-n$, respectively. This guarantees that $\mathbf g$ and $P$ commute.

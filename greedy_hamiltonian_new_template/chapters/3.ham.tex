@@ -1,0 +1,122 @@
+\section{Hamiltonian Systems} \label{chap:Hasy:1}
+Let $P$ be a manifold and $\Omega:P\times P \to \mathbb R$ be a closed, nondegenerate two-form on $P$. The pair $(P,\Omega)$ is called a \emph{symplectic manifold}. The vector field $X_H:P \to TP$ is called a \emph{Hamiltonian vector field} if there exists a function $H:P\to \mathbb R$ such that for every vector $v\in T_zP$ we have
+\begin{equation} \label{eq:Hasy:1}
+	\Omega_z(X_H(z),v) = \mathbf d H(z) \cdot v.
+\end{equation}
+where $\mathbf d H(z) \cdot v$ is the directional derivative of $H$ along $v$. Note that when $P$ belongs to a Euclidean space then $\mathbf d H = \nabla_z H$. The equations of evolution are then defined by
+\begin{equation} \label{eq:Hasy:2}
+	\dot z = X_H(z)
+\end{equation}
+and known as the \emph{Hamilton's equation} \cite{Marsden:1999ck}. A fundamental feature of Hamiltonian systems is the conservation of the Hamiltonian along integral curves on $P$. To emphasise the importance of this property we state
+
+\begin{theorem} \label{theorem:Hasy:1}
+Suppose that $X_H$ is a Hamiltonian vector field with flow $\phi_t$ on a symplectic manifold $P$. Then $H\circ \phi_t = H$.
+\end{theorem}
+
+\begin{proof}
+We show that $H$ is constant along integral curves
+\begin{equation} \label{eq:Hasy:3}
+\begin{aligned}
+	\frac{d}{dt}(H\circ \phi_t)(z) &= \mathbf d H(\phi_t(z)) \cdot( \frac{d}{dt} \phi_t(z) ) \\
+	&= \mathbf d H (\phi_t(z))\cdot X_H(\phi_t(z)) \\
+	&= \Omega_z( X_H(\phi_t(z)), X_H(\phi_t(z)) ) = 0,
+\end{aligned}
+\end{equation}
+where we used the chain rule and bilinearity of $\Omega$ in the argument.
+\end{proof}
+
+For the case where the symplectic manifold is also a linear vector space, the pair $(P,\Omega)$ is also referred to as a \emph{symplectic vector space}. We state the following theorems regarding symplectic vector spaces without proof. We refer the reader to \cite{Marsden:1999ck,de2006symplectic,Silva01lectureson} for detailed proofs.
+
+\begin{itemize}
+\item If $P$ is a vector space then $\Omega$ is a constant form, that is $\Omega_z$ is independent of $z\in P$. 
+\item If $(P,\Omega)$ is a finite-dimensional symplectic manifold then $P$ is even dimensional.
+\item If $(P,\Omega)$ is a $2n$-dimensional symplectic vector space, then there is a basis $e_1,\dots e_n,f_1, \dots , f_n$ of $P$ such that
+\begin{equation} \label{eq:Hasy:4}
+\begin{aligned}
+	& \Omega(e_i,e_j) = 0 = \Omega(f_i,f_j), \quad & i\neq j,\\
+	& \Omega(e_i,f_j) = \delta_{ij}, & i\leq i,j \leq n.
+\end{aligned}
+\end{equation}
+where $\delta$ is the Kronecker's delta function. Moreover if $P = \mathbb{R}^{2n}$ we can choose the basis vectors $\{e_i,f_i\}_{i=1}^n$ such that
+\begin{equation} \label{eq:Hasy:5}
+	\Omega(v_1,v_2) = v_1^T \mathbb J_{2n} v_2, \qquad v_1,v_2\in \mathbb R^n,
+\end{equation}
+with $\mathbb J_{2n}$ being the symplectic matrix, defined as
+\begin{equation} \label{eq:Hasy:6}
+	\mathbb{J}_{2n} = 
+	\begin{pmatrix}
+		0_n & I_n \\
+		-I_n & 0_n
+	\end{pmatrix}.
+\end{equation}
+Here $I_n$ and $0_n$ is the identity matrix and the zero square matrix of size $n$, respectively.
+\item On a finite-dimensional symplectic vector space the relationship (\ref{eq:Hasy:1}) becomes
+\begin{equation} \label{eq:Hasy:7}
+\left\{
+\begin{aligned}
+	&\dot {\mathbf z} = \mathbb{J}_{2n} \nabla_{\mathbf z} H(\mathbf z), \\
+	& \mathbf z(0) = \mathbf z_0.
+\end{aligned}
+\right.
+\end{equation}
+or, by introducing the canonical coordinates $\mathbf z = (\mathbf q^T, \mathbf p^T)^T$,
+\begin{equation} \label{eq:Hasy:8}
+\left\{
+\begin{aligned}
+	&\dot {\mathbf q} = \nabla_{\mathbf p} H(\mathbf q,\mathbf p),\\
+	&\dot {\mathbf p} = - \nabla_{\mathbf q} H(\mathbf q,\mathbf p).
+\end{aligned}
+\right.
+\end{equation}
+\end{itemize}
+We now introduce \emph{symplectic transformations}, i.e. mappings between symplectic manifolds which preserve the two-form $\Omega$. Accurate numerical treatment of Hamiltonian systems often requires preservation of the symmetry expressed in Theorem \ref{theorem:Hasy:1}. Symplectic transformations can be used to construct such symmetry preserving numerical methods. 
+
+\begin{definition}
+Let $(P,\Omega)$ and $(Q,\Pi)$ be two symplectic manifolds. A $C^\infty$-mapping $\phi:P\to Q$ is called symplectic or canonical if, for any $u,v \in T_zP$ where $z\in P$, we have
+\begin{equation} \label{eq:Hasy:9}
+	\Omega_z(u,v) = \Pi_{\phi(z)}(T_z\phi\cdot u,T_z \phi \cdot v)
+\end{equation}
+where $T_z \phi$ is the derivative of $\phi$ at $z$.
+\end{definition}
+
+If $(P,\Omega)$ and $(Q,\Pi)$ are symplectic linear vector spaces of size $2k$ and $2n$, respectively, then we can represent a linear mapping $\phi:P\to Q$ on matrix form
+\begin{equation} \label{eq:Hasy:10}
+	\phi(x) = Ax, \quad x\in P\text{ and }A\in \mathbb{R}^{2n\times 2k}.
+\end{equation}
+As tangent spaces $T_zP$ and $T_zQ$ coincide with $P$ and $Q$, we conclude that $T_z\phi(u) = Au$ for all $u\in T_zP$. Hence condition (\ref{eq:Hasy:9}) will be equivalent to
+\begin{equation} \label{eq:Hasy:11}
+	A^T \mathbb{J}_{2n}A = \mathbb{J}_{2k}.
+\end{equation}
+A matrix of size $2n\times 2k$ satisfying (\ref{eq:Hasy:11}) is called a \emph{symplectic matrix}.
+
+\begin{definition}
+	The \emph{symplectic inverse} of a matrix $A\in \mathbb{R}^{2n\times 2k}$ is denoted by $A^+$ and defined by
+\begin{equation}\label{eq:Hasy:12}
+	A^+ := \mathbb{J}_{2k}^T A^T \mathbb{J}_{2n}.
+\end{equation}
+\end{definition}
+We point out the properties of the symplectic inverse and refer the reader to \cite{Peng:2014di} for detailed proof.
+\begin{lemma} \label{lemma:Hasy:1}
+Let $A\in \mathbb{R}^{2n\times 2k}$ be a symplectic matrix and $A^+$ its symplectic inverse as defined in (\ref{eq:Hasy:12}). Then ${(A^+)}^T$ is a symplectic matrix and $A^+A = I_{2k}$.
+\end{lemma}
+
+It is straight forward to verify that $AA^+$ is idempotent, i.e. a symplectic projection onto the column span of $A$.
+
+
+Common numerical integrators e.g., Runge-Kutta methods, do not preserve the symplectic structure, i.e. The Liouville measure, of Hamiltonian systems \cite{Hairer:1250576,Marsden:1999ck}. This is often observed in the decay or the blow up of the Hamiltonian. Symplectic transformations can be used to construct a numerical scheme which does conserve symplectic structure, resulting a stable system under long time integration \cite{Hairer:1250576}. The Str\"omer-Verlet time stepping scheme is an example of symplectic integrators and is given by
+\begin{equation} \label{eq:Hasy:13}
+\begin{aligned}
+	q_{n+1/2} &= q_n + \frac{\Delta t}{2} \nabla_pH(q_{n+1/2},p_n), \\
+	p_{n+1} &= p_n - \frac{\Delta t}{2} \left( \nabla_qH(q_{n+1/2},p_n) + \nabla_qH(q_{n+1/2},p_{n+1}) \right),\\
+	q_{n+1} &= q_{n+1/2} + \frac{\Delta t}{2} \nabla_pH(q_{n+1/2},p_{n+1}),
+\end{aligned}
+\end{equation}
+and
+\begin{equation} \label{eq:Hasy:14}
+\begin{aligned}
+	p_{n+1/2} &= p_n - \frac{\Delta t}{2} \nabla_qH(q_{n},p_{n+1/2}), \\
+	q_{n+1} &= q_n + \frac{\Delta t}{2} \left( \nabla_pH(q_{n},p_{n+1/2}) + \nabla_pH(q_{n+1},p_{n+1/2}) \right),\\
+	p_{n+1} &= p_{n+1/2} - \frac{\Delta t}{2} \nabla_qH(q_{n+1},p_{n+1/2}).
+\end{aligned}
+\end{equation}
+For a general Hamiltonian system, Str\"omer-Verlet scheme is implicit. However, for separable Hamiltonians, i.e. $H(q,p) = K(p) + U(q)$, this scheme become explicit. We refer the reader to \cite{Hairer:1250576} for more information about the construction and applications of symplectic and geometric numerical integrators. 
