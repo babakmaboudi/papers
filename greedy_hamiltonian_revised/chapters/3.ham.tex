@@ -1,5 +1,5 @@
 \section{Hamiltonian Systems and Symplectic Geometry} \label{chap:Hasy:1}
-Let $\edit \mathcal M$ be a manifold and $\edit \Omega:\mathcal M \times \mathcal M \to \mathbb R$ be a closed, nondegenerate 2-form on $\edit \mathcal M$. The pair $\edit (\mathcal M,\Omega)$ is called a \emph{symplectic manifold} {\edit \cite{Marsden:1999ck}}. 
+Let $\edit \mathcal M$ be a manifold and $\edit \Omega:\mathcal M \times \mathcal M \to \mathbb R$ be a closed, nondegenerate {\edit and skew-symmetric} 2-form on $\edit \mathcal M$. The pair $\edit (\mathcal M,\Omega)$ is called a \emph{symplectic manifold} {\edit \cite{Marsden:1999ck}}. 
 
 
 {\edit Let $(\mathcal M,\Omega)$ be a symplectic manifold and suppose that $H:\mathcal M \to \mathbb R$ is a smooth scalar function. The differential of $H$, denoted by $\mathbf dH$, defines a 1-form on $\mathcal M$. The nondegeneracy of $\Omega$ implies that there is a unique vector field $X_H$, \emph{Hamiltonian vector field }\cite{da2003introduction,Marsden:1999ck}, on $\mathcal M$ such that}
@@ -49,7 +49,7 @@ If $(V,\Omega)$ is a finite-dimensional symplectic manifold then $V$ is even dim
 	& \Omega(e_i,f_j) = \delta_{ij}, & i\leq i,j \leq n.
 \end{aligned}
 \end{equation}
-where $\delta$ is the Kronecker's delta function. Moreover if $V = \mathbb{R}^{2n}$ we can choose the basis vectors $\{e_i,f_i\}_{i=1}^n$ such that
+where $\delta$ is the Kronecker's delta function. Moreover if $V = \mathbb{R}^{2n}$ we can choose basis vectors $\{e_i,f_i\}_{i=1}^n$ such that
 \begin{equation} \label{eq:Hasy:5}
 	\Omega(v_1,v_2) = v_1^T \mathbb J_{2n} v_2, \qquad v_1,v_2\in \mathbb R^n,
 \end{equation}
@@ -89,14 +89,14 @@ Suppose $(V,\Omega)$ is a finite dimensional symplectic vector space. If $E\subs
 A basis of $(V,\Omega)$ is called orthosymplectic if it is both a symplectic basis and an orthogonal basis with respect to the classical scalar product.
 \end{definition}
 \begin{theorem} \label{theorem:Hasy:1.6}
-Let $E\subset V$ be a Lagrangian vector space. Then there is an orthosymplectic basis for $\mathbb R^{2n}$ \cite{da2003introduction}.
+Suppose $(V,\Omega)$ is a $2n$ dimensional symplectic vector space and $E\subset V$ is a Lagrangian subspace. Then there is an orthosymplectic basis for $V$ \cite{da2003introduction}.
 \end{theorem}
 \begin{proof}
-Starting from a Lagrangain subspace in $E \subset V$ an orthosymplectic basis can be easily constructed.  Suppose that $\{ e'_1,\dots, e'_n \}$ is a basis for $E$, using the classical Gram-Schmidt orthogonalization process we can construct an orthonormal basis $\{ e_1,\dots,e_n \}$. Define the new set of vectors $f_1 = -\mathbb Je_1$, $f_2 = -\mathbb Je_2$, $\dots$, $f_n= -\mathbb Je_n$. We have
+Starting from a Lagrangain subspace in $E \subset V$ an orthosymplectic basis can be easily constructed. By Theorem \ref{theorem:Hasy:1.5} $E$ is $n$ dimensional. Suppose that $\{ e'_1,\dots, e'_n \}$ is a basis for $E$, using the classical Gram-Schmidt orthogonalization process we can construct an orthonormal basis $\{ e_1,\dots,e_n \}$. Define the new set of vectors $f_1 = \mathbb J_{2n}^Te_1$, $f_2 =\mathbb J_{2n}^T e_2$, $\dots$, $f_n= \mathbb J_{2n}^Te_n$. We have
 \begin{equation}
-	\langle f_i, f_j \rangle = e_i^T \mathbb J_{2n}^T \mathbb J_{2n} e_i = \delta_{ij}, \quad \langle f_i, e_j \rangle = -e_i \mathbb J^T_{2n} e_j = 0, \quad i,j=1,\dots,n,
+	\langle f_i, f_j \rangle = e_i^T \mathbb J_{2n} {\mathbb J_{2n}}^T e_i = \delta_{ij}, \quad \langle f_i, e_j \rangle = e_i^T \mathbb J_{2n} e_j = 0, \quad i,j=1,\dots,n,
 \end{equation}
-where the second identity is due to the fact that the basis $\{ e_1,\dots,e_n \}$ forms a Lagrangian subspace. This shows that the set $\{ e_1,\dots,e_n \}\cup \{ f_1,\dots,f_n \}$ forms an orthonormal basis. Also, it can be easily verified that this is a symplectic basis. Thus $\{ e_1,\dots,e_n \}\cup \{ f_1,\dots,f_n \}$ is an orthosymplectic basis.
+where we used the fact that $\mathbb J_{2n} {\mathbb J_{2n}}^T = I_{2n}$ in the first identity and the second identity is due to the fact that the basis $\{ e_1,\dots,e_n \}$ forms a Lagrangian subspace. This shows that the set $\{ e_1,\dots,e_n \}\cup \{ f_1,\dots,f_n \}$ forms an orthonormal basis. Also, it can be easily verified that this is a symplectic basis. Thus $\{ e_1,\dots,e_n \}\cup \{ f_1,\dots,f_n \}$ is an orthosymplectic basis.
 \end{proof}
 \begin{theorem} \label{theorem:Hasy:1.7}
 On a finite-dimensional symplectic vector space the relationship (\ref{eq:Hasy:1}) becomes \cite{Marsden:1999ck}
@@ -154,7 +154,7 @@ Let $A\in \mathbb{R}^{2n\times 2k}$ be a symplectic matrix and $A^+$ its symplec
 
 {\edit Straight forward calculation verifies} that $AA^+$ is idempotent, i.e. a symplectic projection onto the column span of $A$.
 
-{\edit It natural to expect a numerical integrator that solves (\ref{eq:Hasy:7}) to also satisfy the conservation law in Theorem \ref{theorem:Hasy:1}. Common numerical integrators e.g., Runge-Kutta methods, do not generally preserve the Hamiltonian which results in a wrong qualitative behavior in the solution \cite{Hairer:1250576}. Symplectic integrators are a class of numerical integrators for Hamiltonian systems that preserve the symplectic structure yielding stability in long-time integration.} The Str\"omer-Verlet time stepping scheme is an example of symplectic integrators and is given by
+{\edit It is natural to expect a numerical integrator that solves (\ref{eq:Hasy:7}) to also satisfy the conservation law in Theorem \ref{theorem:Hasy:1}. Common numerical integrators e.g., Runge-Kutta methods, do not generally preserve the Hamiltonian which results in a wrong qualitative behavior in the solution \cite{Hairer:1250576}. Symplectic integrators are a class of numerical integrators for Hamiltonian systems that preserve the symplectic structure yielding stability in long-time integration.} The Str\"omer-Verlet time stepping scheme is an example of symplectic integrators and is given by
 \begin{equation} \label{eq:Hasy:13}
 \begin{aligned}
 	q_{n+1/2} &= q_n + \frac{\Delta t}{2} \nabla_pH(q_{n+1/2},p_n), \\

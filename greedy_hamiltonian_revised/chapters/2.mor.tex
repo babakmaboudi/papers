@@ -12,7 +12,7 @@ Here $\mathbf x \in \mathbb R^n$ is the state vector, $\omega \in \Gamma$ is a v
 
 We define the solution manifold as the set of all solutions to (\ref{eq:MoOr:1}) under variation of {\edit the parameters in $\Gamma$}
 \begin{equation} \label{eq:MoOr:2}
-	\mathcal M = \{ \mathbf x(\omega) | \omega \in \Gamma \} \subset \mathbb R^n.
+	\edit \mathcal M = \{ \mathbf x(t,\omega) | \omega \in \Gamma,\ t\geq 0 \} \subset \mathbb R^n.
 \end{equation}
 Note that the exact solution and solution manifold is not always available; we assume that we have a numerical integrator in hand that can approximate the solution to (\ref{eq:MoOr:1}) for any realization of $\omega$ {\edit with a given accuracy}. By abuse of notation we refer to $\mathbf x$ and $\mathcal M$ as the exact solution and the exact solution manifold, respectively, rather than the discrete solution and discrete solution manifold. 
 
@@ -100,7 +100,7 @@ Note that the matrix $(WV)^{-1} U(P^TU)^{-1}$ can be computed offline and since 
 
 {\edit Numerical solution of (\ref{eq:MoOr:8}) sometimes involve computation of the Jacobian of the nonlinear function $\mathbf g(t,\mathbf x, \omega)$ with respect to the reduced state variable $\mathbf y$}
 \begin{equation} \label{eq:MoOr:9}
-	\edit \mathbf J_{\mathbf x}(\mathbf g) = (WV)^{-1} \mathbf J_{\mathbf y}(\mathbf g) V,
+	\edit \mathbf J_{\mathbf y}(\mathbf g) = (WV)^{-1} \mathbf J_{\mathbf x}(\mathbf g) V,
 \end{equation}
 {\edit where $\mathbf J_\alpha(\mathbf g)$ is the Jacobian matrix of $\mathbf g$ with respect to the variable $\alpha$.} The complexity of computing (\ref{eq:MoOr:9}) is $\mathcal{O}(\alpha(n) +2n^2k+2nk^2+2nk)$ comprising several matrix-vector multiplications and an evaluation of the Jacobian which depends on the size of the original system. Approximating the Jacobian in (\ref{eq:MoOr:9}) is usually both problem and discretization dependent. Very often the nonlinear function $\mathbf g$ is evaluated component-wise i.e.
 \begin{equation} \label{eq:MoOr:15}
@@ -125,6 +125,6 @@ with $\mathbf x$ the configuration vector. In such cases the interpolating index
 \end{equation}
 If we now take the Jacobian of the approximate function we recover
 \begin{equation}
-	\edit \mathbf J_{\mathbf x}(\mathbf g) = \underbrace{ (WV)^{-1} U(P^TU)^{-1} }_{k\times m} \underbrace{ \mathbf J_{\mathbf y}(\mathbf g(P^T V \mathbf y) ) }_{m\times m} \underbrace{P^T V}_{m\times k}.
+	\edit \mathbf J_{\mathbf y}(\mathbf g) = \underbrace{ (WV)^{-1} U(P^TU)^{-1} }_{k\times m} \underbrace{ \mathbf J_{\mathbf x}(\mathbf g(P^T V \mathbf y) ) }_{m\times m} \underbrace{P^T V}_{m\times k}.
 \end{equation}
 The matrix $(WV)^{-1} U(P^TU)^{-1}$ can be computed offline and the Jacobian is evaluated only at $m\times m$ components. Hence the overall complexity of computing the Jacobian is now independent of $n$. {\edit We refer the reader to \cite{Barrault:2004kz,Chaturantabut:2010cz} for more detail.}

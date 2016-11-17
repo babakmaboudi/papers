@@ -1,0 +1,83 @@
+\documentclass[a4paper]{article}
+\usepackage{url}
+\usepackage[margin=1in]{geometry}
+\newcommand{\breview}{\begin{quotation}\begin{bf}\noindent}
+\newcommand{\ereview}{\end{bf}\end{quotation}}
+\newcommand{\reviewbullet}[1]{\breview \begin{itemize}\item #1 \end{itemize}\ereview}
+\begin{document}
+
+Dear Editor, \\[1cm]
+
+Attached you will find the revised version of manuscript \#M106699, titled ''Structure Preserving Model Reduction of Parametric Hamiltonian Systems''.
+
+Yours Sincerely,\\[1.0cm]
+Babak Maboudi Afkham and
+Jan S. Hesthaven
+\\[1cm]
+
+\section*{Reviewer 1}
+
+\breview
+1. There is a global lack of rigour in the mathematical presentation: It starts with the very first two equations. If (1) is clear, the definition of M in the equation (2) is obscure: what is the role of the time? Is there a finite time horizon? Then in equation (3) what are the v\_i? are they made of snapshots as explained later? But then what is the role of the numerical discretisation ?
+\ereview
+
+We revised major parts of the background and the introduction of the manuscript and corrected the mathematical notations for better comprehension. The authors believe that the introduction of the solution manifold, equation (2), and the reduced basis, equation (3), is essential in the understanding of model reduction techniques. The role of time was missing from the definition which is now added. However, the generation of the reduced basis, v\_i, is carefully and in much detail is discussed in chapters 3 and 4.
+
+\breview
+2. Similarly, in section 4, there are some notations used that are never defined (line 376 what do the assumptions on a and b mean?) All this lack of rigorous explanation (which contrasts with the heavy Hamiltonian formalism used in Section 3) makes the paper difficult to read and understand. 
+\ereview
+
+The explanation of the symplectic Gram-Schmidt routine (the part pointed by the reviewer) is revised for better understanding.
+
+\breview
+3. I was expecting much more convincing numerical experiments. The first stochastic example is not really understandable.
+
+The example concerning the nonlinear Schroedinger equation is also relatively easy. If I understand correctly, there are 500 points in the parameter space and 90 in the reduced basis. Is there really a gain between computing all the trajectories and finding the reduced basis?
+\ereview
+
+We agree with the reviewer that the numerical examples presented are relatively simple. However, alternative methods are either unstable or too expensive for even these simple test cases. Therefore, a more complex numerical experiment does not contribute to a better understanding of the method. 
+
+
+\breview
+4. I cannot find out what is plotted on Figure 1. The expectation of the solution? One realization? Then the authors talk about a gain of computational cost (which should be the goal of this new algorithm) but nothing is really shown.
+
+What about a comparison between the different computational cost of the algorithm? 
+\ereview
+
+The purpose of Figure 1 is to illustrate how the proposed method can preserve stability with the eyeball norm, and so using just a single realization. To eliminate any confusion, we have added Figure 5 that presents the maximum error in time and parameter domain. Also the qualitative computation cost is discussed in Section 5.
+
+\breview
+A comparison with Monte Carlo algorithm is also missing. Moreover, t = 2 is not a long time for a 1D linear wave equation and the gain of symplectic algorithms is unclear. 
+\ereview
+
+The purpose of model reduction is to construct approximated solution with substantial lower cost. It is not clear to the authors, possibly due to a miss understanding, how Monte Carlo method enters this scope.
+
+\breview
+What about an illustration of the exponential convergence result given in Section 4? 
+\ereview
+
+We agree with the reviewer that a better illustration of the exponential convergence is needed. We added section 5.3 to numerically discuss this matter.
+
+\section*{Reviewer 2}
+
+\breview
+1. The topic of projection methods for Hamiltonian systems is a widely studied topic in the context of optimal control problems where almost all the concepts discussed in this paper have already been studied, symplectic QR, symplectic SVD, symplectic Krylov and Lanc- zos techniques, model reduction for Hamiltonian systems (Riccati equations) etc. All these techniques are reinvented in this paper without reference to the previous work. This is unac- ceptable and in some sense even unethical, since any google search would have immediately revealed these papers by e.g. Benner, Breiten, Bunse-Gerstner, Freund, Kressner, Mehrmann, Poloni, Saak, Schoeder, Simoncini, Watkins etc. Many of these are also dealing with model reduction and particularly adress the preservation of Hamiltonian and symplectic structure in projection methods.
+\ereview
+
+Most of the topics and references introduced above deal with eigenvalue problems of Hamiltonian, skew-Hamiltonian and symplectic matrices. The main focus of this manuscript however, is the model reduction of Hamiltonian systems specifically the greedy approach to structure preserving model reduction. This, although strongly related, is not reflected in the references suggested by the reviewer. Nonetheless we agree that including these topics in the paper is essential as they comprise a major part of the development of the field in optimal control. Therefore, most of these references are included in the revision of the paper.
+
+\breview
+2. There are also some mathematical questions that need to be addressed. It is well-known that symplectic bases are not norm bounded, so special precautions have to be taken to guarantee that they do not become unbounded. This can be done by the isotropic Arnoldi/Gram Schmidt and needs to be done here. Unfortunately this procedure requires the existence of Lagrange subspaces which is not the case here.
+
+I do not see the reflection of this unboundedness in the convergence proof, I guess it is reflected in the constant, but this should be analyzed. 
+\ereview
+The symplectic greedy method suggested in the paper, produces an orthosymplectic (symplectic and orthonormal) basis by construction. The orthonormality of the basis guarantees a numerically stable basis. Although this was briefly discussed in the paper, there was clearly a need for a detailed discussion. To this end, it is shown in the revision of the paper, as pointed by the reviewer, that the greedy method constructs a Lagrangian subspace in each iteration and then expands it to an orthosymplectic basis. We emphasised on this in the revision of the paper in form of Theorem 21.
+
+\breview
+Another mathematical problem is the stability of the projected system, this is to my opinion not guaranteed and needs to be proved, e.g. it needs to be guaranteed that there does not exists a zero Lyapunov exponent associated with crossing trajectories and with mixed sign/Krein characteristic which puts the Hamiltonian system on the boundary of the stable region and small perturbations will make it unstable. Here structure preservation helps but does not solve the problem.
+\ereview
+
+It was briefly discussed in the paper that stable critical points of a Hamiltonian system remains stable in the reduced system. This matter is discussed in more detail in the revision of the paper. This together with the numerical experiments in the paper, although do not guarantee general stability, but are strong indication of the stability of the reduced system.
+
+
+\end{document}

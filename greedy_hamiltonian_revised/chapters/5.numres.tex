@@ -335,10 +335,10 @@ The cost of the offline stage is reduced to 20\% when using the greedy method fo
 \end{minipage}%
 \begin{minipage}{.5\linewidth}
 \centering
-\subfloat[$t=1$]{\label{fig:NuRe:3b}\includegraphics[width=\textwidth]{./figs/schrodinger/solution/solution_t10}}
+\subfloat[$t=10$]{\label{fig:NuRe:3b}\includegraphics[width=\textwidth]{./figs/schrodinger/solution/solution_t10}}
 \end{minipage}\par\medskip
 \centering
-\subfloat[$t=2$]{\label{fig:NuRe:3c}\includegraphics[width=0.5\textwidth]{./figs/schrodinger/solution/solution_t20}}
+\subfloat[$t=20$]{\label{fig:NuRe:3c}\includegraphics[width=0.5\textwidth]{./figs/schrodinger/solution/solution_t20}}
 \caption{The solution $|u(t,x)| = \sqrt{q^2 + p^2}$ at $t=0$, $t=10$ and $t=20$ of the Nonlinear Schr\"odinger equation for parameter value $\epsilon = 1.0932$. Here the solution of {\edit the} full system together with the solution of the POD, cotangent lift, complex SVD and the greedy reduced system is presented.}
 \label{fig:NuRe:3}
 \end{figure}
@@ -369,11 +369,11 @@ Figure \ref{fig:NuRe:4c} illustrates the $L_2$-error between the solution of the
 
 \subsection{Numerical Convergence} {\edit In this section we discuss the numerical convergence of the symplectic greedy method introduced in Section \ref{chap:SyMo:1}. The exponential convergence properties of the conventional greedy \cite{Quarteroni:2016wi} is presented in \cite{Buffa:2012iz,Binev:2011fj}. Theorem \ref{theorem:SyMo:2} suggests that the symplectic greedy method has similar properties. To illustrate this we compared the convergence of the conventional greedy with the convergence of the symplectic greedy method through the numerical simulations in sections \ref{chap:NuRe:1.1} and \ref{chap:NuRe:1.2}. 
 
-The decay of the singular values of the snapshot matrix for the parametric wave equation and the nonlinear Schr\"odinger equation can be found in Figure \ref{fig:NuRe:5}. The rate of the decay of the singular values is a strong indicator for the rate of the decay of the Kolmogorov $n$-width of the solution manifold. We expect that the conventional greedy method and the symplectic greedy method provide a similar rate in the decay of the error.
+The decay of the singular values of the snapshot matrix for the parametric wave equation and the nonlinear Schr\"odinger equation can be found in Figure \ref{fig:NuRe:5}. The decay rate of the singular values is a strong indicator for the decay rate of the Kolmogorov $n$-width of the solution manifold. We expect that the conventional greedy method and the symplectic greedy method provide a similar rate in the decay of the error.
 	
 Figure \ref{fig:NuRe:5} shows the maximum $L_2$ error between the original system and the reduced system at each iteration of different greedy methods. In this figure we find the conventional greedy with orthogonal projection error as a basis selection criterion (orange), the symplectic greedy method with symplectic projection error as a basis selection criterion (green) and the symplectic greedy method with energy loss $\Delta H$ as a basis selection criterion (red). For simplicity, we may refer to these routines as the greedy with the orthogonal projection, the greedy with the symplectic projection and the greedy with the energy loss, respectively.
 
-It is observed that the decay rate of the error for greedy with the orthogonal projection and the greedy with the symplectic projection is similar to the decay of the singular values. This matches our expectation from Theorem \ref{theorem:SyMo:2}. We also notice that the greedy method with the energy loss provides excellent error indication as a basis selection criterion.
+It is observed that the decay rate of the error for greedy with the orthogonal projection and the greedy with the symplectic projection is similar to the decay of the singular values. This matches our expectation from Theorem \ref{theorem:SyMo:2}. We also notice that the greedy method with the energy loss provides an excellent error indication as a basis selection criterion.
 }
 
 

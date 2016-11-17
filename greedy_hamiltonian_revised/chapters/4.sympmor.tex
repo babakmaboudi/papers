@@ -58,9 +58,9 @@ The following proposition, also known as Dirichlet's theorem \cite{bhatia2002sta
 \begin{proposition} \label{proposition:SyMo:1}
 An equilibrium point $\mathbf z_e$ is Lyapunov stable if there exist a scalar function $W : \mathbb R^{n} \to  \mathbb R$ such that $\nabla W(\mathbf z_e) = 0$, and $\nabla^2 W(\mathbf z_e)$ is positive definite and that for any trajectory $\phi_t$ defined in the neighborhood of $\mathbf z_e$, we have $\frac{d}{dt} W(\phi_t) \leq 0$. Here $\nabla^2W$ is the Hessian matrix of $W$.
 \end{proposition}
-The scalar function $W$ is referred to as the \emph{Lyapunov function}. In the context of the Hamiltonian systems, a suitable candidate for the Lyapunov function is the Hamiltonian function $H$. The following theorem shows that when $H$ (or $-H$) is a Lyapunov function, then the equilibrium points of the original and the reduced system are Liyapunov stable.
+The scalar function $W$ is referred to as the \emph{Lyapunov function}. In the context of the Hamiltonian systems, a suitable candidate for the Lyapunov function is the Hamiltonian function $H$. The following theorem shows that when $H$ (or $-H$) is a Lyapunov function, then the equilibrium points of the original and the reduced system are Liyapunov stable \cite{abraham1978foundations}. 
 \begin{theorem} \label{theorem:SyMo:1}
-Consider a Hamiltonian system of the form (\ref{eq:Hasy:7}) together with the reduced system (\ref{eq:SyMo:4}). Suppose $\mathbf z_e$ is an equilibrium point for (\ref{eq:Hasy:7}) and that $\mathbf y_e = A^+\mathbf z_e$. If $H$ (or $-H$) is a Lyapunov function satisfying proposition \ref{proposition:SyMo:1}, then $\mathbf z_e$ and $\mathbf y_e$ are Lyapunov stable points for (\ref{eq:Hasy:7}) and (\ref{eq:SyMo:4}) respectively.
+Consider a Hamiltonian system of the form (\ref{eq:Hasy:7}) together with the reduced system (\ref{eq:SyMo:4}). Suppose $\mathbf z_e$ is an equilibrium point for (\ref{eq:Hasy:7}) and that $\mathbf y_e = A^+\mathbf z_e$. If $H$ (or $-H$) is a Lyapunov function satisfying proposition \ref{proposition:SyMo:1}, then $\mathbf z_e$ and $\mathbf y_e$ are Lyapunov stable equilibrium points for (\ref{eq:Hasy:7}) and (\ref{eq:SyMo:4}) respectively. 
 \end{theorem}
 \begin{proof}
 	It is the direct consequence of proposition \ref{proposition:SyMo:1} that $\mathbf z_e$ is a local minimum or maximum of (\ref{eq:Hasy:7}) and also a Lyapunov stable point. It can be easily checked that if $\mathbf z_e$ is a local minimum of $H$ then $\mathbf y_e$ is a local minimum for $\tilde H$ and an equilibrium point for (\ref{eq:SyMo:4}). Also from the chain rule we have
@@ -145,23 +145,23 @@ Then we can easily check that conditions (\ref{eq:SyMo:12}) is satisfied since $
 }
 
 {\edit
-As discussed in Section \ref{chap:Hasy:1}, any finite dimensional symplectic linear vector space has a symplectic basis that satisfies conditions (\ref{eq:Hasy:4}). Further theorem \ref{theorem:Hasy:1.6} provides an iterative process for constructing an orthosymplectic basis \cite{Matsuo:2014wl,Salam2014}. To briefly describe the SR method, suppose that an orthosymplectic basis
+As discussed in Section \ref{chap:Hasy:1}, any finite dimensional symplectic linear vector space has a symplectic basis that satisfies conditions (\ref{eq:Hasy:4}). Further, theorem \ref{theorem:Hasy:1.6} provides an iterative process for constructing an orthosymplectic basis \cite{Matsuo:2014wl,Salam2014}. To briefly describe the SR method, suppose that an orthosymplectic basis
 \begin{equation} \label{eq:SyMo:14.1}
-	A_{2k}=\{ e_1 , \dots , e_k \} \cup \{ -\mathbb J_{2n} e_1 , \dots , -\mathbb J_{2n} e_k \},
+	A_{2k}=\{ e_1 , \dots , e_k \} \cup \{ \mathbb J_{2n}^T e_1 , \dots , \mathbb J_{2n}^T e_k \},
 \end{equation}
 and a vector $z\not \in \text{span}(A_{2k})$ is provided. We would like to symplectically orthogonalize ($\mathbb J_{2n}$-orthogonalize) $z$ with respect to $A_{2k}$. We seek $\alpha_1,\dots,\alpha_k,\beta_1,\dots,\beta_k \in \mathbb R$ such that
 \begin{equation} \label{eq:SyMo:14.2}
-	\Omega\left(z + \sum_{i=1}^k \alpha_i e_i - \sum_{i=1}^k \beta_i \mathbb J_{2n}e_i , \sum_{i=1}^k \bar{\alpha}_i e_i - \sum_{i=1}^k \bar{\beta}_i \mathbb J_{2n}e_i \right) = 0,
+	\Omega\left(z + \sum_{i=1}^k \alpha_i e_i + \sum_{i=1}^k \beta_i \mathbb J_{2n}^Te_i , \sum_{i=1}^k \bar{\alpha}_i e_i + \sum_{i=1}^k \bar{\beta}_i \mathbb J_{2n}^Te_i \right) = 0,
 \end{equation}
 for all possible $\bar{\alpha}_1,\dots,\bar{\alpha}_k,\bar{\beta}_1,\dots,\bar{\beta}_k \in \mathbb R$. It is easily seen that the unique solution is as 
 \begin{equation} \label{eq:SyMo:14.3}
-	\alpha_i = - \Omega(z,-\mathbb J_{2n}e_i), \quad \beta_i = \Omega(z,e_i),
+	\alpha_i = - \Omega(z,\mathbb J_{2n}^Te_i), \quad \beta_i = \Omega(z,e_i),
 \end{equation}
 for $i=1,\dots,k$. Now we define the modified vectors as
 \begin{equation} \label{eq:SyMo:14.4}
-	\tilde z = z - \sum_{i=1}^k \Omega(z,-\mathbb J_{2n}e_i) e_i - \sum_{i=1}^k \Omega(z,e_i) \mathbb J_{2n}e_i.
+	\tilde z = z - \sum_{i=1}^k \Omega(z,\mathbb J_{2n}^Te_i) e_i + \sum_{i=1}^k \Omega(z,e_i) \mathbb J_{2n}^Te_i.
 \end{equation}
-If we introduce $e_{k+1} = \tilde z / \| \tilde z \|_2$, it is easily checked that $e_{k+1}$ is also orthogonal to $A_{2k}$ with respect to the classical inner product. Therefore the set span$(\{e_1,\dots,e_{k+1}\})$ forms a Lagrangian subspace and according to theorem \ref{theorem:Hasy:1.6} the basis $A_{2k+2}= A_{2k}\cup \{ e_{k+1} , -\mathbb J_{2n} e_{k+1} \}$ forms an orthosymplectic basis.
+If we introduce $e_{k+1} = \tilde z / \| \tilde z \|_2$, it is easily checked that $e_{k+1}$ is also orthogonal to $A_{2k}$ with respect to the classical inner product. Therefore the set span$(\{e_1,\dots,e_{k+1}\})$ forms a Lagrangian subspace and according to theorem \ref{theorem:Hasy:1.6} the basis $A_{2k+2}= A_{2k}\cup \{ e_{k+1} , \mathbb J_{2n}^T e_{k+1} \}$ forms an orthosymplectic basis.
 
 Note that the $SR$ method can be replaced with a backward stable routines such as the isotropic Arnoldi or the isotropic Lanczos methods \cite{Mehrmann:2000dv}.
 }
@@ -187,7 +187,7 @@ The next basis vector is the snapshot that maximises the projection error (\ref{
 Finally, we update the basis as
 {\edit
 \begin{equation} \label{eq:SyMo:14.7}
-	e_{k+1} = \tilde z, \quad A_{2k+1} = A_{2k}\cup \{ e_{k+1} , -\mathbb J_{2n}e_{k+1} \},
+	e_{k+1} = \tilde z, \quad A_{2k+1} = A_{2k}\cup \{ e_{k+1} , \mathbb J_{2n}^Te_{k+1} \},
 \end{equation}
 }
 where $\tilde z$ is the vector obtained from applying the symplectic Gram-Schmidt process to $z$. 
@@ -199,7 +199,6 @@ We summarized the greedy algorithm for generation of a symplectic basis in Algor
 
 
 
-{\edit
 \begin{algorithm} 
 \caption{The greedy algorithm for generation of a symplectic basis} \label{alg:SyMo:3}
 {\bf Input:} Tolerated loss in the Hamiltonian $\delta$, parameter set $\Gamma_N = \{\omega_1,\dots,\omega_N\}$, initial condition $\mathbf z_0(\omega)$
@@ -214,14 +213,13 @@ We summarized the greedy algorithm for generation of a symplectic basis in Algor
 \item \hspace{0.5cm} $\mathbf z^* \leftarrow$ $\underset{s\in S}{\text{argmax }} \| s - AA^+s \|$
 \item \hspace{0.5cm} Apply symplectic Gram-Schmidt on $\mathbf z^*$
 \item \hspace{0.5cm} $e_{k+1} \leftarrow \mathbf z^*/ \| z^*\|$
-\item \hspace{0.5cm} $A \leftarrow [e_1,\dots ,e_{k+1} , -\mathbb J^T_{2n}e_1,\dots,-\mathbb J^T_{2n}e_{k+1}]$
+\item \hspace{0.5cm} $A \leftarrow [e_1,\dots ,e_{k+1} , \mathbb J^T_{2n}e_1,\dots,\mathbb J^T_{2n}e_{k+1}]$
 \item \hspace{0.5cm} $k \leftarrow k+1$
 \item \textbf{end while}
 \end{enumerate}
 \vspace{0.5cm}
 {\bf Output:} Symplectic basis $A$.
 \end{algorithm}
-}
 
 The convergence and convergence rate of the greedy algorithm with respect to Kolmogorov $n$-width is investigated in Section \ref{chap:SyMo.PrSy:3}. We finish this section by stating the advantage of using the greedy algorithm over the POD-based methods:
 \begin{itemize}
