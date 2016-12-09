@@ -8,7 +8,7 @@
 
 Dear Editor, \\[1cm]
 
-Attached you will find the revised version of manuscript \#M106699, titled ''Structure Preserving Model Reduction of Parametric Hamiltonian Systems''.
+Attached you will find the revised version of manuscript \#M106699, titled ``Structure Preserving Model Reduction of Parametric Hamiltonian Systems".
 
 Yours Sincerely,\\[1.0cm]
 Babak Maboudi Afkham and
@@ -21,7 +21,7 @@ Jan S. Hesthaven
 1. There is a global lack of rigour in the mathematical presentation: It starts with the very first two equations. If (1) is clear, the definition of M in the equation (2) is obscure: what is the role of the time? Is there a finite time horizon? Then in equation (3) what are the v\_i? are they made of snapshots as explained later? But then what is the role of the numerical discretisation ?
 \ereview
 
-We revised major parts of the background and the introduction of the manuscript and corrected the mathematical notations. The authors believe that the introduction of the solution manifold, equation (2), and the reduced basis, equation (3), is essential in the understanding of model reduction techniques. The role of time was missing from the definition and is now added. However, the generation of the reduced basis, v\_i, is discussed in detail in chapters 3 and 4.
+We revised major parts of the background and the introduction of the manuscript and corrected the mathematical notations. The authors believe that the introduction of the solution manifold, equation (2), and the reduced basis, equation (3), is essential to the understanding of model reduction techniques. The role of time was missing from the definition and is now added. However, the generation of the reduced basis, v\_i, is discussed in detail in chapters 3 and 4.
 
 \breview
 2. Similarly, in section 4, there are some notations used that are never defined (line 376 what do the assumptions on a and b mean?) All this lack of rigorous explanation (which contrasts with the heavy Hamiltonian formalism used in Section 3) makes the paper difficult to read and understand. 
@@ -44,7 +44,7 @@ We agree with the reviewer that the numerical examples presented are relatively 
 What about a comparison between the different computational cost of the algorithm? \dots the gain of symplectic algorithms is unclear. 
 \ereview
 
-The purpose of Figure 1 is to illustrate how the proposed method can preserve stability with the eyeball norm, and so using just a single realization. To eliminate any confusion, we have added Figure 5 that presents the maximum error in time and parameter domain. Also the gain in computation cost is discussed in Section 5.
+The purpose of Figure 1 is to illustrate how the proposed method can preserve stability with the eyeball norm, and so using just a single realization. To eliminate any confusion, we have added Figure 5 that presents the maximum error in time and parameter domain. Also, the gain in computation cost is discussed in Section 5.
 
 \breview
 5. A comparison with Monte Carlo algorithm is also missing.  
@@ -56,7 +56,7 @@ The purpose of model reduction is to construct an approximated solution with a s
 6. What about an illustration of the exponential convergence result given in Section 4? 
 \ereview
 
-We agree with the reviewer that a better illustration of the exponential convergence is needed. We added section 5.3 to discuss this matter.
+We agree with the reviewer that a better illustration of the exponential convergence is needed. We added Section 5.3 to discuss this matter.
 
 \section*{Reviewer 2}
 
@@ -64,7 +64,7 @@ We agree with the reviewer that a better illustration of the exponential converg
 1. The topic of projection methods for Hamiltonian systems is a widely studied topic in the context of optimal control problems where almost all the concepts discussed in this paper have already been studied, symplectic QR, symplectic SVD, symplectic Krylov and Lanczos techniques, model reduction for Hamiltonian systems (Riccati equations) etc. All these techniques are reinvented in this paper without reference to the previous work. This is unacceptable and in some sense even unethical, since any google search would have immediately revealed these papers by e.g. Benner, Breiten, Bunse-Gerstner, Freund, Kressner, Mehrmann, Poloni, Saak, Schoeder, Simoncini, Watkins etc. Many of these are also dealing with model reduction and particularly adress the preservation of Hamiltonian and symplectic structure in projection methods.
 \ereview
 
-Most of the topics and references introduced above deal with eigenvalue problems of Hamiltonian, skew-Hamiltonian and symplectic matrices. The main focus of this manuscript, however, is the model reduction of Hamiltonian systems and the development of a greedy approach to structure preserving model reduction. This, although related, is not reflected in the references suggested by the reviewer. Nonetheless we agree that including these topics in the paper is valuable as they comprise a major part of the development of the field in optimal control. Therefore, most of these references are included in the revision of the paper.
+Most of the topics and references introduced above deal with eigenvalue problems of Hamiltonian, skew-Hamiltonian and symplectic matrices. The main focus of this manuscript, however, is the model reduction of Hamiltonian systems and the development of a greedy approach to structure preserving model reduction. This, although related, is not reflected in the references suggested by the reviewer. Nonetheless,e we agree that including these topics in the paper is valuable as they comprise a major part of the development of the field in optimal control. Therefore, most of these references are included in the revision of the paper.
 
 \breview
 2. There are also some mathematical questions that need to be addressed. It is well-known that symplectic bases are not norm bounded, so special precautions have to be taken to guarantee that they do not become unbounded. This can be done by the isotropic Arnoldi/Gram Schmidt and needs to be done here. Unfortunately this procedure requires the existence of Lagrange subspaces which is not the case here.
