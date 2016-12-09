@@ -1,5 +1,5 @@
 \section{Model Order Reduction} \label{chap:MoOr:1}
-Consider a parameterized, finite dimensional dynamical system that can be described by a set of first order ordinary differential equations on the form
+Consider a parameterized, finite dimensional dynamical system described by a set of first order ordinary differential equations
 \begin{equation} \label{eq:MoOr:1}
 \left\{
 \begin{split}
@@ -8,30 +8,30 @@ Consider a parameterized, finite dimensional dynamical system that can be descri
 \end{split}
 \right.
 \end{equation}
-Here $\mathbf x \in \mathbb R^n$ is the state vector, $\omega \in \Gamma$ is a vector containing all the parameters of the system that belongs to a compact set $\Gamma$ ($\subset \mathbb R^d$) and $\mathbf f : \mathbb R \times \mathbb R^n \times \Gamma \to \mathbb R^n$ is a general function of the state variables and parameters.
+Here $\mathbf x \in \mathbb R^n$ is the state vector, $\omega \in \Gamma$ is a vector containing all the parameters of the system {\edit belonging} to a compact set $\Gamma$ ($\subset \mathbb R^d$) and $\mathbf f : \mathbb R \times \mathbb R^n \times \Gamma \to \mathbb R^n$ is a general {\edit vector valued} function of the state variables and parameters.
 
 We define the solution manifold as the set of all solutions to (\ref{eq:MoOr:1}) under variation of {\edit the parameters in $\Gamma$}
 \begin{equation} \label{eq:MoOr:2}
 	\edit \mathcal M = \{ \mathbf x(t,\omega) | \omega \in \Gamma,\ t\geq 0 \} \subset \mathbb R^n.
 \end{equation}
-Note that the exact solution and solution manifold is not always available; we assume that we have a numerical integrator in hand that can approximate the solution to (\ref{eq:MoOr:1}) for any realization of $\omega$ {\edit with a given accuracy}. By abuse of notation we refer to $\mathbf x$ and $\mathcal M$ as the exact solution and the exact solution manifold, respectively, rather than the discrete solution and discrete solution manifold. 
+Note that the exact solution and solution manifold is {\edit often not} available; we assume that we have a numerical integrator that can approximate the solution to (\ref{eq:MoOr:1}) for any realization of $\omega$ {\edit with a given accuracy}. By abuse of notation, we refer to $\mathbf x$ and $\mathcal M$ as the exact solution and the exact solution manifold, respectively, rather than the discrete solution and discrete solution manifold. 
 
-Model order reduction is based on the assumption that $\mathcal M$ is of low dimension \cite{Anonymous:2016wl,Antoulas:2005:ALD:1088857}, and that the span of appropriately chosen basis vectors $\{v_i\}_{i=1}^k$ covers most of the solution manifold with a small error. The set $\{v_i\}_{i=1}^k$ is denoted as the \emph{reduced basis} and its span as the \emph{reduced space}. Assuming that a $k$-dimensional $(k\ll n)$ reduced basis is given, the approximated solution can be represented as
+Model order reduction is based on the assumption that $\mathcal M$ is of low dimension \cite{Anonymous:2016wl,Antoulas:2005:ALD:1088857} and that the span of appropriately chosen basis vectors $\{v_i\}_{i=1}^k$ covers most of the solution manifold {\edit to within} a small error. The set $\{v_i\}_{i=1}^k$ is denoted as the \emph{reduced basis} and its span as the \emph{reduced space}. Assuming that a $k$-dimensional $(k\ll n)$ reduced basis is given, the approximated solution can be represented as
 \begin{equation} \label{eq:MoOr:3}
 	\mathbf x \approx V \mathbf y,
 \end{equation}
-where $V$ is a matrix containing the reduced basis vectors as its columns and $\mathbf y$ is the coordinates of the approximation in this basis. By substituting (\ref{eq:MoOr:3}) into (\ref{eq:MoOr:1}) we obtain the overdetermined system
+where $V$ is a matrix containing the reduced basis vectors as its columns and $\mathbf y$ {\edit contains} the coordinates of the approximation in this basis. By substituting (\ref{eq:MoOr:3}) into (\ref{eq:MoOr:1}) we obtain the overdetermined system
 \begin{equation} \label{eq:MoOr:4}
 	V \frac{d}{dt} \mathbf y = \mathbf f (t , V \mathbf y , \omega) + \mathbf r(t,\omega).
 \end{equation}
-Here we added the residual $\mathbf r$ to emphasise that (\ref{eq:MoOr:4}) is an approximation of (\ref{eq:MoOr:1}). Taking the Petrov-Galerkin projection \cite{Antoulas:2005:ALD:1088857} we construct a basis $W$ of size $n-k$ that is orthogonal to the residual $\mathbf r$ and assume $W^T V$ is invertible. This yields
+Here we added the residual $\mathbf r$ to emphasize that (\ref{eq:MoOr:4}) is an approximation of (\ref{eq:MoOr:1}). Taking the Petrov-Galerkin projection \cite{Antoulas:2005:ALD:1088857} we construct a basis $W$ of size $n-k$ that is orthogonal to the residual $\mathbf r$ and {\edit requires that} $W^T V$ is invertible. This yields
 \begin{equation} \label{eq:MoOr:5}
 	\frac{d}{dt} \mathbf y = (W^TV)^{-1} \mathbf f(t,V\mathbf y,\omega).
 \end{equation}
-Equation (\ref{eq:MoOr:5}) consists of $k$ equations and is called the reduced system. Solving the reduced system instead of the original system can reduce the computational costs since $k$ is significantly smaller than $n$. For nonlinear systems, the evaluation of $\mathbf f$ may still have computational complexity that depends on $n$. We return to this question in detail in Section \ref{chap:MoOr.DEIM:1}.
+Equation (\ref{eq:MoOr:5}) consists of $k$ equations and is called the reduced system. Solving the reduced system instead of the original system can reduce the computational costs {\edit provided} $k$ is significantly smaller than $n$. For nonlinear systems, the evaluation of $\mathbf f$ may still have computational complexity that depends on $n$. We return to this question in detail in Section \ref{chap:MoOr.DEIM:1}.
 
 \subsection{Proper Orthogonal Decomposition} \label{chap:MoOr.PrOr:1}
-Let $\mathbf x (t_i,\omega_j)$ with $i=1,\dots,m$ and $j=1,\dots,n$ be a finite number of samples, referred to as \emph{snapshots}, from the solution manifold (\ref{eq:MoOr:2}). If we {\edit suppose} that a reduced basis $V$ is provided, the projection operator from $\mathbb R^n$ onto the reduced space can be constructed as $VV^T$. The proper orthogonal decomposition (POD) requires the total error of projecting all the snapshots onto the reduced space to be minimum. The POD basis of size $k$ is thus the solution of the optimization problem
+Let $\mathbf x (t_i,\omega_j)$ with $i=1,\dots,m$ and $j=1,\dots,n$ be a finite number of samples, referred to as \emph{snapshots}, from the solution manifold (\ref{eq:MoOr:2}). If we {\edit assume} that a reduced basis $V$ is provided, the projection operator from $\mathbb R^n$ onto the reduced space can be constructed as $VV^T$. The proper orthogonal decomposition (POD) requires the total error of projecting all the snapshots onto the reduced space to be {\edit minimized}. The POD basis of size $k$ is thus the solution to the optimization problem
 \begin{equation} \label{eq:MoOr:6}
 \begin{aligned}
 & \underset{V\in \mathbb R^{n\times k}}{\text{minimize}}
@@ -40,29 +40,29 @@ Let $\mathbf x (t_i,\omega_j)$ with $i=1,\dots,m$ and $j=1,\dots,n$ be a finite 
 & & V^TV = I_k
 \end{aligned}
 \end{equation}
-Here $S$ is the snapshot matrix, containing snapshots $\mathbf x(t_i,\omega_j)$ in its columns, $\|\cdot \|_F$ is the Frobenius norm of a matrix and $I_k$ is the identity matrix of size $k$. According to {\edit Schmidt-Mirsky-Eckart-Young theorem \cite{Markovsky:2011:LRA:2103589}}, the solution to the optimization (\ref{eq:MoOr:6}) is equivalent to the truncated singular value decomposition (SVD) of the snapshot matrix $S$ given by
+Here $S$ is the snapshot matrix, containing snapshots $\mathbf x(t_i,\omega_j)$ in its columns, $\|\cdot \|_F$ is the Frobenius norm and $I_k$ is the identity matrix of size $k$. According to {\edit Schmidt-Mirsky-Eckart-Young theorem \cite{Markovsky:2011:LRA:2103589}}, the solution to (\ref{eq:MoOr:6}) is equivalent to the truncated singular value decomposition (SVD) of the snapshot matrix $S$ given by
 \begin{equation} \label{eq:MoOr:7}
 	V = \sigma_1 u_1 v^T_1 + \cdots + \sigma_k u_k v^T_k.
 \end{equation}
-Here $\sigma_i, u_i$ and $v_i$ are the singular values, left singular vectors and right singular vectors of $S$, respectively {\edit \cite{Markovsky:2011:LRA:2103589} }.
+Here $\sigma_i, u_i$ and $v_i$ are the singular values, the left singular vectors, and the right singular vectors of $S$, respectively {\edit \cite{Markovsky:2011:LRA:2103589} }.
 
 
 \subsection{Discrete Empirical Interpolation Method (DEIM)} \label{chap:MoOr.DEIM:1} \nocite{Chaturantabut:2010cz}
-In this section we {\edit discuss the efficiency} of evaluating nonlinearities when using projection based reduced model. Suppose that the right hand side function in (\ref{eq:MoOr:1}) is of the form $\mathbf f(t,\mathbf x , \omega) = L\mathbf x + \mathbf g(t,\mathbf x ,\omega)$, where $L\in \mathbb R^{n\times n}$ reflects the linear part, and $\mathbf g$ is a nonlinear function. Now suppose a $k$-dimensional reduced basis $V$ is provided. The reduced system takes the form
+In this section we {\edit discuss the efficiency} of evaluating nonlinearities {\edit in the context of} projection based reduced models. Suppose that the right hand side in (\ref{eq:MoOr:1}) is of the form $\mathbf f(t,\mathbf x , \omega) = L\mathbf x + \mathbf g(t,\mathbf x ,\omega)$, where $L\in \mathbb R^{n\times n}$ reflects the linear part, and $\mathbf g$ is a nonlinear function. Now {\edit assume that} a $k$-dimensional reduced basis $V$ is provided. The reduced system takes the form
 \begin{equation} \label{eq:MoOr:8}
 	\frac{d}{dt} \mathbf y = \underbrace{(WV)^{-1} L V}_{\tilde L} \mathbf{y} + \underbrace{(WV)^{-1} \mathbf g(t,V\mathbf y,\omega)}_{\tilde N (\mathbf y)}.
 \end{equation}
-Here, $\tilde L$ is a $k\times k$ matrix which can be computed before time integration of the reduced system. However, evaluation of $\tilde N (\mathbf y)$ has a complexity that depends on $n$, the size of the original system. Suppose that evaluation of $\mathbf g$ with $n$ components has complexity $\alpha(n)$, for some function $\alpha$. Then the complexity of evaluating $\tilde N(\mathbf y)$ is $\mathcal{O}(\alpha(n) + 4nk)$ which consists of 2 matrix-vector operations and the evaluation of the nonlinear function. This means that estimation of the nonlinear terms can be as expensive as solving the original system.
+Here, $\tilde L$ is a $k\times k$ matrix which can be computed before time integration of the reduced system. However, {\edit the} evaluation of $\tilde N (\mathbf y)$ has a complexity that depends on $n$, the size of the original system. Suppose that the evaluation of $\mathbf g$ with $n$ components has the complexity $\alpha(n)$, for some function $\alpha$. Then the complexity of evaluating $\tilde N(\mathbf y)$ is $\mathcal{O}(\alpha(n) + 4nk)$ which consists of 2 matrix-vector operations and the {\edit evaluation of the nonlinear function, i.e. the evaluation of the nonlinear terms can be as expensive as solving the original system.}
 
-{\edit To overcome this bottleneck we take an approach similar to section \ref{chap:MoOr.PrOr:1} \cite{Chaturantabut:2010cz,Barrault:2004kz}}. Assume that the manifold $\mathcal M_{\mathbf g} = \{ \mathbf g(t,\mathbf x , \omega)| t\in \mathbb R, \mathbf x \in \mathbb R , \omega \in \Gamma\}$ is of a low dimension and that $\mathbf g$ can be approximated by a linear subspace of dimension $m\ll n$, spanned by the basis $\{ u_1 , \dots , u_m \}$, i.e.
+{\edit To overcome this bottleneck we take an approach similar to that of Section \ref{chap:MoOr.PrOr:1} \cite{Chaturantabut:2010cz,Barrault:2004kz}}. Assume that the manifold $\mathcal M_{\mathbf g} = \{ \mathbf g(t,\mathbf x , \omega)| t\in \mathbb R, \mathbf x \in \mathbb R , \omega \in \Gamma\}$ is of a low dimension and that $\mathbf g$ can be approximated by a linear subspace of dimension $m\ll n$, spanned by the basis $\{ u_1 , \dots , u_m \}$, i.e.
 \begin{equation} \label{eq:MoOr:10}
 	\mathbf g(t,\mathbf x,\omega) \approx U \mathbf c(t,\mathbf x,\omega).
 \end{equation}
-Here $U$ contains basis vectors $u_i$ and $\mathbf c$ is the corresponding vector of coefficients. Now suppose $p_1,\dots,p_m$ are $m$ indices from $\{1,\dots,n\}$ and define an $n\times m$ matrix
+Here $U$ contains basis vectors $u_i$ and $\mathbf c$ is the vector of coefficients. Now suppose $p_1,\dots,p_m$ are $m$ indices from $\{1,\dots,n\}$ and define an $n\times m$ matrix
 \begin{equation} \label{eq:MoOr:11}
 	P = [e_{p_1},\dots,e_{p_m}],
 \end{equation}
-where $e_{p_i}$ is the $p_i$-th column of the identity matrix $I_n$. Hence, multiplying $P$ with $\mathbf g$ selects components $p_1,\dots,p_m$ of $\mathbf g$. If we assume that $P^TU$ is non-singular, the coefficient vector $\mathbf c$ can be uniquely determined from
+where $e_{p_i}$ is the $p_i$-th column of the identity matrix $I_n$. Multiplying $P$ with $\mathbf g$ selects components $p_1,\dots,p_m$ of $\mathbf g$. If we assume that $P^TU$ is non-singular, the coefficient vector $\mathbf c$ can be uniquely determined from
 \begin{equation} \label{eq:MoOr:12}
 	P^T \mathbf g = (P^TU)\mathbf c.
 \end{equation}
@@ -70,13 +70,13 @@ Finally the approximation of $\mathbf g$ is determined by
 \begin{equation} \label{eq:MoOr:13}
 	\mathbf g(t,\mathbf x,\omega) \approx U \mathbf c(t,\mathbf x,\omega) = U (P^TU)^{-1} P^T \mathbf g(t,\mathbf x,\omega),
 \end{equation}
-which is referred to as the \emph{Discrete Empirical Interpolation} (DEIM) approximation \cite{Chaturantabut:2010cz}. Applying DEIM on the reduced system (\ref{eq:MoOr:5}) yields
+which is referred to as the \emph{Discrete Empirical Interpolation} (DEIM) approximation \cite{Chaturantabut:2010cz}. Applying DEIM to the reduced system (\ref{eq:MoOr:5}) yields
 \begin{equation} \label{eq:MoOr:14}
 	\frac{d}{dt} \mathbf y = \tilde L \mathbf y + (WV)^{-1} U(P^TU)^{-1}P^T \mathbf g(t,V\mathbf y , \omega).
 \end{equation}
 Note that the matrix $(WV)^{-1} U(P^TU)^{-1}$ can be computed offline and since $\mathbf g$ is evaluated only at $m$ of its components, the evaluation of the nonlinear term in (\ref{eq:MoOr:14}) does not depend on $n$.
 
-{\edit To obtain the projection basis $U$, the POD can be applied to the \emph{nonlinear snapshots}. The nonlinear snapshots are the ensemble of samples of the nonlinear term $\mathbf g(t_i,\mathbf x, \omega_j)$ with $i=1,\dots,m$ and $j=1,\dots,n$}. There is no additional cost for computing the nonlinear snapshots, since they are generated when computing the trajectory snapshot matrix $S$. The interpolating indices $p_1,\dots,p_m$ can be constructed as follows. Given the projection basis $U = \{u_1,\dots,u_m\}$, the first interpolation index $p_1$ is chosen according to the component of $u_1$ with the largest magnitude. The rest of the interpolation indices, $p_2,\dots,p_m$ correspond to the component of the largest magnitude of the residual vector $\mathbf r = u_l - U \mathbf c$. It is shown in \cite{Chaturantabut:2010cz} that if the residual vector is a nonzero vector in each iteration then $P^TU$ is non-singular and (\ref{eq:MoOr:13}) is well defined. We summarize the algorithm of generating interpolating indices in Algorithm \ref{alg:MoOr:1}.
+{\edit To obtain the projection basis $U$, the POD can be applied to the ensemble of samples of the nonlinear term $\mathbf g(t_i,\mathbf x, \omega_j)$ with $i=1,\dots,m$ and $j=1,\dots,n$}. There is no additional cost {\edit associated with} computing the nonlinear snapshots, since they are generated when computing the trajectory snapshot matrix $S$. The interpolating indices $p_1,\dots,p_m$ can be constructed as follows. Given the projection basis $U = \{u_1,\dots,u_m\}$, the first interpolation index $p_1$ is chosen according to the component of $u_1$ with the largest magnitude. The rest of the interpolation indices, $p_2,\dots,p_m$ correspond to the component of the largest magnitude of the residual vector $\mathbf r = u_l - U \mathbf c$. It is shown in \cite{Chaturantabut:2010cz} that if the residual vector is a nonzero vector in each iteration then $P^TU$ is non-singular and (\ref{eq:MoOr:13}) is well defined. 
 
 \begin{algorithm} 
 \caption{Discrete Empirical Interpolation Method} \label{alg:MoOr:1}
@@ -98,11 +98,11 @@ Note that the matrix $(WV)^{-1} U(P^TU)^{-1}$ can be computed offline and since 
 \end{algorithm}
 
 
-{\edit Numerical solution of (\ref{eq:MoOr:8}) sometimes involve computation of the Jacobian of the nonlinear function $\mathbf g(t,\mathbf x, \omega)$ with respect to the reduced state variable $\mathbf y$}
+{\edit The numerical solution of (\ref{eq:MoOr:8}) may involve the computation of the Jacobian of the nonlinear function $\mathbf g(t,\mathbf x, \omega)$ with respect to the reduced state variable $\mathbf y$}
 \begin{equation} \label{eq:MoOr:9}
 	\edit \mathbf J_{\mathbf y}(\mathbf g) = (WV)^{-1} \mathbf J_{\mathbf x}(\mathbf g) V,
 \end{equation}
-{\edit where $\mathbf J_\alpha(\mathbf g)$ is the Jacobian matrix of $\mathbf g$ with respect to the variable $\alpha$.} The complexity of computing (\ref{eq:MoOr:9}) is $\mathcal{O}(\alpha(n) +2n^2k+2nk^2+2nk)$ comprising several matrix-vector multiplications and an evaluation of the Jacobian which depends on the size of the original system. Approximating the Jacobian in (\ref{eq:MoOr:9}) is usually both problem and discretization dependent. Very often the nonlinear function $\mathbf g$ is evaluated component-wise i.e.
+{\edit where $\mathbf J_\alpha(\mathbf g)$ is the Jacobian matrix of $\mathbf g$ with respect to the variable $\alpha$.} The complexity of (\ref{eq:MoOr:9}) is $\mathcal{O}(\alpha(n) +2n^2k+2nk^2+2nk)$, comprising several matrix-vector multiplications and an evaluation of the Jacobian which depends on the size of the original system. Approximating the Jacobian in (\ref{eq:MoOr:9}) is usually both problem and discretization dependent. Often the nonlinear function $\mathbf g$ is evaluated component-wise i.e.
 \begin{equation} \label{eq:MoOr:15}
 	\mathbf g(\mathbf x) =
 	\begin{pmatrix}
@@ -119,7 +119,7 @@ Note that the matrix $(WV)^{-1} U(P^TU)^{-1}$ can be computed offline and since 
 		g_n(x_n)
 	\end{pmatrix}.
 \end{equation}
-with $\mathbf x$ the configuration vector. In such cases the interpolating index matrix $P$ and the nonlinear function $\mathbf g$ commute, i.e.,
+In such cases the interpolating index matrix $P$ and the nonlinear function $\mathbf g$ commute, i.e.,
 \begin{equation} \label{eq:MoOr:16}
 	\tilde N(\mathbf y) \approx (WV)^{-1} U(P^TU)^{-1}P^T \mathbf g(V\mathbf y) = (WV)^{-1} U(P^TU)^{-1}\mathbf g(P^TV\mathbf y)
 \end{equation}
@@ -127,4 +127,4 @@ If we now take the Jacobian of the approximate function we recover
 \begin{equation}
 	\edit \mathbf J_{\mathbf y}(\mathbf g) = \underbrace{ (WV)^{-1} U(P^TU)^{-1} }_{k\times m} \underbrace{ \mathbf J_{\mathbf x}(\mathbf g(P^T V \mathbf y) ) }_{m\times m} \underbrace{P^T V}_{m\times k}.
 \end{equation}
-The matrix $(WV)^{-1} U(P^TU)^{-1}$ can be computed offline and the Jacobian is evaluated only at $m\times m$ components. Hence the overall complexity of computing the Jacobian is now independent of $n$. {\edit We refer the reader to \cite{Barrault:2004kz,Chaturantabut:2010cz} for more detail.}
+The matrix $(WV)^{-1} U(P^TU)^{-1}$ can be computed offline and the Jacobian is evaluated only for $m\times m$ components. Hence the overall complexity of computing the Jacobian is now independent of $n$. {\edit We refer the reader to \cite{Barrault:2004kz,Chaturantabut:2010cz} for more detail.}
