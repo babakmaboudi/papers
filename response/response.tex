@@ -4,6 +4,9 @@
 \newcommand{\breview}{\begin{quotation}\begin{bf}\noindent}
 \newcommand{\ereview}{\end{bf}\end{quotation}}
 \newcommand{\reviewbullet}[1]{\breview \begin{itemize}\item #1 \end{itemize}\ereview}
+
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+
 \begin{document}
 
 Dear Editor, \\[1cm]
@@ -21,7 +24,11 @@ Jan S. Hesthaven
 1. There is a global lack of rigour in the mathematical presentation: It starts with the very first two equations. If (1) is clear, the definition of M in the equation (2) is obscure: what is the role of the time? Is there a finite time horizon? Then in equation (3) what are the v\_i? are they made of snapshots as explained later? But then what is the role of the numerical discretisation ?
 \ereview
 
-We revised major parts of the background and the introduction of the manuscript and corrected the mathematical notations. The authors believe that the introduction of the solution manifold, equation (2), and the reduced basis, equation (3), is essential to the understanding of model reduction techniques. The role of time was missing from the definition and is now added. However, the generation of the reduced basis, v\_i, is discussed in detail in chapters 3 and 4.
+We revised major parts of the background and the introduction \todo{parts of the introduction and the background} of the manuscript and corrected the mathematical notations. The authors \todo{We believe that} believe that the introduction of the solution manifold, equation (2), and the reduced basis, equation (3), is\todo{are} essential to the understanding of \todo{the model reduction} model reduction techniques. 
+
+\todo[inline]{We believe that the introduction of the solution manifold, reduced basis and equations (2) and (3) are essential}
+
+The role of time was missing from the definition and is now added\todo{The role of time is added to ...}. However, the generation of the reduced basis, v\_i, is discussed in detail in chapters 3 and 4.
 
 \breview
 2. Similarly, in section 4, there are some notations used that are never defined (line 376 what do the assumptions on a and b mean?) All this lack of rigorous explanation (which contrasts with the heavy Hamiltonian formalism used in Section 3) makes the paper difficult to read and understand. 
