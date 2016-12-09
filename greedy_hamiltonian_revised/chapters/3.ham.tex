@@ -14,7 +14,7 @@ Let $\edit \mathcal M$ be a manifold and $\edit \Omega:\mathcal M \times \mathca
 \begin{equation} \label{eq:Hasy:2}
 	\dot z = X_H(z)
 \end{equation}
-and known as \emph{Hamilton's equation} \cite{Marsden:1999ck}. A fundamental feature of Hamiltonian systems is the conservation of the Hamiltonian along integral curves on $P$. To emphasize the importance of this property we recall {\edit \cite{Marsden:1999ck}}
+and known as \emph{Hamilton's equation} \cite{Marsden:1999ck}. A fundamental feature of Hamiltonian systems is the conservation of the Hamiltonian along integral curves on $\edit \mathcal M$. To emphasize the importance of this property we recall {\edit \cite{Marsden:1999ck}}
 
 \begin{theorem} \label{theorem:Hasy:1}
 Suppose that $X_H$ is a Hamiltonian vector field with the flow $\phi_t$ on a symplectic manifold $\mathcal M$. Then $H\circ \phi_t = H$.
@@ -36,7 +36,7 @@ For the case where the symplectic manifold is also a linear vector space, the pa
 
 {\edit
 \begin{theorem} \label{theorem:Hasy:1.1} \cite{Marsden:1999ck}
-If $V$ is a vector space then $\Omega$ is a constant form, that is $\Omega_z$ is independent of $z\in V$. 
+If $(V,\Omega)$ is a symplectic vector space then $\Omega$ is a constant form, that is $\Omega_z$ is independent of $z\in V$. 
 \end{theorem}
 \begin{theorem} \label{theorem:Hasy:1.2} \cite{Marsden:1999ck}
 If $(V,\Omega)$ is a finite-dimensional symplectic manifold then $V$ is even dimensional.
@@ -73,7 +73,7 @@ The classical inner product $\langle \cdot,\cdot \rangle:\mathbb R^{2n}\times \m
 
 {\edit 
 \begin{definition}  \cite{de2006symplectic}
-Suppose $(V,\Omega)$ is a finite dimensional symplectic vector space and $E\subset V$ is a subspace. Then the symplectic complement of $E$ inside $P$ is defined as
+Suppose $(V,\Omega)$ is a finite dimensional symplectic vector space and $E\subset V$ is a subspace. Then the symplectic complement of $E$ inside $V$ is defined as
 \[
 	E^{\perp} := \{ v\in V |\ \Omega(v,e) = 0,\ \forall e\in E \}
 \]
@@ -120,7 +120,7 @@ or, by introducing the canonical coordinates $\mathbf z = (\mathbf q^T, \mathbf 
 \end{theorem}
 }
 
-{\edit Let} us now introduce \emph{symplectic transformations}, i.e., mappings between symplectic manifolds which preserve the two-form $\Omega$. The accurate numerical treatment of Hamiltonian systems often requires preservation of the symmetry expressed in Theorem \ref{theorem:Hasy:1}. Symplectic transformations can be used to construct such symmetry preserving numerical methods. 
+{\edit Let} us now introduce \emph{symplectic transformations}, i.e., mappings between symplectic manifolds which preserve the 2-form $\Omega$. The accurate numerical treatment of Hamiltonian systems often requires preservation of the symmetry expressed in Theorem \ref{theorem:Hasy:1}. Symplectic transformations can be used to construct such symmetry preserving numerical methods. 
 
 {\edit
 \begin{definition}
