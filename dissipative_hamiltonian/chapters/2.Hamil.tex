@@ -1,11 +1,14 @@
 \section{Dissipative Hamiltonian Systems} \label{sec:2}
 In this section we first discuss Hamiltonian systems. Add more later
 
-\subsection{Hamiltonian Systems} Suppose that $(\mathbb{R}^{2n},\Omega)$ is a symplectic linear vector space, where $\mathbb{R}^{2n}$ is the configuration space and $\Omega:\mathbb{R}^{2n}\times \mathbb{R}^{2n} \to \mathbb R$ is a closed, skew-symmetric and non-degenerate 2-form on $\mathbb{R}^{2n}$. Given a smooth Hamiltonian function $H:\mathbb{R}^{2n}\to \mathbb R$, \emph{Hamilton}'s equations of evolution are given as
+\subsection{Hamiltonian Systems} Suppose that $(\mathbb{R}^{2n},\Omega)$ is a symplectic linear vector space, where $\mathbb{R}^{2n}$ is a configuration space and $\Omega:\mathbb{R}^{2n}\times \mathbb{R}^{2n} \to \mathbb R$ is a closed, skew-symmetric and non-degenerate 2-form on $\mathbb{R}^{2n}$. Given a smooth Hamiltonian function $H:\mathbb{R}^{2n}\to \mathbb R$, \emph{Hamilton}'s equations of evolution are given as
 \begin{equation} \label{eq:2.1}
-	\dot {\mathbf x} = \mathbb J_{2n} \nabla_{\mathbf x} H,
+	\begin{aligned}
+	\dot {\mathbf x}(t) &= \mathbb J_{2n} \nabla_{\mathbf x} H, \\
+	\mathbf x(0) &= \mathbf x_0
+	\end{aligned}
 \end{equation}
-where $\mathbf x\in\mathbb R^{2n}$ is the configuration coordinates and $\mathbb J$ is a $2n\times 2n$ matrix such that $\Omega(\mathbf x,\mathbf y) = \mathbf x^T \mathbb J_{2n} \mathbf y$ \cite{Marsden:2010:IMS:1965128}. One by using the \emph{Symplectic Gram-Schmidt} \cite{de2006symplectic} can construct a coordinate system in which $\mathbb J_{2n}$ takes the form
+where $\mathbf x\in\mathbb R^{2n}$ is the configuration coordinates and $\mathbb J_{2n}$ is a $2n\times 2n$ matrix such that $\Omega(\mathbf x,\mathbf y) = \mathbf x^T \mathbb J_{2n} \mathbf y$ \cite{Marsden:2010:IMS:1965128}. One by using the \emph{Symplectic Gram-Schmidt} \cite{de2006symplectic} can construct a coordinate system in which $\mathbb J_{2n}$ takes the form
 \begin{equation} \label{eq:2.2}
 	\mathbb{J}_{2n} = 
 	\begin{pmatrix}
@@ -18,11 +21,11 @@ where $I_n$ and $0_n$ are the identity matrix and the zero matrix of size $n$ re
 \cite{Marsden:2010:IMS:1965128} Consider the flow $\phi_t:\mathbb R\times \mathbb R^{2n} \to \mathbb R^{2n}$ of the Hamiltonian system (\ref{eq:2.1}). Then $H\circ \phi_t = H$.
 \end{theorem}
 
-In many physical problems $H$ represents the system energy and is bounded below. Here, we mostly assume that $H$ takes the form $H(\mathbf x) = \frac 1 2 \mathbf x^T K^T K \mathbf x$, where $K$ is a full rank $2n\times 2n$ matrix. This assumption leads to a linear system of evolution (\ref{eq:2.1}). Note that the Hamiltonian extension in section \ref{} and the model reduction for dissipative Hamiltonian systems in section \ref{} can be naturally extended to Hamiltonians of the form $H(\mathbf x) = \frac 1 2 \mathbf x^T K^T K \mathbf x + g(\mathbf x)$, where $g:\mathbb R^{2n} \to \mathbb R$ is arbitrary function of $\mathbf x$. 
+In many physical problems $H$ represents the system energy and is bounded below. Here, we mostly assume that $H$ is a quadratic Hamiltonian, i.e., it takes the form $H(\mathbf x) = \frac 1 2 \mathbf x^T K^T K \mathbf x$, where $K$ is a full rank $2n\times 2n$ matrix. This assumption leads to a linear system of evolution (\ref{eq:2.1}). Note that the Hamiltonian extension in section \ref{} and the model reduction for dissipative Hamiltonian systems in section \ref{} can be naturally extended to Hamiltonians of the form $H(\mathbf x) = \frac 1 2 \mathbf x^T K^T K \mathbf x + g(\mathbf x)$, where $g:\mathbb R^{2n} \to \mathbb R$ is an arbitrary function of $\mathbf x$. 
 
 It is natural to expect a numerical integrator that solves (\ref{eq:2.1}) to also satisfy the conservation law \ref{theorem:2.1}. Common numerical integrators, e.g. the Runge-Kutta methos, do not generally preserve the Hamiltonian. Symplectic numerical integrators are a class of numerical integrators for Hamiltonian systems that preserves the symplectic structure and ensure stability in long-time integration. The Str\:omer-Verlet time stepping scheme is an example of such numerical integrators and is given by
 
-\begin{equation} \label{eq:2.2}
+\begin{equation} \label{eq:2.3}
 \begin{aligned}
 	p_{n+1/2} &= p_n - \frac{\Delta t}{2} \nabla_qH(q_{n},p_{n+1/2}), \\
 	q_{n+1} &= q_n + \frac{\Delta t}{2} \left( \nabla_pH(q_{n},p_{n+1/2}) + \nabla_pH(q_{n+1},p_{n+1/2}) \right),\\
@@ -32,3 +35,30 @@ It is natural to expect a numerical integrator that solves (\ref{eq:2.1}) to als
 More information on construction and application of symplectic integrators can be found in \cite{Hairer:1250576}.
 
 \subsection{Dissipative Hamiltonian Systems and Hamiltonian Extensions}
+
+Many systems in engineering and physic appear as a perturbation of a Hamiltonian system, where the perturbation is regarded as dissipation. In these systems, the energy tends to decrease over time evolution, and the conservation law in Theorem \ref{theorem:2.1} does not hold anymore. Therefore, it is common to take the conservation of energy as a fundamental principle and consider the dissipative system coupled with a heat bath that absorbs the dissipated energy of the original system. 
+
+To account dissipation for a quadratic Hamiltonian $H(\mathbf x) = \frac 1 2 \mathbf x^T K^T K \mathbf x$, we rewrite (\ref{eq:2.1}) as a time dispersive and dissipative (TDD) \cite{Figotin:2006jy} system 
+\begin{equation} \label{eq:2.4}
+	\begin{aligned}
+		& \dot {\mathbf x} = \mathbb J_{2n} K^T f(t), \\
+		& f(t) + \int_0^t \chi(t-s) \cdot f(s)\ ds = K\mathbf x,
+	\end{aligned}
+\end{equation}
+with the initial condition $\mathbf x(0) = \mathbf x_0$. Here $\chi:\mathbb R^+\to \mathbb R^{2n\times 2n}$ is a bounded and symmetric matrix valued function with respect to the Frobenius norm and is called the \emph{general susceptibility}. Note that integral term in (\ref{eq:2.3}) corresponds to the dissipation, whereas if $\chi(s) = 0$ then (\ref{eq:2.3}) is equivalent to (\ref{eq:2.1}). Note that under suitable assumptions on $K$, both the systems (\ref{eq:2.1}) and (\ref{eq:2.3}) are well-posed \cite{Figotin:2006jy}.
+
+\begin{example}
+Consider the dynamics of the damped harmonic oscillator
+\begin{equation} \label{eq:2.5}
+	\ddot q + r \dot q + k q = 0
+\end{equation}
+where $k$ is the Hooke's constant and $r$ is the spring's damping factor. Note that without a damping term, (\ref{eq:2.5}) is a Hamiltonian system. The TDD formulation for the damped harmonic oscillator takes the form
+\begin{equation}
+	\begin{aligned}
+		& \dot q(t) = f(t), \\
+		& \dot p(t) = - k q(t), \\
+		& f(t) + \int_0^t r f(s) \ ds = p(t).
+	\end{aligned}
+\end{equation}
+\end{example}
+Here the susceptibility is the constant function $r$.
