@@ -4,11 +4,11 @@ In this section we first discuss Hamiltonian systems. Add more later
 \subsection{Hamiltonian Systems} Suppose that $(\mathbb{R}^{2n},\Omega)$ is a symplectic linear vector space, where $\mathbb{R}^{2n}$ is a configuration space and $\Omega:\mathbb{R}^{2n}\times \mathbb{R}^{2n} \to \mathbb R$ is a closed, skew-symmetric and non-degenerate 2-form on $\mathbb{R}^{2n}$. Given a smooth Hamiltonian function $H:\mathbb{R}^{2n}\to \mathbb R$, \emph{Hamilton}'s equations of evolution are given as
 \begin{equation} \label{eq:2.1}
 	\begin{aligned}
-	\dot {\mathbf x}(t) &= \mathbb J_{2n} \nabla_{\mathbf x} H, \\
-	\mathbf x(0) &= \mathbf x_0
+	\dot {z}(t) &= \mathbb J_{2n} \nabla_{z} H, \\
+	z(0) &= z_0,
 	\end{aligned}
 \end{equation}
-where $\mathbf x\in\mathbb R^{2n}$ is the configuration coordinates and $\mathbb J_{2n}$ is a $2n\times 2n$ matrix such that $\Omega(\mathbf x,\mathbf y) = \mathbf x^T \mathbb J_{2n} \mathbf y$ \cite{Marsden:2010:IMS:1965128}. One by using the \emph{Symplectic Gram-Schmidt} \cite{de2006symplectic} can construct a coordinate system in which $\mathbb J_{2n}$ takes the form
+where $z \in\mathbb R^{2n}$ is the configuration coordinates and $\mathbb J_{2n}$ is a $2n\times 2n$ matrix such that $\Omega(x,y) = x^T \mathbb J_{2n} y$ \cite{Marsden:2010:IMS:1965128}. One by using the \emph{Symplectic Gram-Schmidt} \cite{de2006symplectic} can construct a coordinate system in which $\mathbb J_{2n}$ takes the form
 \begin{equation} \label{eq:2.2}
 	\mathbb{J}_{2n} = 
 	\begin{pmatrix}
@@ -21,7 +21,7 @@ where $I_n$ and $0_n$ are the identity matrix and the zero matrix of size $n$ re
 \cite{Marsden:2010:IMS:1965128} Consider the flow $\phi_t:\mathbb R\times \mathbb R^{2n} \to \mathbb R^{2n}$ of the Hamiltonian system (\ref{eq:2.1}). Then $H\circ \phi_t = H$.
 \end{theorem}
 
-In many physical problems $H$ represents the system energy and is bounded below. Here, we mostly assume that $H$ is a quadratic Hamiltonian, i.e., it takes the form $H(\mathbf x) = \frac 1 2 \mathbf x^T K^T K \mathbf x$, where $K$ is a full rank $2n\times 2n$ matrix. This assumption leads to a linear system of evolution (\ref{eq:2.1}). Note that the Hamiltonian extension in section \ref{} and the model reduction for dissipative Hamiltonian systems in section \ref{} can be naturally extended to Hamiltonians of the form $H(\mathbf x) = \frac 1 2 \mathbf x^T K^T K \mathbf x + g(\mathbf x)$, where $g:\mathbb R^{2n} \to \mathbb R$ is an arbitrary function of $\mathbf x$. 
+In many physical problems $H$ represents the system energy and is bounded below. Here, we mostly assume that $H$ is a quadratic Hamiltonian, i.e., it takes the form $H(z) = \frac 1 2 z^T K^T K z$, where $K$ is a full rank $2n\times 2n$ matrix. This assumption leads to a linear system of evolution (\ref{eq:2.1}). Note that the Hamiltonian extension in section \ref{} and the model reduction for dissipative Hamiltonian systems in section \ref{} can be naturally extended to Hamiltonians of the form $H(z) = \frac 1 2 z^T K^T K z + g(z)$, where $g:\mathbb R^{2n} \to \mathbb R$ is an arbitrary function of $z$. 
 
 It is natural to expect a numerical integrator that solves (\ref{eq:2.1}) to also satisfy the conservation law \ref{theorem:2.1}. Common numerical integrators, e.g. the Runge-Kutta methos, do not generally preserve the Hamiltonian. Symplectic numerical integrators are a class of numerical integrators for Hamiltonian systems that preserves the symplectic structure and ensure stability in long-time integration. The Str\:omer-Verlet time stepping scheme is an example of such numerical integrators and is given by
 
@@ -29,23 +29,27 @@ It is natural to expect a numerical integrator that solves (\ref{eq:2.1}) to als
 \begin{aligned}
 	p_{n+1/2} &= p_n - \frac{\Delta t}{2} \nabla_qH(q_{n},p_{n+1/2}), \\
 	q_{n+1} &= q_n + \frac{\Delta t}{2} \left( \nabla_pH(q_{n},p_{n+1/2}) + \nabla_pH(q_{n+1},p_{n+1/2}) \right),\\
-	p_{n+1} &= p_{n+1/2} - \frac{\Delta t}{2} \nabla_qH(q_{n+1},p_{n+1/2}).
+	p_{n+1} &= p_{n+1/2} - \frac{\Delta t}{2} \nabla_qH(q_{n+1},p_{n+1/2}),
 \end{aligned}
 \end{equation}
-More information on construction and application of symplectic integrators can be found in \cite{Hairer:1250576}.
+where $p$ and $q$ are the canonical coordinates. More information on construction and application of symplectic integrators can be found in \cite{Hairer:1250576}.
 
 \subsection{Dissipative Hamiltonian Systems and Hamiltonian Extensions}
 
 Many systems in engineering and physic appear as a perturbation of a Hamiltonian system, where the perturbation is regarded as dissipation. In these systems, the energy tends to decrease over time evolution, and the conservation law in Theorem \ref{theorem:2.1} does not hold anymore. Therefore, it is common to take the conservation of energy as a fundamental principle and consider the dissipative system coupled with a heat bath that absorbs the dissipated energy of the original system. 
 
-To account dissipation for a quadratic Hamiltonian $H(\mathbf x) = \frac 1 2 \mathbf x^T K^T K \mathbf x$, we rewrite (\ref{eq:2.1}) as a time dispersive and dissipative (TDD) \cite{Figotin:2006jy} system 
+To account dissipation for a quadratic Hamiltonian $H(z) = \frac 1 2 z^T K^T K  z$, we rewrite (\ref{eq:2.1}) as a time dispersive and dissipative (TDD) \cite{Figotin:2006jy} system 
 \begin{equation} \label{eq:2.4}
 	\begin{aligned}
-		& \dot {\mathbf x} = \mathbb J_{2n} K^T f(t), \\
-		& f(t) + \int_0^t \chi(t-s) \cdot f(s)\ ds = K\mathbf x,
+		& \dot {z} = \mathbb J_{2n} K^T f(t), \\
+		& z(0) = z_0,
 	\end{aligned}
 \end{equation}
-with the initial condition $\mathbf x(0) = \mathbf x_0$. Here $\chi:\mathbb R^+\to \mathbb R^{2n\times 2n}$ is a bounded and symmetric matrix valued function with respect to the Frobenius norm and is called the \emph{general susceptibility}. Note that integral term in (\ref{eq:2.3}) corresponds to the dissipation, whereas if $\chi(s) = 0$ then (\ref{eq:2.3}) is equivalent to (\ref{eq:2.1}). Note that under suitable assumptions on $K$, both the systems (\ref{eq:2.1}) and (\ref{eq:2.3}) are well-posed \cite{Figotin:2006jy}.
+where $f$ is the solution to the integral equation
+\begin{equation} \label{eq:2.4.1}
+	f(t) + \int_0^t \chi(t-s) \cdot f(s)\ ds = K z.
+\end{equation}
+Here $\chi:\mathbb R^+\to \mathbb R^{2n\times 2n}$ is a bounded and symmetric matrix valued function with respect to the Frobenius norm and is called the \emph{general susceptibility}. Note that integral term in (\ref{eq:2.4.1}) corresponds to the dissipation, whereas if $\chi(s) = 0$ then (\ref{eq:2.3}) is equivalent to (\ref{eq:2.1}). Note that under suitable assumptions on $K$, both the systems (\ref{eq:2.1}) and (\ref{eq:2.4}) are well-posed \cite{Figotin:2006jy}.
 
 \begin{example}
 Consider the dynamics of the damped harmonic oscillator
@@ -53,12 +57,49 @@ Consider the dynamics of the damped harmonic oscillator
 	\ddot q + r \dot q + k q = 0
 \end{equation}
 where $k$ is the Hooke's constant and $r$ is the spring's damping factor. Note that without a damping term, (\ref{eq:2.5}) is a Hamiltonian system. The TDD formulation for the damped harmonic oscillator takes the form
-\begin{equation}
-	\begin{aligned}
-		& \dot q(t) = f(t), \\
-		& \dot p(t) = - k q(t), \\
-		& f(t) + \int_0^t r f(s) \ ds = p(t).
-	\end{aligned}
+\begin{equation} \label{eq:2.6}
+	\dot q(t) = f(t), \quad \dot p(t) = - k q(t), \quad f(t) + \int_0^t r f(s) \ ds = p(t).
 \end{equation}
+Here $(q,p)$ are the canonical coordinates and the susceptibility is the constant function $r$.
 \end{example}
-Here the susceptibility is the constant function $r$.
+
+It is shown in \cite{Figotin:2006jy,Figotin:2005} that under natural assumptions on a linear susceptibility $\chi(t)$ (see below), one can couple a TDD system of the form (\ref{eq:2.4}) with a canonical heat bath where the dissipated energy is captured in the heat bath in a canonical sense. In other words, one can construct a Hilbert space $\mathcal H$ and an isometric injection $I:\mathbb R^{2n} \to \mathbb R^{2n}\times \mathcal H$ where the solution $z$ to (\ref{eq:2.4}) is the projection of $x$ onto $\mathbb R^{2n}$, where $x$ is the solution to
+\begin{equation} \label{eq:2.7}
+	\frac{d}{dt} x = J \frac{\delta h}{\delta x}.
+\end{equation}
+Here $J$ is the symplastic operator and $h:\mathbb R^{2n}\times \mathcal H \to \mathbb R$ is an extended quadratic Hamiltonian function defined on $\mathbb R^{2n}\times \mathcal H$.
+
+\begin{theorem}
+Suppose that $K$ is full ranked and $\chi(t)$ is symmetric. There exists a quadratic extension of the form (\ref{eq:2.8}) to (\ref{eq:2.4}), if
+\begin{equation} \label{eq:2.8}
+	\text{Im}(\xi\hat{\chi}(\xi)) \geq 0, \quad \forall \xi = \omega + i\eta, \ \eta \geq 0,
+\end{equation}
+where $\hat{\chi}$ is the Fourier-Laplace transform of $\chi$
+\begin{equation} \label{eq:2.9}
+	\hat{\chi}(\xi) = \int_0^\infty e^{i\xi t} \chi(t)\ dt.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Here we prove the theorem for the case where $\chi$ is a constant symmetric matrix, where condition (\ref{eq:2.8}) corresponds to $\chi$ being positive semi-definite. We refer the reader to \cite{Figotin:2006jy} for the proof of the general case. Consider the Hamiltonian system
+\begin{subequations}
+\begin{align}
+		\label{eq:2.10.a} & \dot{z}(t) = \mathbb J_{2n} K^T f(t), \\
+		\label{eq:2.10.b} & \partial_t \theta(t,x) = \partial_x^2 \phi(t,x) + \sqrt 2 \delta_0(x) \cdot \sqrt{\chi}  f(t), \\
+		\label{eq:2.10.c} & \partial_t \phi(t,x) = \theta(t,x),
+\end{align}
+\end{subequations}
+together with the initial condition
+\begin{equation} \label{eq:2.10.1}
+	z(0) = z_0,\quad \theta(0,\cdot) = 0, \quad \phi(0,\cdot) = 0.
+\end{equation}
+Here $\theta$ and $\phi$ are vector valued functions with $2n$ entries, $\delta_0(s)$ is the Dirac's delta function, $\sqrt{ \chi}$ is the matrix square root of $\chi$ and $f$ is the solution to the equation
+\begin{equation} \label{eq:2.11}
+	f(t) + \sqrt{2} \cdot \sqrt{ \chi } \phi(t,0) = Kz(t).
+\end{equation}
+To show that the Hamiltonian system (\ref{eq:2.10.a}) to (\ref{eq:2.10.c}) is an extension to (\ref{eq:2.4}) in the sense discussed before, it is enough to show that the solution $f$ to the equation (\ref{eq:2.11}) also satisfies (\ref{eq:2.4.1}). Equations (\ref{eq:2.10.b}) and (\ref{eq:2.10.c}) is a forced wave, with the analytical solution
+\begin{equation} \label{eq:2.12}
+	\phi(t,x) = \frac {\sqrt 2} 2 \int_0^{t-|x|} \sqrt{\chi} f(s)\ ds,\quad \theta(t,x) = \frac{\sqrt 2}{2} \cdot \sqrt{\chi} f(t - |x|).
+\end{equation}
+\end{proof}
+We can recover (\ref{eq:2.4.1}) by substituting (\ref{eq:2.12}) into (\ref{eq:2.11}). {!!! mention Hamiltonian of the extended Hamiltonian system !!!} 
