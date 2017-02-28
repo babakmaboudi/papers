@@ -21,9 +21,23 @@ where $I_n$ and $0_n$ are the identity matrix and the zero matrix of size $n$ re
 \cite{Marsden:2010:IMS:1965128} Consider the flow $\phi_t:\mathbb R\times \mathbb R^{2n} \to \mathbb R^{2n}$ of the Hamiltonian system (\ref{eq:2.1}). Then $H\circ \phi_t = H$.
 \end{theorem}
 
-In many physical problems $H$ represents the system energy and is bounded below. Here, we mostly assume that $H$ is a quadratic Hamiltonian, i.e., it takes the form $H(z) = \frac 1 2 z^T K^T K z$, where $K$ is a full rank $2n\times 2n$ matrix. This assumption leads to a linear system of evolution (\ref{eq:2.1}). Note that the Hamiltonian extension in section \ref{} and the model reduction for dissipative Hamiltonian systems in section \ref{} can be naturally extended to Hamiltonians of the form $H(z) = \frac 1 2 z^T K^T K z + g(z)$, where $g:\mathbb R^{2n} \to \mathbb R$ is an arbitrary function of $z$. 
+In many physical problems $H$ represents the system energy and is bounded below. Here, we mostly assume that $H$ is a quadratic Hamiltonian, i.e., it takes the form $H(z) = \frac 1 2 z^T K^T K z$, where $K$ is a full rank $2n\times 2n$ matrix. This assumption leads to a linear system of evolution (\ref{eq:2.1}). Note that the Hamiltonian extension in section ?? and the model reduction for dissipative Hamiltonian systems in section ?? can be naturally extended to Hamiltonians of the form $H(z) = \frac 1 2 z^T K^T K z + g(z)$, where $g:\mathbb R^{2n} \to \mathbb R$ is an arbitrary function of $z$. 
 
-It is natural to expect a numerical integrator that solves (\ref{eq:2.1}) to also satisfy the conservation law \ref{theorem:2.1}. Common numerical integrators, e.g. the Runge-Kutta methos, do not generally preserve the Hamiltonian. Symplectic numerical integrators are a class of numerical integrators for Hamiltonian systems that preserves the symplectic structure and ensure stability in long-time integration. The Str\:omer-Verlet time stepping scheme is an example of such numerical integrators and is given by
+Under general coordinate changes, equations of evolution do not necessarily take the form of (\ref{eq:2.1}). Let $(\mathbb R^{2n},\Omega)$ and $(\mathbb R^{2k},\Lambda)$ be two symplectic linear vector spaces. A linear transformation $\alpha :\mathbb R^{2n} \to \mathbb R^{2k}$ is called a \emph{symplectic transformation} \cite{Marsden:2010:IMS:1965128} if
+\begin{equation}
+	\Omega(x,y) = \Lambda(\alpha(x),\alpha(y)), \quad \text{for all } x,y\in \mathbb R^{2n}.
+\end{equation}
+Alternatively in matrix notation, $A\in \mathbb R^{2n\times 2k}$ is called a \emph{symplectic matrix} if
+\begin{equation}
+	A^T \mathbb{J}_{2n} A = \mathbb{J}_{2k},
+\end{equation}
+where the superscript $T$ represents transpose operator. As the symplectic 2-form is preserved under symplectic transformations, the form of the equations of evolution remains invariant \cite{Marsden:2010:IMS:1965128}. The \emph{symplectic inverse} of $A$, is a form of pseudo-inverse given by
+\begin{equation}
+	A^+ = \mathbb{\mathbb J}_{2k}^T A^T \mathbb J_{2n}.
+\end{equation}
+It is shown in \cite{Peng:2014di} that $A^+A = I_{2k}$ and that $(A^+)^T$ is a symplectic matrix. Further, one can easily check that $AA^+$ is idempotent and so is a projection operator onto the column span of $A$. 
+
+It is natural to expect a numerical integrator that solves (\ref{eq:2.1}) to also satisfy the conservation law in theorem \ref{theorem:2.1}. Common numerical integrators, e.g. the Runge-Kutta methos, do not generally preserve the Hamiltonian. Symplectic numerical integrators are a class of numerical integrators for Hamiltonian systems that preserves the symplectic structure and ensure stability in long-time integration. The Str\"omer-Verlet time stepping scheme is an example of such numerical integrators and is given by
 
 \begin{equation} \label{eq:2.3}
 \begin{aligned}
@@ -49,9 +63,9 @@ where $f$ is the solution to the integral equation
 \begin{equation} \label{eq:2.4.1}
 	f(t) + \int_0^t \chi(t-s) \cdot f(s)\ ds = K z.
 \end{equation}
-Here $\chi:\mathbb R^+\to \mathbb R^{2n\times 2n}$ is a bounded and symmetric matrix valued function with respect to the Frobenius norm and is called the \emph{general susceptibility}. Note that integral term in (\ref{eq:2.4.1}) corresponds to the dissipation, whereas if $\chi(s) = 0$ then (\ref{eq:2.3}) is equivalent to (\ref{eq:2.1}). Note that under suitable assumptions on $K$, both the systems (\ref{eq:2.1}) and (\ref{eq:2.4}) are well-posed \cite{Figotin:2006jy}.
+Here $\chi:\mathbb R^+\to \mathbb R^{2n\times 2n}$ is a bounded matrix valued function with respect to the Frobenius norm and is called the \emph{general susceptibility}. Note that integral term in (\ref{eq:2.4.1}) corresponds to the dissipation, whereas if $\chi(s) = 0$ then (\ref{eq:2.3}) is equivalent to (\ref{eq:2.1}). Note that under suitable assumptions on $K$, both the systems (\ref{eq:2.1}) and (\ref{eq:2.4}) are well-posed \cite{Figotin:2006jy}.
 
-\begin{example}
+\begin{example} \label{example:2.1}
 Consider the dynamics of the damped harmonic oscillator
 \begin{equation} \label{eq:2.5}
 	\ddot q + r \dot q + k q = 0
@@ -102,4 +116,10 @@ To show that the Hamiltonian system (\ref{eq:2.10.a}) to (\ref{eq:2.10.c}) is an
 	\phi(t,x) = \frac {\sqrt 2} 2 \int_0^{t-|x|} \sqrt{\chi} f(s)\ ds,\quad \theta(t,x) = \frac{\sqrt 2}{2} \cdot \sqrt{\chi} f(t - |x|).
 \end{equation}
 \end{proof}
-We can recover (\ref{eq:2.4.1}) by substituting (\ref{eq:2.12}) into (\ref{eq:2.11}). {!!! mention Hamiltonian of the extended Hamiltonian system !!!} 
+We can recover (\ref{eq:2.4.1}) by substituting (\ref{eq:2.12}) into (\ref{eq:2.11}). The extended Hamiltonian for the system (\ref{eq:2.10.a}) to (\ref{eq:2.10.c}) takes the quadratic from
+\begin{equation}
+	\tilde h(z,\phi,\theta) = \frac 1 2 \left( \| Kz - \phi(t,0) \|_2^2 + \| \theta(t) \|^2_{\mathcal H } + \| \partial_x\phi(t)\|^2_{\mathcal H }\right)
+\end{equation}
+where $\| \cdot \|_2$ is the Euclidean norm on $\mathbb R^{2n}$ and $\| \cdot \|_{\mathcal H}$ is the induced norm from the inner product on $\mathcal H$. 
+
+Equations (\ref{eq:2.10.a}) and (\ref{eq:2.10.c}) are called the \emph{hidden strings}. The dissipation of energy in the original system (\ref{eq:2.4}) is carried away, as vibrations, along the added strings which makes the extended system conservative. Hamiltonian extension of the damped harmonic oscillator in Example \ref{example:2.1} is exactly the Lamb model \cite{lamb:1900}. The Lamb model is a harmonic oscillator coupled with a vibrating string, and the tension in the string causes linear dissipation in the dynamics of the harmonic oscillator.
