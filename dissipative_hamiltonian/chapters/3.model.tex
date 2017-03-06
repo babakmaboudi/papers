@@ -1,0 +1,114 @@
+\section{Model Order Reduction}
+In this section we first explain the main results of \cite{Peng:2014di} regarding model reduction of Hamiltonian systems. In section ?? we introduce the model reduction of dissipative Hamiltonian systems.
+
+\subsection{Symplectic Model Order Reduction}
+Consider a Hamiltonian system of the form (\ref{eq:2.1}) together with a quadratic Hamiltonian of the form $H(z) = \frac 1 2 z^T K^T K z$. In this paper we focus on reducing the complexity of numerical evaluation of (\ref{eq:2.1}) with respect to time $t$. Nevertheless, one can naturally extend the results of this paper to a Hamiltonian system that depends on a set of physical or geometrical parameters belonging to a compact subset of a Euclidean space.
+
+The main idea behind model order reduction is that the manifold, $\mathcal M = \{ z(t) : t \in [0,T] \}$ can be approximated by a low dimensional symplectic linear subspace \cite{hesthaven2015certified,quarteroni2015reduced}. A basis for such a subspace is called a \emph{reduced basis}, and its span is referred to as the \emph{reduced space} \cite{hesthaven2015certified}.
+
+Suppose that a reduced symplectic basis $A \in \mathbb R^{2n\times 2k}$ is provided with $k \ll n$. The approximated solution to (\ref{eq:2.1}) in this basis is given by
+\begin{equation} \label{eq:3.1}
+	z =Ay,
+\end{equation}
+where $y\in \mathbb R^{2k}$ is the coordinates of the approximation with respect to the basis $A$. Substituting (\ref{eq:3.1}) into (\ref{eq:2.1}) yields
+\begin{equation} \label{eq:3.2}
+	A \dot y = \mathbb{J}_{2n} \nabla_{z} H(A y).
+\end{equation}
+Multiplying both sides with the symplectic inverse of $A$ and using the chain rule we obtain
+\begin{equation} \label{eq:3.3}
+	\dot y = A^+ \mathbb{J}_{2n} (A^+)^T \nabla_{y} H(A y).
+\end{equation}
+As $(A^+)^T$ is a symplectic matrix it yields that $A^+ \mathbb{J}_{2n} (A^+)^T = \mathbb{J}_{2k}$. By defining the reduced Hamiltonian $\tilde H : \mathbb{R}^{2k} \to \mathbb R$, defined as $\tilde H (y) = H(Ay)$, we obtain the reduced system
+\begin{equation} \label{eq:3.4}
+	\begin{aligned}
+	\dot {y}(t) &= \mathbb J_{2k} \nabla_{y} \tilde H, \\
+	y(0) &= A^+ z_0,
+	\end{aligned}
+\end{equation}
+Equation (\ref{eq:3.4}) is called the \emph{symplectic Galerkin projection} \cite{Peng:2014di} of the Hamiltonian system (\ref{eq:2.1}). Conventional model reduction routines, e.g. Galerkin or Petrov-Galerkin methods \cite{hesthaven2015certified,quarteroni2015reduced}, do not yield a Hamiltonian reduced system. Hence, the reduced system does not necessarily preserve the conservation law in theorem \ref{theorem:2.1}. This results in a qualitatively wrong and often unstable solution for the reduced system {\color{red} put reference here}. On the other hand the reduced system obtained by the symplectic Galerkin projection, is a Hamiltonian system, therefore system energy is preserved over time integration \cite{Peng:2014di}. 
+
+\begin{definition}
+\cite{bhatia2002stability} {\color{red} discuss stability}.
+\end{definition}
+
+In the next section we introduced the Proper Symplastic Decomposition to construct a symplectic reduced basis.
+
+\subsection{Proper Symplectic Decomposition (PSD)} Consider the set $S = \{z(t_i)| t_i\in[0,T],\ i=1,\dots,N\}$, of samples of the solution to (\ref{eq:2.1}), referred to as the \emph{snapshots}. The PSD, requires a symplectic basis $A$ of size $2k$ to have the minimum symplectic projection error onto the space space of $S$ . In other words, a PSD symplectic basis is the solution to the optimization problem
+\begin{equation} \label{eq:3.4}
+	\begin{aligned}
+	& \underset{A \in \mathbb R^{2n\times 2k}}{\text{minimize}, }
+	& & \sum_{s\in S} \| s - AA^+s\|_2^2, \\
+	& \text{subject to}
+	& & A^T \mathbb{J}_{2n}A = \mathbb{J}_{2k}.
+	\end{aligned}
+\end{equation}
+
+The Proper Orthogonal Decomposition (POD) \cite{hesthaven2015certified,quarteroni2015reduced} method, is based on a similar idea where the projection operator is an orthogonal projection and the constrain requires $A$ to be an ortho-normal basis. For the POD, the Schmidt-Mirsky-Eckart-Young theorem \cite{Markovsky:2011:LRA:2103589} provides a computationally efficient solution to the minimization problem which requires the SVD decomposition of the snapshot matrix $S$. As the direct solution to (\ref{eq:3.4}) is usually expensive, we must seek alternative methods to obtain near optimal solutions.
+
+A heuristic approach to find a solution to (\ref{eq:3.4}) is proposed by \cite{Peng:2014di}, suggesting that the symplectic basis $A$ should take the form
+\begin{equation} \label{eq:3.5}
+	A = 
+	\begin{pmatrix}
+		\Phi & 0 \\
+		0 & \Phi
+	\end{pmatrix},
+\end{equation}
+where $\Phi \in \mathbb{R}^{n\times k}$ is an orthonormal matrix. By constructing the \emph{combined snapshot matrix}
+\begin{equation} \label{eq:3.6}
+	S_{\text{combined}} = [q_1,\dots,q_N,p_1,\dots,p_N], \quad (q_i^T,p_i^T)^T = z(t_i),
+\end{equation}
+we define $\Phi=[u_1,\dots,u_k]$, where $u_i$ is the $i$-th left singular vector of $S_{\text{combined}}$. The symplectic basis obtained this way is referred to as the \emph{Cotangent Lift}. It is shown in \cite{Peng:2014di} that among all symplectic bases of the form (\ref{eq:3.5}) the cotangent lift minimizes the projection error. 
+
+\subsection{Model Reduction of Dissipative Hamiltonian Systems}
+
+The fundamental dynamics of a dissipative Hamiltonian systems are based on a Hamiltonian formulation. Thus, over the course of model reduction, we expect that the evolution of energy is not correctly translated to the reduce system. This is especially expected in a near-zero dissipation regime.
+
+On the other hand, as the conservation law in theorem \ref{theorem:2.1} does not hold for a general dissipative Hamiltonian system, the symplectic model reduction discussed in section \ref{} cannot be applied directly. Therefore, we need to seek alternative methods to transfer the correct evolution of energy into the reduced system.
+
+Consider an extended Hamiltonian system of the form (\ref{eq:2.10.a}) with a quadratic Hamiltonian, $H(z) = z^TK^TKz$. Since $K^TK$ is symmetric and positive definite, it has a unique Cholesky factorization $K^TK = L^T L$ where $L$ is upper triangular \cite{strang09}. So we can write 
+\begin{equation} \label{eq:3.7}
+H(z) = z^T L^T L z.
+\end{equation}
+Further suppose that the solution $z(t)$ to the original TDD equation lies on a low-dimensional symplectic subspace such that $z = Ay$, where $A$ is an ortho-symplectic matrix of the size $2n\times 2k$ and $y$ is the expansion coefficients of $z$ in the basis of $A$. The Hamiltonian $H$ then takes the form
+\begin{equation} \label{eq:3.8}
+	H(z) = H(Ay) = y^T A^T L^T L A y.
+\end{equation}
+Since $A^T L^T L A$ is a symmetric and positive definite matrix, it has a unique Cholesky factorization $\tilde L^T \tilde L$ where $\tilde L = A^T L A$ is a upper triangular matrix of size $2k \times 2k$. Writing (\ref{eq:2.10.a}) in terms of the reduced coordinates $y$ and the Hamiltonian (\ref{eq:3.7}) reads
+\begin{equation} \label{eq:3.9}
+		A\dot{y}(t) = \mathbb J_{2n} L^T f(t),
+\end{equation}
+together with the complementary equation
+\begin{equation} \label{eq:3.10}
+	f(t) + \sqrt 2 \cdot \sqrt{\chi} \phi(t,0) = LAy.
+\end{equation}
+Multiplying (\ref{eq:3.9}) with $A^+$ and (\ref{eq:3.10}) with $A^T$ yields
+\begin{align} \label{eq:3.11}
+	& \dot y(t) = \mathbb J_{2k} A^T L^T f(t), \\
+	& A^T f(t) + \sqrt{2} A^T \sqrt{\chi} \phi(t,0) = A^T L A y
+\end{align}
+Here we used the fact that $A^+\mathbb J_{2n} = \mathbb{J}_{2k} A^T$. If we define $f = A \tilde f$, $\phi = A \tilde \phi$, $\theta = A\tilde \theta$ and the \emph{reduced susceptibility} as $\tilde \chi = A^T \chi A$ we recover the reduced Hamiltonian system
+\begin{subequations}
+\begin{align}
+		\label{eq:3.12.a} & \dot{y}(t) = \mathbb J_{2k} {\tilde L}^T \tilde f(t), \\
+		\label{eq:3.12.b} & \partial_t \tilde \theta(t,x) = \partial_x^2 \tilde \phi(t,x) + \sqrt 2 \delta_0(x) \cdot \sqrt{\tilde \chi}  \tilde f(t), \\
+		\label{eq:3.12.c} & \partial_t \tilde \phi(t,x) = \tilde \theta(t,x),
+\end{align}
+\end{subequations}
+together with the auxiliary equation
+\begin{equation} \label{eq:3.13}
+	\tilde f(t) + \sqrt{2} \sqrt{\tilde \chi} \tilde \phi(t,0) = \tilde L y.
+\end{equation}
+Equations (\ref{eq:3.12.a}) to (\ref{eq:3.12.c}) is a Hamiltonian system on the symplectic linear vector space $\mathbb R^{2k} \times \mathcal H^{2k}$ and contributes to the \emph{reduced TDD system}
+\begin{equation}
+	\dot {y} = \mathbb J_{2k} \tilde L^T \tilde f(t), \quad \tilde f(t) + \int_0^t \tilde \chi\cdot \tilde f(s)\ ds = \tilde L y.
+\end{equation}
+Therefore, the system energy will be conserved along integral curves of (\ref{eq:3.12.a}) to (\ref{eq:3.12.c}).
+
+We would like to point out that the transformation that transforms (\ref{eq:2.10.a})-(\ref{eq:2.10.c}) to (\ref{eq:3.12.a})-(\ref{eq:3.12.c}) is given by
+\begin{equation}
+	\mathcal A = \begin{pmatrix}
+		A& 0 \\
+		0& A
+	\end{pmatrix} : \mathbb R^{2n} \times \mathcal H^{2n} \to \mathbb R^{2k} \times \mathcal H^{2k}.
+\end{equation}
+This is a symplectic transformation, since $\mathcal A^T J_{2n} \mathcal A = J_{2k}$. Further, the hidden strings $(\tilde \phi,\tilde \theta)$ 
