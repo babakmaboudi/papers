@@ -31,11 +31,13 @@ Alternatively in matrix notation, $A\in \mathbb R^{2n\times 2k}$ is called a \em
 \begin{equation}
 	A^T \mathbb{J}_{2n} A = \mathbb{J}_{2k},
 \end{equation}
-where the superscript $T$ represents transpose operator. As the symplectic 2-form is preserved under symplectic transformations, the form of the equations of evolution remains invariant \cite{Marsden:2010:IMS:1965128}. The \emph{symplectic inverse} of $A$, is a form of pseudo-inverse given by
+where the superscript $T$ represents the transpose operator. As the symplectic 2-form is preserved under symplectic transformations, the form of the equations of evolution remains invariant \cite{Marsden:2010:IMS:1965128}. The \emph{symplectic inverse} of $A$, is a form of pseudo-inverse given by
 \begin{equation}
 	A^+ = \mathbb{\mathbb J}_{2k}^T A^T \mathbb J_{2n}.
 \end{equation}
 It is shown in \cite{Peng:2014di} that $A^+A = I_{2k}$ and that $(A^+)^T$ is a symplectic matrix. Further, one can easily check that $AA^+$ is idempotent and so is a projection operator onto the column span of $A$. 
+
+It is known that symplectic matrices are usually ill-conditioned \cite{Karow:2006cf}. Under some conditions on a symplectic space \cite{da2003introduction}, one can construct a symplectic basis which is also ortho-normal, and thus norm bounded. A basis which is both symplectic and orthogonal is referred to as an \emph{ortho-symplectic basis}. We refer the reader to \cite{da2003introduction} for conditions on existence and construction of an ortho-symplectic basis.
 
 It is natural to expect a numerical integrator that solves (\ref{eq:2.1}) to also satisfy the conservation law in theorem \ref{theorem:2.1}. Common numerical integrators, e.g. the Runge-Kutta methos, do not generally preserve the Hamiltonian. Symplectic numerical integrators are a class of numerical integrators for Hamiltonian systems that preserves the symplectic structure and ensure stability in long-time integration. The Str\"omer-Verlet time stepping scheme is an example of such numerical integrators and is given by
 
@@ -111,15 +113,25 @@ Here $\theta$ and $\phi$ are vector valued functions in $\mathcal H^{2n}$, $\del
 \begin{equation} \label{eq:2.11}
 	f(t) + \sqrt{2} \cdot \sqrt{ \chi } \phi(t,0) = Kz(t).
 \end{equation}
-To show that the Hamiltonian system (\ref{eq:2.10.a}) to (\ref{eq:2.10.c}) is an extension to (\ref{eq:2.4}) in the sense discussed before, it is enough to show that the solution $f$ to the equation (\ref{eq:2.11}) also satisfies (\ref{eq:2.4.1}). Equations (\ref{eq:2.10.b}) and (\ref{eq:2.10.c}) is a forced wave, with the analytical solution
+To show that the Hamiltonian system (\ref{eq:2.10.a}) to (\ref{eq:2.10.c}) is an extension to (\ref{eq:2.4}) in the sense discussed before, it is enough to show that the solution $f$ to the equation (\ref{eq:2.11}) also satisfies (\ref{eq:2.4.1}). Equations (\ref{eq:2.10.b}) and (\ref{eq:2.10.c}) are equations to a vibrating string, and can be solved analytically
 \begin{equation} \label{eq:2.12}
 	\phi(t,x) = \frac {\sqrt 2} 2 \int_0^{t-|x|} \sqrt{\chi} f(s)\ ds,\quad \theta(t,x) = \frac{\sqrt 2}{2} \cdot \sqrt{\chi} f(t - |x|).
 \end{equation}
 \end{proof}
-We can recover (\ref{eq:2.4.1}) by substituting (\ref{eq:2.12}) into (\ref{eq:2.11}). The extended Hamiltonian for the system (\ref{eq:2.10.a}) to (\ref{eq:2.10.c}) takes the quadratic from
-\begin{equation}
-	\tilde h(z,\phi,\theta) = \frac 1 2 \left( \| Kz - \phi(t,0) \|_2^2 + \| \theta(t) \|^2_{\mathcal H^{2n} } + \| \partial_x\phi(t)\|^2_{\mathcal H^{2n} }\right)
+We can recover (\ref{eq:2.4.1}) by substituting (\ref{eq:2.12}) into (\ref{eq:2.11}). The extended Hamiltonian $H_\text{ex}$ for the system (\ref{eq:2.10.a}) to (\ref{eq:2.10.c}) takes the quadratic from
+\begin{equation} \label{eq:2.13}
+	H_\text{ex}(z,\phi,\theta) = \frac 1 2 \left( \| Kz - \phi(t,0) \|_2^2 + \| \theta(t) \|^2_{\mathcal H^{2n} } + \| \partial_x\phi(t)\|^2_{\mathcal H^{2n} }\right)
 \end{equation}
 where $\| \cdot \|_2$ is the Euclidean norm on $\mathbb R^{2n}$ and $\| \cdot \|_{\mathcal H^{2n}}$ is the induced norm from the inner product on $\mathcal H^{2n}$. 
 
 Equations (\ref{eq:2.10.a}) and (\ref{eq:2.10.c}) are called the \emph{hidden strings}. The dissipation of energy in the original system (\ref{eq:2.4}) is carried away, as vibrations, along the added strings which makes the extended system conservative. Hamiltonian extension of the damped harmonic oscillator in Example \ref{example:2.1} is exactly the Lamb model \cite{lamb:1900}. The Lamb model is a harmonic oscillator coupled with a vibrating string, and the tension in the string causes linear dissipation in the dynamics of the harmonic oscillator.
+
+Note that time integration of (\ref{eq:2.10.a})-(\ref{eq:2.10.c}) involves the integration of $f$ in (\ref{eq:2.12}). In general $f(t)$ must be stored and may cause serious storage limitation in long-time integration. However, we are interested solely in finding $z(t)$ which depends on $f(t)$, and $\phi(t,0)$ that is the integral of the history of $f(t)$. So by carefully choosing a quadrature rule that uses the same quadrature nodes as the time integrator we can avoid storing the history of $f$. For example for the trapezoidal rule, we recover the recursive relation
+\begin{equation} \label{eq:2.14}
+	\int_{0}^{t_n} f(s) \ ds \approx \frac{\Delta t}{2} f(t_n) + \frac{\Delta t}{2} f(t_{n-1}) + \int_{0}^{t_{n-1}} f(s) \ ds,
+\end{equation}
+where $\Delta t$ is the time discretization step. The recursive relation in (\ref{eq:2.12}) suggests that only storing the value of the integral term together with the state of $f$ in the previous time step is required to evaluate the integral for the new time step. For other interpolation based quadrature rules, we can construct similar recursive rules of the form
+\begin{equation}
+	\int_{0}^{t_n} f(s) \ ds \approx \sum_{i=0}^{k} \omega_i f(t_{n-i})  + \int_{0}^{t_{n-k}} f(s) \ ds
+\end{equation}
+for some quadrature weights $\omega_i$, $i=1,\dots,k$ with $k\ll n$. Thus, time integration of (\ref{eq:2.10.a})-(\ref{eq:2.10.c}), requires storing only $k$ evaluations of $f$.

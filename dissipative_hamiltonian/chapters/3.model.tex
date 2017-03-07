@@ -57,7 +57,7 @@ where $\Phi \in \mathbb{R}^{n\times k}$ is an orthonormal matrix. By constructin
 \begin{equation} \label{eq:3.6}
 	S_{\text{combined}} = [q_1,\dots,q_N,p_1,\dots,p_N], \quad (q_i^T,p_i^T)^T = z(t_i),
 \end{equation}
-we define $\Phi=[u_1,\dots,u_k]$, where $u_i$ is the $i$-th left singular vector of $S_{\text{combined}}$. The symplectic basis obtained this way is referred to as the \emph{Cotangent Lift}. It is shown in \cite{Peng:2014di} that among all symplectic bases of the form (\ref{eq:3.5}) the cotangent lift minimizes the projection error. 
+we define $\Phi=[u_1,\dots,u_k]$, where $u_i$ is the $i$-th left singular vector of $S_{\text{combined}}$. The symplectic basis obtained this way is referred to as the \emph{Cotangent Lift}. It is shown in \cite{Peng:2014di} that among all symplectic bases of the form (\ref{eq:3.5}) the cotangent lift minimizes the projection error. Note that the basis $A$ constructed using the cotangent lift is an ortho-symplectic basis.
 
 \subsection{Model Reduction of Dissipative Hamiltonian Systems}
 
@@ -104,11 +104,23 @@ Equations (\ref{eq:3.12.a}) to (\ref{eq:3.12.c}) is a Hamiltonian system on the 
 \end{equation}
 Therefore, the system energy will be conserved along integral curves of (\ref{eq:3.12.a}) to (\ref{eq:3.12.c}).
 
-We would like to point out that the transformation that transforms (\ref{eq:2.10.a})-(\ref{eq:2.10.c}) to (\ref{eq:3.12.a})-(\ref{eq:3.12.c}) is given by
+We point out that the transformation that transforms (\ref{eq:2.10.a})-(\ref{eq:2.10.c}) to (\ref{eq:3.12.a})-(\ref{eq:3.12.c}) is given by
 \begin{equation}
 	\mathcal A = \begin{pmatrix}
 		A& 0 \\
 		0& A
 	\end{pmatrix} : \mathbb R^{2n} \times \mathcal H^{2n} \to \mathbb R^{2k} \times \mathcal H^{2k}.
 \end{equation}
-This is a symplectic transformation, since $\mathcal A^T J_{2n} \mathcal A = J_{2k}$. Further, the hidden strings $(\tilde \phi,\tilde \theta)$ 
+This is a symplectic transformation, since $\mathcal A^T J_{2n} \mathcal A = J_{2k}$. Further, the dissipation of energy in the reduced system only depends on the reduced susceptibility. Thus, the choice of $A$ should be independent of the hidden strings $(\tilde \phi, \tilde \theta)$. In other words, if the reduced space is chosen to be a symplectic subspace, then the actions of model reduction and Hamiltonian extension commute. We summarize the algorithm for model reduction of dissipative Hamiltonian systems in Algorithm \ref{alg:3.1}.
+
+\begin{algorithm}
+\caption{Model Reduction For Dissipative Hamiltonian Systems} \label{alg:3.1}
+\begin{enumerate}
+	\item Construct the Hamiltonian extension (\ref{eq:2.10.a})-(\ref{eq:2.10.c}) to the original TDD system (\ref{eq:2.4}).
+	\item Collect the snapshots $z(t_i)$, $i=1,\dots,N$ through time integration of the extended Hamiltonian.
+	\item Construct an ortho-symplectic basis $A$.
+	\item Define $\tilde L = A^T L A$, $\tilde \chi = A^T \chi A$ and construct the reduced dissipative Hamiltonian system (\ref{eq:3.12.a})-(\ref{eq:3.12.c})
+\end{enumerate}
+\end{algorithm}
+
+Note that Algorithm \ref{alg:3.1} does not depend on the choice of the method to construct an ortho-symplectic basis $A$. Thus, an SVD-based method, such as the cotangent lift, or a greedy-natured method can be applied.
