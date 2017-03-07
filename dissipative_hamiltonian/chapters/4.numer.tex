@@ -1,0 +1,76 @@
+\section{Numerical Results}
+In this section we illustrate the performance of the discussed metthod through numerical solution of the dissipative wave equation and a port-Hamiltonian model for a dissipative circuit.
+
+\subsection{Dissipative wave equation}
+
+Consider the dissipative linear wave equation
+\begin{equation} \label{eq:4.1}
+	\begin{aligned}
+		q_{t}(t,x) &= p(t,x), \\
+		p_{t}(t,x) &= c^2 q_{xx}(t,x) - r(x)  p(t,x) , \\
+		q(0,x) &= q_0(x), \\
+		p(0,x) &= 0.
+	\end{aligned}
+\end{equation}
+where $x$ belongs to a one-dimensional torus of length $L$ and $r:[0,1]\to[0,1]$ is a positive semi-definite real valued function. 
+
+We discretize the torus into $N_{\Delta x}$ equidistant points and define $\Delta x = L/N_{\Delta x}$, $x_i = i\Delta x$, $q_i=q(t,x_i)$ and $p_i=p(t,x_i)$ for $i = 1, \dots, N_{\Delta x}$. The discretization of $r$ corresponds to a diagonal and semi-positive definite matrix $r_\Delta$. Further, we discretize (\ref{eq:4.1}) using a standard centeral finite differences schemes to obtain
+\begin{equation} \label{eq:4.2}
+	\dot z = \mathbb J_{2n} K^T K z - R z,
+\end{equation}
+where $z = (q_1,\dots,q_{N_{\Delta x}},p_1,\dots,p_{N_{\Delta x}})$ and $K$ and $R$ are given as
+\begin{equation} \label{eq:4.3}
+	K^T K =
+	\begin{pmatrix}
+		I & 0 \\
+		0 & c^2D_x^TD_x
+	\end{pmatrix} , \quad
+	R =
+	\begin{pmatrix}
+		0 & 0 \\
+		0 & r_\Delta
+	\end{pmatrix},
+\end{equation}
+with $D_x^TD_x = D_{xx}$ the central finite differences matrix operator. Writing (\ref{eq:4.2}) in a TDD formulation gives
+\begin{equation} \label{eq:4.4}
+\begin{aligned}
+	& \dot z = \mathbb J_{2n} K^T f(t) \\
+	& f(t) + R \int_0^t f(t) = K z.
+\end{aligned}
+\end{equation}
+Here, since $R$ is not time dependent, it commutes with the integration operator. The Hamiltonian extension of (\ref{eq:4.4}), then takes the form (\ref{eq:2.10.a})-(\ref{eq:2.10.c}).
+
+The initial condition used is given by
+\begin{equation} \label{eq:4.5}
+	q_i(0) = h( 10\times|x_i - \frac{1}{2}| ), \quad p_i = 0, \quad i=1,\dots,N
+\end{equation}
+where $h(s)$ is the cubic spline function
+\begin{equation} \label{eq:4.6}
+h(s) = 
+\left\{
+\begin{aligned}
+& 1 - \frac{3}{2}s^2 + \frac{3}{4}s^3, \quad & 0\leq s \leq 1, \\
+& \frac{1}{4}(2-s)^3, & 1< s \leq 2, \\
+& 0, & s > 2.
+\end{aligned}
+\right.
+\end{equation}
+
+For the numerical time integration of the extended Hamiltonian system, the Str\"omer-Verlet time stepping scheme (\ref{eq:2.3}) is used. Further in each time step, the system of linear equations (\ref{eq:2.4.1}) is solved to recover $z$. System parameters are summarized below.
+\vspace{0.5cm}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+Domain length & $L = 1$ \\
+No. grid points & $N = 500$ \\
+Space discretization size & $\Delta x = 0.002$ \\
+Time discretization size & $\Delta t = 0.01$ \\
+Wave speed & $c^2 = 0.1$ \\
+\hline
+\end{tabular}
+\end{center}
+\vspace{0.5cm}
+
+The first numerical experiment, corresponds to an inhomogeneous dissipative media. Here, $r_{\Delta} = \text{diag}(r_1,\dots,r_{N_{\Delta x}})$, with $r_i = 0.1 + 0.9(i/N_{\Delta x})$, and diag is the MATLAB notation for constructing a diagonal matrix. 
+
+We construct the reduced dissipative Hamiltonian system according to Algorithm \ref{alg:3.1}. The cotangent lift is used to construct an ortho-symplectic reduced basis $A$. The performance of the reduced dissipative Hamiltonian (RDH) system method is then compared to the POD, and the method proposed in \cite{peng2016geometric} referred to as the PSD.
