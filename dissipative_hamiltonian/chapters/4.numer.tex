@@ -71,6 +71,34 @@ Wave speed & $c^2 = 0.1$ \\
 \end{center}
 \vspace{0.5cm}
 
-The first numerical experiment, corresponds to an inhomogeneous dissipative media. Here, $r_{\Delta} = \text{diag}(r_1,\dots,r_{N_{\Delta x}})$, with $r_i = 0.1 + 0.9(i/N_{\Delta x})$, and diag is the MATLAB notation for constructing a diagonal matrix. 
+The first numerical experiment, corresponds to an inhomogeneous dissipative media. Here, $r_{\Delta} = \text{diag}(r_1,\dots,r_{N_{\Delta x}})$, with $r_i = 0.1 + 0.9(i/N_{\Delta x})$, and diag is the MATLAB notation for constructing a diagonal matrix.
 
-We construct the reduced dissipative Hamiltonian system according to Algorithm \ref{alg:3.1}. The cotangent lift is used to construct an ortho-symplectic reduced basis $A$. The performance of the reduced dissipative Hamiltonian (RDH) system method is then compared to the POD, and the method proposed in \cite{peng2016geometric} referred to as the PSD.
+Figure \ref{fig:4.1}.a shows the solution of the original dissipative wave equation (\ref{eq:4.1}) at $t \in \{0,2.5,5,7.5\}$. For a nonzero $r_\Delta$ the solution will converge to $(q(t=\infty,x),p(t=\infty,x)) = (\rho,0)$ where $\rho$ is the center of mass of $q_0$. 
+
+To construct the reduced basis for different methods, we gather the snapshots of (\ref{eq:4.1}). We construct RDH reduced system according to the Algorithm \ref{alg:3.1}. The cotangent lift is used to construct an ortho-symplectic reduced basis $A$ (\ref{eq:3.5}). The performance of the RDH method is then compared to the POD, and the method proposed in \cite{peng2016geometric} referred to as the PSD.
+
+Figure \ref{fig:4.1}.b Shows the decay of the singular values of the snapshot matrix for the POD, PSD and the RDH methods. Note that the snapshots for the PSD and the RDH are different since they have different canonical representations. The fast decay of the eigenvalues in all methods is a strong indicator for the existence of a low dimensional reduced system. The reduced bases are then constructed using 20, 40 and 60 number of modes.
+
+The $L^2$ error between the full systems and the RDH, the PSD and the POD method are presented in Figure \ref{fig:4.1}.c. We notice that symplectic methods provide a more accurate solution with respect to the POD method. In fact, the POD method does not yield a stable reduced system.  Further it is seen that enriching the PSD reduced basis does not yield a significant enhancement in the accuracy of the reduced system. This is because in the PSD method, a non-conservative system is being numerically integrated with a symplectic integrator. This results in an incorrect evolution of energy and eventually, in a qualitatively wrong numerical solution.
+
+On the other hand, We notice that the RDH method with 40 modes provides a significantly more accurate solution compared to the PSD method with 60 modes. The RDH method provides a conservative reduced system where the dissipated energy is trapped in the hidden strings. The conservation of energy is then guaranteed using a symplectic integrator. Due to this reason, we observe remarkable increase in the accuracy by enriching the RDH reduced basis.
+
+Figure \ref{fig:4.1}.d shows the preservation of the energy in different methods. The conservation law expressed in theorem \ref{theorem:2.1} is destroyed through the POD model reduction. That is why we observe the blow-up of the system energy. The symplectic methods however, preserves the energy significantly better. Due to the reason discussed above, enriching the PSD basis does not significantly affect the preservation of energy. On the contrary, The RDH not only provides a noteworthy accuracy in preserving the energy, but also provides significant improvement under enrichment.
+
+in Figure \ref{fig:4.1}.e we show the transfer of the energy from the TDD system to the hidden strings, for the full system and the RDH reduced system. We notice that the RDH method preserves the total energy of the extended Hamiltonian system. Further, the transfer of the energy to the hidden strings in the full model is correctly translated in the reduced system.
+
+\begin{figure}[t]
+\begin{tabular}{cc}
+\includegraphics[width=0.5\textwidth]{./figs/wave/solution} & 
+\includegraphics[width=0.5\textwidth]{./figs/wave/singular} \\
+(a) & (b) \\
+\includegraphics[width=0.5\textwidth]{./figs/wave/error} & 
+\includegraphics[width=0.5\textwidth]{./figs/wave/energy} \\
+(c) & (d) \\
+\multicolumn{2} {c} {\includegraphics[width=0.7\textwidth]{./figs/wave/energy_conserved}} \\
+\multicolumn{2} {c} {(e)} 
+\end{tabular}
+\caption{(a) The solution to the original dissipative wave equation (\ref{eq:4.1}), (b) The decay of the singular values for the POD, the PSD and the RDH methods, (c) The $L^2$ error for the different methods, (d) Energy preservation for different methods, (e) Energy preservation of the Hamiltonian extension for the original and the reduced system. ``FM'' and ``RM'' stand for the full model and the reduced model respectively.} \label{fig:4.1}
+\end{figure}
+
+The second numerical experiment, 
