@@ -85,7 +85,7 @@ On the other hand, We notice that the RDH method with 40 modes provides a signif
 
 Figure \ref{fig:4.1}.d shows the preservation of the energy in different methods. The conservation law expressed in theorem \ref{theorem:2.1} is destroyed through the POD model reduction. That is why we observe the blow-up of the system energy. The symplectic methods however, preserves the energy significantly better. Due to the reason discussed above, enriching the PSD basis does not significantly affect the preservation of energy. On the contrary, The RDH not only provides a noteworthy accuracy in preserving the energy, but also provides significant improvement under enrichment.
 
-in Figure \ref{fig:4.1}.e we show the transfer of the energy from the TDD system to the hidden strings, for the full system and the RDH reduced system. We notice that the RDH method preserves the total energy of the extended Hamiltonian system. Further, the transfer of the energy to the hidden strings in the full model is correctly translated in the reduced system.
+In Figure \ref{fig:4.1}.e we show the transfer of the energy from the TDD system to the hidden strings, for the full system and the RDH reduced system. We notice that the RDH method preserves the total energy of the extended Hamiltonian system. Further, the transfer of the energy to the hidden strings in the full model is correctly translated in the reduced system.
 
 \begin{figure}[t]
 \begin{tabular}{cc}
@@ -101,4 +101,30 @@ in Figure \ref{fig:4.1}.e we show the transfer of the energy from the TDD system
 \caption{(a) The solution to the original dissipative wave equation (\ref{eq:4.1}), (b) The decay of the singular values for the POD, the PSD and the RDH methods, (c) The $L^2$ error for the different methods, (d) Energy preservation for different methods, (e) Energy preservation of the Hamiltonian extension for the original and the reduced system. ``FM'' and ``RM'' stand for the full model and the reduced model respectively.} \label{fig:4.1}
 \end{figure}
 
-The second numerical experiment, 
+The second numerical experiment is the dissipative wave equation (\ref{eq:4.1}) in a near-zero dissipation regime. The purpose of this numerical experiment is to show that the RDH yields a stable solution in the elimination of the dissipation. Also to demonstrate that the PSD converges to the RDH as $\| \chi \|_{\infty}\to 0$. 
+
+The numerical setting is taken to be identical to the previous numerical experiment, but with the difference that $r_i = 0.001$, for $i=1,\dots,N_{\Delta x}$. 
+
+\subsection{Port-Hamiltonian Systems}
+Port-Hamiltonian systems are popular in network modeling and electrical engineering. In the framework of port-Hamiltonian modelling, Energy conservation and Hamiltonian structure is the fundamental principle of the dynamics of the system. Ports in the system network then allows the exchange of energy with the environment in the form of input forces, capacitors and dissipations \cite{vanderSchaft:2014:PST:2693645.2693646}. Port-Hamiltonian systems can be viewed as a forced and dissipative Hamiltonian system.
+\begin{figure}[t]
+\begin{center}
+	\includegraphics[width=0.7\textwidth]{./figs/porthamil/circuit}
+\end{center}
+\caption{$n$-dimensional ladder network} \label{fig:4.2}
+\end{figure}
+
+Consider the $n$-dimensional linear ladder network in Figure \ref{fig:4.2}. Here $C_i$, $L_i$ and $R_i$, $i=1,\dots,n$, are the capacitance, inductance and resistance of the corresponding capacitors, inductors and resistors respectively and $R_{n+1}$ is the load capacitor. The port-Hamiltonian model of the linear ladder network takes the form
+\begin{equation} \label{eq:4.7}
+		\dot x = (J_{2n} - R)Q^TQx + u.
+\end{equation}
+Here $x = (c_1,\phi_1,\dots,c_n,\phi_n)^T$, $Q = I_{2n\times 2n}$, $R = \text{diag}(0,R_1,\dots,0,R_n+R_{n+1})$, $u=(1,0,\dots,0)^T$ is the input vector and $J_{2n}$ is a skew-symmetric $2n\times 2n$ matrix with -1 and 1 on the first diagonal above and the first diagonal below the main diagonal respectively. 
+
+Since $J_{2n}$ is full ranked, one can always find a coordinate transformation $ x= T \tilde x$ such that $T^{-1} J_{2n} T^{-T} = \mathbb J_{2n}$. The dissipative Hamiltonian formulation for (\ref{eq:4.7}) takes the form
+\begin{equation}
+	\dot {\tilde x} = \mathbb J_{2n} \tilde Q^T\tilde Q \tilde x - \tilde Rx + \tilde u,
+\end{equation}
+where $\tilde Q = QT$, $\tilde R = T^{-1}RT^{-T}Q^TQ$ and $\tilde u = T^{-1} u$. Note that in this case, since $T$ is orthogonal and $R$ is diagonal, then $\tilde R$ becomes symmetric and semi-positive definite. 
+
+
+
