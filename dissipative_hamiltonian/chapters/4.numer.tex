@@ -118,13 +118,39 @@ Consider the $n$-dimensional linear ladder network in Figure \ref{fig:4.2}. Here
 \begin{equation} \label{eq:4.7}
 		\dot x = (J_{2n} - R)Q^TQx + u.
 \end{equation}
-Here $x = (c_1,\phi_1,\dots,c_n,\phi_n)^T$, $Q = I_{2n\times 2n}$, $R = \text{diag}(0,R_1,\dots,0,R_n+R_{n+1})$, $u=(1,0,\dots,0)^T$ is the input vector and $J_{2n}$ is a skew-symmetric $2n\times 2n$ matrix with -1 and 1 on the first diagonal above and the first diagonal below the main diagonal respectively. 
+Here $x = (c_1,\phi_1,\dots,c_n,\phi_n)^T$ where $c_i$ and $\phi_i$, for $i=1,\dots,n$, are the charge and the flux of $C_i$ and $L_i$ respectively. $Q$ and $R$ are given as
+\begin{equation}
+	Q = \text{diag}(C_1^{-1},L_1^{-1},\dots,C_n^{-n},L_n^{-n}), \quad R = \text{diag}(0,R_1,\dots,0,R_n+R_{n+1}),
+\end{equation}
+$u=(1,0,\dots,0)^T$ is a constant input current and $J_{2n}$ is a skew-symmetric $2n\times 2n$ matrix with -1 and 1 on the superdiagonal and subdiagonal respectively. 
+
+The energy associated to a port-Hamiltonian system of the form (\ref{eq:4.7}) at time $t$, is given as $H(x(t)) = \frac 1 2 x^T Q^T Q x$. Since $J_{2n}$ is skew symmetric it implies that $\frac d {dt} H(x) = u^T Q^T Q x - x^T Q^T Q R Q^T Q x \leq u^T Q^T Q x$ which is referred to as the \emph{passivity} of the system (\ref{eq:4.7}) \cite{vanderSchaft:1996es,Willems:1972ek}.
 
 Since $J_{2n}$ is full ranked, one can always find a coordinate transformation $ x= T \tilde x$ such that $T^{-1} J_{2n} T^{-T} = \mathbb J_{2n}$. The dissipative Hamiltonian formulation for (\ref{eq:4.7}) takes the form
-\begin{equation}
+\begin{equation} \label{eq:4.8}
 	\dot {\tilde x} = \mathbb J_{2n} \tilde Q^T\tilde Q \tilde x - \tilde Rx + \tilde u,
 \end{equation}
-where $\tilde Q = QT$, $\tilde R = T^{-1}RT^{-T}Q^TQ$ and $\tilde u = T^{-1} u$. Note that in this case, since $T$ is orthogonal and $R$ is diagonal, then $\tilde R$ becomes symmetric and semi-positive definite. 
+where $\tilde Q = QT$, $\tilde R = T^{-1}RT^{-T}Q^TQ$ and $\tilde u = T^{-1} u$. Note that in this case, since $T$ is orthogonal and $R$ is diagonal, then $\tilde R$ is symmetric and semi-positive definite. The TDD formulation of (\ref{eq:4.8}) takes the form
+\begin{equation} \label{eq:4.9}
+	\dot{\tilde x} = \mathbb{J}_{2n} \tilde Q^T f(t) + \tilde u, \quad f(t) + \tilde R \int_0^t f(t) = \tilde Q \tilde x.
+\end{equation}
+The extended Hamiltonian formulation (\ref{eq:2.10.a})-(\ref{eq:2.10.c}) with a quadratic Hamiltonian $H_{\text{ex}}$ can be then carried out according to section \ref{??}. We note that due to the input $\tilde u$, the Hamiltonian $H_{\text{ex}}$ is time dependent. As the matter of fact $\frac{d}{dt} H_{\text{ex}} = \tilde u^T\tilde Q^T \tilde Q \tilde x$. If we define $\overset{\circ}{H}_{\text{ex}} : \mathbb R^{2n}\times \mathcal H^{2n}\times \mathbb R^{2}\to \mathbb R$ as
+\begin{equation} \label{eq:4.10}
+	\overset{\circ}{H}_{\text{ex}}(\tilde x,\phi,\theta,t,e) = H_{\text{ex}}(\tilde x,\phi,\theta,t) + e, \quad \dot e = - \partial_t H_{\text{ex}},
+\end{equation}
+it is easily checked that $\frac d {dt} \overset{\circ}{H}_{\text{ex}} =0$ \cite{Hairer:1250576}. However for the time integration of the Hamiltonian system related to $\overset{\circ}{H}_{\text{ex}}$, since the evolution of $\tilde x$, $\phi$ and $\theta$ does not explicitly depend on $e$, we can apply a symplectic integrator directly on (\ref{eq:4.10}). Thus, the passivity of (\ref{eq:4.7}) will be preserved through a symplectic time integration of (\ref{eq:4.9}).
 
+Using an ortho-symplectic reduced basis $A$ The reduced dissipative Hamiltonian method can be applied to (\ref{eq:4.9}) to construct a reduced system of the form (\ref{eq:3.12.a})-(\ref{eq:3.12.c}) together with the extended Hamiltonian $\tilde H_{\text{ex}}$. We immediately notice that $\frac{d}{dt} \tilde H_{\text{ex}} = (A^+ \tilde u)^T A^T \tilde Q^T \tilde Q A y$, meaning that the reduced system is passive. Further the dissipative Hamiltonian structure of the reduced system indicates that the reduced system also carries a port-Hamiltonian structure.
 
+We consider a 100-dimensional ($n=50$) port-Hamiltonian system for the ladder network discussed above. We take $C_i=1$, $L_i = 1$, $R_i=0.2$ for $i=1,\dots,50$, and $R_{51} = 0.4$. The cotangent lift is used to construct a reduced basis and the RDH method is used to construct a reduced system according to Algorithm (\ref{alg:3.1}). 
 
+The solution of the RDH method is compared to the main results of \cite{Polyuga:2010gj}, where a passivity-preserving model reduction is developed using the moment matching method at infinity.
+
+\begin{figure}[t]
+\begin{tabular}{cc}
+\includegraphics[width=0.5\textwidth]{./figs/porthamil/error_capac} & 
+\includegraphics[width=0.5\textwidth]{./figs/porthamil/error_flux} \\
+(a) capacitors & (b) inductors
+\end{tabular}
+\caption{Error between the full model and the reduced model obtained by the reduced dissipating Hamiltonian method ``RDH'' and the moment matching method ``MM''. (a) The average error of charge in capacitors in time. (b) the average error of the flux in inductors in time.} \label{fig:4.3}
+\end{figure}
