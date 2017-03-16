@@ -95,15 +95,14 @@ In Figure \ref{fig:4.1}.e we show the transfer of the energy from the TDD system
 \includegraphics[width=0.5\textwidth]{./figs/wave/error} & 
 \includegraphics[width=0.5\textwidth]{./figs/wave/energy} \\
 (c) & (d) \\
-\multicolumn{2} {c} {\includegraphics[width=0.7\textwidth]{./figs/wave/energy_conserved}} \\
-\multicolumn{2} {c} {(e)} 
+\includegraphics[width=0.55\textwidth]{./figs/wave/energy_conserved} &
+\includegraphics[width=0.45\textwidth]{./figs/wave/error_homo} \\
+(e) & (f) 
 \end{tabular}
-\caption{(a) The solution to the original dissipative wave equation (\ref{eq:4.1}), (b) The decay of the singular values for the POD, the PSD and the RDH methods, (c) The $L^2$ error for the different methods, (d) Energy preservation for different methods, (e) Energy preservation of the Hamiltonian extension for the original and the reduced system. ``FM'' and ``RM'' stand for the full model and the reduced model respectively.} \label{fig:4.1}
+\caption{(a) The solution to the original dissipative wave equation (\ref{eq:4.1}), (b) The decay of the singular values for the POD, the PSD and the RDH methods, (c) The $L^2$ error for the different methods, (d) Energy preservation for different methods, (e) Energy preservation of the Hamiltonian extension for the original and the reduced system. ``FM'' and ``RM'' stand for the full model and the reduced model respectively. (f) The $L^2$ error between the solution to the reduced system and the full in a near-zero dissipation regime.} \label{fig:4.1}
 \end{figure}
 
-The second numerical experiment is the dissipative wave equation (\ref{eq:4.1}) in a near-zero dissipation regime. The purpose of this numerical experiment is to show that the RDH yields a stable solution in the elimination of the dissipation. Also to demonstrate that the PSD converges to the RDH as $\| \chi \|_{\infty}\to 0$. 
-
-The numerical setting is taken to be identical to the previous numerical experiment, but with the difference that $r_i = 0.001$, for $i=1,\dots,N_{\Delta x}$. 
+The second numerical experiment is the dissipative wave equation (\ref{eq:4.1}) in a near-zero dissipation regime. The numerical setting is taken to be identical to the previous numerical experiment, but with the difference that $r_i = 10^{-5}$, for $i=1,\dots,N_{\Delta x}$. Figure \ref{fig:4.1}.f shows the $L^2$ error between the solution to the reduced system and the full system, for the POD, the PSD and the RDH methods. We notice that the POD does not yield a reduced system as the symplectic structure is lost via model reduction. Further we notice that error for the PSD and the RDH coincide since the two methods become identical as $\| \chi \|_{\infty}\to 0$.
 
 \subsection{Port-Hamiltonian Systems}
 Port-Hamiltonian systems are popular in network modeling and electrical engineering. In the framework of port-Hamiltonian modelling, Energy conservation and Hamiltonian structure is the fundamental principle of the dynamics of the system. Ports in the system network then allows the exchange of energy with the environment in the form of input forces, capacitors and dissipations \cite{vanderSchaft:2014:PST:2693645.2693646}. Port-Hamiltonian systems can be viewed as a forced and dissipative Hamiltonian system.
@@ -144,13 +143,22 @@ Using an ortho-symplectic reduced basis $A$ The reduced dissipative Hamiltonian 
 
 We consider a 100-dimensional ($n=50$) port-Hamiltonian system for the ladder network discussed above. We take $C_i=1$, $L_i = 1$, $R_i=0.2$ for $i=1,\dots,50$, and $R_{51} = 0.4$. The cotangent lift is used to construct a reduced basis and the RDH method is used to construct a reduced system according to Algorithm (\ref{alg:3.1}). 
 
-The solution of the RDH method is compared to the main results of \cite{Polyuga:2010gj}, where a passivity-preserving model reduction is developed using the moment matching method at infinity.
+The solution of the RDH method is compared to the main results of \cite{Polyuga:2010gj}, where a passivity-preserving model reduction is developed using a moment matching method at infinity. The charge in $C_1$ is chosen to be the single out put for the moment matching method.
 
 \begin{figure}[t]
 \begin{tabular}{cc}
 \includegraphics[width=0.5\textwidth]{./figs/porthamil/error_capac} & 
 \includegraphics[width=0.5\textwidth]{./figs/porthamil/error_flux} \\
-(a) capacitors & (b) inductors
+(a) capacitors & (b) inductors \\
+\multicolumn{2} {c} {\includegraphics[width=0.5\textwidth]{./figs/porthamil/error1}} \\
+\multicolumn{2} {c} {(c) charge in $C_1$} 
 \end{tabular}
-\caption{Error between the full model and the reduced model obtained by the reduced dissipating Hamiltonian method ``RDH'' and the moment matching method ``MM''. (a) The average error of charge in capacitors in time. (b) the average error of the flux in inductors in time.} \label{fig:4.3}
+\caption{Error between the full model and the reduced model obtained by the reduced dissipating Hamiltonian method ``RDH'' and the moment matching method ``MM''. (a) The average error of charge in capacitors in time. (b) the average error of the flux in inductors in time. (c) Error in $C_1$.} \label{fig:4.3}
 \end{figure}
+
+Reduced bases of size $2k = 10$, $2k = 20$ and $2k = 30$ are constructed with the RDH and the moment matching method. Figure \ref{fig:4.3}.c shows the error in the charge in $C_1$ for the two methods. We observe that although the moment matching method is bounded, over long-time integration, the RDH method provides a significantly more accurate solution. This is because in the moment matching method, passivity of the reduced system implies that the energy of the system will be bounded by the input energy. However, there is no guarantee that the dissipation of energy in the reduced system mimics the one of the original system. On the other hand, the RDH method allows correct dissipation of energy through the hidden strings. Also the symplectic time integration in the RDH method guarantees that the total energy will be preserved.
+
+Over short-time integration, we notice that the moment matching method with 10 modes provides a more accurate solution than the RDH with 10 modes. Further, the moment matching method with 20 and 30 modes provide a comparable accuracy to the RDH method with 20 and 30 modes. But, the RDH method maintains the high accuracy over the long-time integration, while the moment matching method loses up to 3 orders of magnitude in the accuracy independent of the number of modes.
+
+Figure \ref{fig:4.3}.a and Figure \ref{fig:4.3}.b show the average error in the charge and flux of the capacitors and inductors respectively, for these methods. The RDH method provides a significantly better accuracy compared to the moment matching method. This is because the charge of $C_1$ is specified as the output of interest in the moment matching method so it is expected that that method provides low accuracy for computing other outputs. On the other hand, the RDH method not only provides high accuracy in computing the charge for $C_1$ but also it has high accuracy for computing other outputs of interest.
+
