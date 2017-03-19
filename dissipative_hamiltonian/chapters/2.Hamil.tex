@@ -1,14 +1,14 @@
 \section{Dissipative Hamiltonian Systems} \label{sec:2}
-In this section we first discuss Hamiltonian systems. Add more later
+In this section, we first summarize basic concepts in the geometry of symplectic linear vector space. Then, we discuss Hamiltonian systems under dissipative forces and introduce the Hamiltonian extension of dissipative Hamiltonian systems.
 
-\subsection{Hamiltonian Systems} Suppose that $(\mathbb{R}^{2n},\Omega)$ is a symplectic linear vector space, where $\mathbb{R}^{2n}$ is a configuration space and $\Omega:\mathbb{R}^{2n}\times \mathbb{R}^{2n} \to \mathbb R$ is a closed, skew-symmetric and non-degenerate 2-form on $\mathbb{R}^{2n}$. Given a smooth Hamiltonian function $H:\mathbb{R}^{2n}\to \mathbb R$, \emph{Hamilton}'s equations of evolution are given as
+\subsection{Hamiltonian Systems} \label{sec:2.1} Suppose that $(\mathbb{R}^{2n},\Omega)$ is a symplectic linear vector space, where $\mathbb{R}^{2n}$ is a configuration space and $\Omega:\mathbb{R}^{2n}\times \mathbb{R}^{2n} \to \mathbb R$ is a closed, skew-symmetric and non-degenerate 2-form on $\mathbb{R}^{2n}$. Given a smooth Hamiltonian function $H:\mathbb{R}^{2n}\to \mathbb R$, \emph{Hamilton}'s equations of evolution are given as
 \begin{equation} \label{eq:2.1}
 	\begin{aligned}
 	\dot {z}(t) &= \mathbb J_{2n} \nabla_{z} H, \\
 	z(0) &= z_0,
 	\end{aligned}
 \end{equation}
-where $z \in\mathbb R^{2n}$ is the configuration coordinates and $\mathbb J_{2n}$ is a $2n\times 2n$ matrix such that $\Omega(x,y) = x^T \mathbb J_{2n} y$ \cite{Marsden:2010:IMS:1965128}. One by using the \emph{Symplectic Gram-Schmidt} \cite{de2006symplectic} can construct a coordinate system in which $\mathbb J_{2n}$ takes the form
+where $z \in\mathbb R^{2n}$ is the configuration coordinates and $\mathbb J_{2n}$ is a $2n\times 2n$ matrix such that $\Omega(x,y) = x^T \mathbb J_{2n} y$, for all $x,y\in \mathbb R^{2n}$ \cite{Marsden:2010:IMS:1965128}. One by using the \emph{Symplectic Gram-Schmidt} \cite{de2006symplectic} can construct a coordinate system in which $\mathbb J_{2n}$ takes the form
 \begin{equation} \label{eq:2.2}
 	\mathbb{J}_{2n} = 
 	\begin{pmatrix}
@@ -21,9 +21,9 @@ where $I_n$ and $0_n$ are the identity matrix and the zero matrix of size $n$ re
 \cite{Marsden:2010:IMS:1965128} Consider the flow $\phi_t:\mathbb R\times \mathbb R^{2n} \to \mathbb R^{2n}$ of the Hamiltonian system (\ref{eq:2.1}). Then $H\circ \phi_t = H$.
 \end{theorem}
 
-In many physical problems $H$ represents the system energy and is bounded below. Here, we mostly assume that $H$ is a quadratic Hamiltonian, i.e., it takes the form $H(z) = \frac 1 2 z^T K^T K z$, where $K$ is a full rank $2n\times 2n$ matrix. This assumption leads to a linear system of evolution (\ref{eq:2.1}). Note that the Hamiltonian extension in section ?? and the model reduction for dissipative Hamiltonian systems in section ?? can be naturally extended to Hamiltonians of the form $H(z) = \frac 1 2 z^T K^T K z + g(z)$, where $g:\mathbb R^{2n} \to \mathbb R$ is an arbitrary function of $z$. 
+In many physical problems, $H$ represents the system energy and is bounded below. Here, to avoid difficulties with well-posedness of Hamiltonian systems,  we mostly assume that $H$ is a quadratic Hamiltonian, i.e., it takes the form $H(z) = \frac 1 2 z^T K^T K z$, where $K$ is a full rank $2n\times 2n$ matrix. This assumption leads to a linear system of evolution (\ref{eq:2.1}). Note that the Hamiltonian extension in section \ref{sec:2.2} and the Reduced Dissipative Hamiltonian method in section \ref{sec:3.3} can be naturally extended to Hamiltonians of the form $H(z) = \frac 1 2 z^T K^T K z + g(z)$, where $g:\mathbb R^{2n} \to \mathbb R$ is an arbitrary function of $z$. 
 
-Under general coordinate changes, equations of evolution do not necessarily take the form of (\ref{eq:2.1}). Let $(\mathbb R^{2n},\Omega)$ and $(\mathbb R^{2k},\Lambda)$ be two symplectic linear vector spaces. A linear transformation $\alpha :\mathbb R^{2n} \to \mathbb R^{2k}$ is called a \emph{symplectic transformation} \cite{Marsden:2010:IMS:1965128} if
+Under general coordinate transformations, the equations of evolution do not necessarily take the form of (\ref{eq:2.1}). Let $(\mathbb R^{2n},\Omega)$ and $(\mathbb R^{2k},\Lambda)$ be two symplectic linear vector spaces. A linear transformation $\alpha :\mathbb R^{2n} \to \mathbb R^{2k}$ is called a \emph{symplectic transformation} \cite{Marsden:2010:IMS:1965128} if
 \begin{equation}
 	\Omega(x,y) = \Lambda(\alpha(x),\alpha(y)), \quad \text{for all } x,y\in \mathbb R^{2n}.
 \end{equation}
@@ -31,13 +31,13 @@ Alternatively in matrix notation, $A\in \mathbb R^{2n\times 2k}$ is called a \em
 \begin{equation}
 	A^T \mathbb{J}_{2n} A = \mathbb{J}_{2k},
 \end{equation}
-where the superscript $T$ represents the transpose operator. As the symplectic 2-form is preserved under symplectic transformations, the form of the equations of evolution remains invariant \cite{Marsden:2010:IMS:1965128}. The \emph{symplectic inverse} of $A$, is a form of pseudo-inverse given by
+where the superscript $T$ represents the transpose operator. As the symplectic 2-form is preserved under a symplectic transformation, the form of the equations of evolution remains invariant through a symplectic coordinate change  \cite{Marsden:2010:IMS:1965128}. The \emph{symplectic inverse} of $A$, is a pseudo-inverse given by
 \begin{equation}
 	A^+ = \mathbb{\mathbb J}_{2k}^T A^T \mathbb J_{2n}.
 \end{equation}
-It is shown in \cite{Peng:2014di} that $A^+A = I_{2k}$ and that $(A^+)^T$ is a symplectic matrix. Further, one can easily check that $AA^+$ is idempotent and so is a projection operator onto the column span of $A$. 
+It is shown in \cite{Peng:2014di} that $A^+A = I_{2k}$ and that $(A^+)^T$ are symplectic matrices. Further, one can easily check that $AA^+$ is idempotent, meaning it is a projection operator onto the column span of $A$. 
 
-It is known that symplectic matrices are usually ill-conditioned \cite{Karow:2006cf}. Under some conditions on a symplectic space \cite{da2003introduction}, one can construct a symplectic basis which is also ortho-normal, and thus norm bounded. A basis which is both symplectic and orthogonal is referred to as an \emph{ortho-symplectic basis}. We refer the reader to \cite{da2003introduction} for conditions on existence and construction of an ortho-symplectic basis.
+It is known that symplectic matrices are usually ill-conditioned \cite{Karow:2006cf}. Under some conditions on a symplectic space \cite{da2003introduction}, one can construct a symplectic basis which is also ortho-normal, and thus norm bounded. A basis which is both symplectic and orthogonal is called a \emph{ortho-symplectic basis}. We refer the reader to \cite{da2003introduction} for conditions on existence and construction of an ortho-symplectic basis.
 
 It is natural to expect a numerical integrator that solves (\ref{eq:2.1}) to also satisfy the conservation law in theorem \ref{theorem:2.1}. Common numerical integrators, e.g. the Runge-Kutta methos, do not generally preserve the Hamiltonian. Symplectic numerical integrators are a class of numerical integrators for Hamiltonian systems that preserves the symplectic structure and ensure stability in long-time integration. The Str\"omer-Verlet time stepping scheme is an example of such numerical integrators and is given by
 
@@ -48,11 +48,11 @@ It is natural to expect a numerical integrator that solves (\ref{eq:2.1}) to als
 	p_{n+1} &= p_{n+1/2} - \frac{\Delta t}{2} \nabla_qH(q_{n+1},p_{n+1/2}),
 \end{aligned}
 \end{equation}
-where $p$ and $q$ are the canonical coordinates. More information on construction and application of symplectic integrators can be found in \cite{Hairer:1250576}.
+where $p$ and $q$ are the canonical coordinates $z = (q^T,p^T)^T$. More information on construction and application of symplectic integrators can be found in \cite{Hairer:1250576}.
 
-\subsection{Dissipative Hamiltonian Systems and Hamiltonian Extensions}
+\subsection{Dissipative Hamiltonian Systems and Hamiltonian Extensions} \label{sec:2.2}
 
-Many systems in engineering and physic appear as a perturbation of a Hamiltonian system, where the perturbation is regarded as dissipation. In these systems, the energy tends to decrease over time evolution, and the conservation law in Theorem \ref{theorem:2.1} does not hold anymore. Therefore, it is common to take the conservation of energy as a fundamental principle and consider the dissipative system coupled with a heat bath that absorbs the dissipated energy of the original system. 
+Many systems in engineering and physic appear as a perturbation of a Hamiltonian system, where the perturbation is regarded as dissipation. In these systems, the energy tends to decrease over time evolution, and thus, the conservation law in Theorem \ref{theorem:2.1} does not hold anymore. Therefore, it is common to take the conservation of energy as a fundamental principle and consider the dissipative system coupled with a heat bath that absorbs the dissipated energy of the original system. 
 
 To account dissipation for a quadratic Hamiltonian $H(z) = \frac 1 2 z^T K^T K  z$, we rewrite (\ref{eq:2.1}) as a time dispersive and dissipative (TDD) \cite{Figotin:2006jy} system 
 \begin{equation} \label{eq:2.4}
@@ -65,7 +65,7 @@ where $f$ is the solution to the integral equation
 \begin{equation} \label{eq:2.4.1}
 	f(t) + \int_0^t \chi(t-s) \cdot f(s)\ ds = K z.
 \end{equation}
-Here $\chi:\mathbb R^+\to \mathbb R^{2n\times 2n}$ is a bounded matrix valued function with respect to the Frobenius norm and is called the \emph{general susceptibility}. Note that integral term in (\ref{eq:2.4.1}) corresponds to the dissipation, whereas if $\chi(s) = 0$ then (\ref{eq:2.3}) is equivalent to (\ref{eq:2.1}). Note that under suitable assumptions on $K$, both the systems (\ref{eq:2.1}) and (\ref{eq:2.4}) are well-posed \cite{Figotin:2006jy}.
+Here $\chi:\mathbb R^+\to \mathbb R^{2n\times 2n}$ is a bounded matrix valued function with respect to the Frobenius norm and is called the \emph{general susceptibility}. Note that the integral term in (\ref{eq:2.4.1}) corresponds to the dissipation, whereas if $\chi(s) = 0$ then (\ref{eq:2.4}) is equivalent to (\ref{eq:2.1}). Furthermore, under suitable assumptions on $K$, both the systems (\ref{eq:2.1}) and (\ref{eq:2.4}) are well-posed \cite{Figotin:2006jy}.
 
 \begin{example} \label{example:2.1}
 Consider the dynamics of the damped harmonic oscillator
@@ -79,14 +79,14 @@ where $k$ is the Hooke's constant and $r$ is the spring's damping factor. Note t
 Here $(q,p)$ are the canonical coordinates and the susceptibility is the constant function $r$.
 \end{example}
 
-It is shown in \cite{Figotin:2006jy,Figotin:2005} that under natural assumptions on a linear susceptibility $\chi(t)$ (see below), one can couple a TDD system of the form (\ref{eq:2.4}) with a canonical heat bath where the dissipated energy is captured in the heat bath in a canonical sense. In other words, one can construct a Hilbert space $\mathcal H$ and an isometric injection $I:\mathbb R^{2n} \to \mathbb R^{2n}\times \mathcal H^{2n}$ where the solution $z$ to (\ref{eq:2.4}) is the projection of $x$ onto $\mathbb R^{2n}$, where $x$ is the solution to
+It is shown in \cite{Figotin:2006jy,Figotin:2005} that under natural assumptions on the linear susceptibility $\chi(t)$ (see below), one can couple a TDD system of the form (\ref{eq:2.4}) with a canonical heat bath where the dissipated energy is captured in the heat bath in a canonical sense. In other words, one can construct a Hilbert space $\mathcal H$ and an isometric injection $I:\mathbb R^{2n} \to \mathbb R^{2n}\times \mathcal H^{2n}$ where the solution $z$ to (\ref{eq:2.4}) is the projection of $x$ onto $\mathbb R^{2n}$, where $x$ is the solution to
 \begin{equation} \label{eq:2.7}
-	\frac{d}{dt} x = J_{2n} \frac{\delta H_{\text{ex}}}{\delta x}.
+	\frac{d}{dt} x = \mathcal J_{2n} \frac{\delta H_{\text{ex}}}{\delta x}.
 \end{equation}
-Here $J_2n$ is the symplastic operator and $H_{\text{ex}}:\mathbb R^{2n}\times \mathcal H^{2n} \to \mathbb R$ is an extended quadratic Hamiltonian function defined on $\mathbb R^{2n}\times \mathcal H^{2n}$.
+Here $H_{\text{ex}}:\mathbb R^{2n}\times \mathcal H^{2n} \to \mathbb R$ is an extended quadratic Hamiltonian function and $\mathcal J_{2n}$ is the symplastic operator defined on $\mathbb R^{2n}\times \mathcal H^{2n}$ respectively.
 
 \begin{theorem}
-Suppose that $K$ is full ranked and $\chi(t)$ is symmetric. There exists a quadratic extension of the form (\ref{eq:2.8}) to (\ref{eq:2.4}), if
+Suppose that $K$ is full ranked and $\chi(t)$ is symmetric. There exists a quadratic extension of the form (\ref{eq:2.7}) to (\ref{eq:2.4}), if
 \begin{equation} \label{eq:2.8}
 	\text{Im}(\xi\hat{\chi}(\xi)) \geq 0, \quad \forall \xi = \omega + i\eta, \ \eta \geq 0,
 \end{equation}
@@ -113,20 +113,20 @@ Here $\theta$ and $\phi$ are vector valued functions in $\mathcal H^{2n}$, $\del
 \begin{equation} \label{eq:2.11}
 	f(t) + \sqrt{2} \cdot \sqrt{ \chi } \phi(t,0) = Kz(t).
 \end{equation}
-To show that the Hamiltonian system (\ref{eq:2.10.a}) to (\ref{eq:2.10.c}) is an extension to (\ref{eq:2.4}) in the sense discussed before, it is enough to show that the solution $f$ to the equation (\ref{eq:2.11}) also satisfies (\ref{eq:2.4.1}). Equations (\ref{eq:2.10.b}) and (\ref{eq:2.10.c}) are equations to a vibrating string, and can be solved analytically
+To show that the Hamiltonian system (\ref{eq:2.10.a}-\ref{eq:2.10.c}) is an extension to (\ref{eq:2.4}) in the sense discussed above, it is enough to show that the solution $f$ to the equation (\ref{eq:2.11}) also satisfies (\ref{eq:2.4.1}). Equations (\ref{eq:2.10.b}-\ref{eq:2.10.c}) are equations to a vibrating string, and can be solved analytically
 \begin{equation} \label{eq:2.12}
 	\phi(t,x) = \frac {\sqrt 2} 2 \int_0^{t-|x|} \sqrt{\chi} f(s)\ ds,\quad \theta(t,x) = \frac{\sqrt 2}{2} \cdot \sqrt{\chi} f(t - |x|).
 \end{equation}
 \end{proof}
-We can recover (\ref{eq:2.4.1}) by substituting (\ref{eq:2.12}) into (\ref{eq:2.11}). The extended Hamiltonian $H_\text{ex}$ for the system (\ref{eq:2.10.a}) to (\ref{eq:2.10.c}) takes the quadratic from
+Then, we can recover (\ref{eq:2.4.1}) by substituting (\ref{eq:2.12}) into (\ref{eq:2.11}). The extended Hamiltonian $H_\text{ex}$ for the system (\ref{eq:2.10.a}-\ref{eq:2.10.c}) takes the quadratic from
 \begin{equation} \label{eq:2.13}
 	H_\text{ex}(z,\phi,\theta) = \frac 1 2 \left( \| Kz - \phi(t,0) \|_2^2 + \| \theta(t) \|^2_{\mathcal H^{2n} } + \| \partial_x\phi(t)\|^2_{\mathcal H^{2n} }\right)
 \end{equation}
 where $\| \cdot \|_2$ is the Euclidean norm on $\mathbb R^{2n}$ and $\| \cdot \|_{\mathcal H^{2n}}$ is the induced norm from the inner product on $\mathcal H^{2n}$. 
 
-Equations (\ref{eq:2.10.a}) and (\ref{eq:2.10.c}) are called the \emph{hidden strings}. The dissipation of energy in the original system (\ref{eq:2.4}) is carried away, as vibrations, along the added strings which makes the extended system conservative. Hamiltonian extension of the damped harmonic oscillator in Example \ref{example:2.1} is exactly the Lamb model \cite{lamb:1900}. The Lamb model is a harmonic oscillator coupled with a vibrating string, and the tension in the string causes linear dissipation in the dynamics of the harmonic oscillator.
+Equations (\ref{eq:2.10.b}) and (\ref{eq:2.10.c}) are called the \emph{hidden strings}. The dissipation of energy in the original system (\ref{eq:2.4}) is carried away, as vibrations, along the added strings which makes the extended system conservative. The Hamiltonian extension of the damped harmonic oscillator in Example \ref{example:2.1} is exactly the Lamb model \cite{lamb:1900}. The Lamb model is a harmonic oscillator coupled with a vibrating string, and the tension in the string causes linear dissipation in the dynamics of the harmonic oscillator.
 
-Note that time integration of (\ref{eq:2.10.a})-(\ref{eq:2.10.c}) involves the integration of $f$ in (\ref{eq:2.12}). In general $f(t)$ must be stored and may cause serious storage limitation in long-time integration. However, we are interested solely in finding $z(t)$ which depends on $f(t)$, and $\phi(t,0)$ that is the integral of the history of $f(t)$. So by carefully choosing a quadrature rule that uses the same quadrature nodes as the time integrator we can avoid storing the history of $f$. For example for the trapezoidal rule, we recover the recursive relation
+Note that the time integration of (\ref{eq:2.10.a}-\ref{eq:2.10.c}) involves the integration of $f$ in (\ref{eq:2.12}). In general, the history of $f(t)$ must be stored and may cause serious storage limitation in long-time integration. However, we are interested solely in finding $z(t)$ which depends on $f$ at time $t$, and $\phi(t,0)$, that is the integral of the history of $f$. So by carefully choosing a quadrature rule that uses the same quadrature nodes as the time integrator we can avoid storing the history of $f$. For example for the trapezoidal rule, we recover the recursive relation
 \begin{equation} \label{eq:2.14}
 	\int_{0}^{t_n} f(s) \ ds \approx \frac{\Delta t}{2} f(t_n) + \frac{\Delta t}{2} f(t_{n-1}) + \int_{0}^{t_{n-1}} f(s) \ ds,
 \end{equation}
@@ -134,4 +134,4 @@ where $\Delta t$ is the time discretization step. The recursive relation in (\re
 \begin{equation}
 	\int_{0}^{t_n} f(s) \ ds \approx \sum_{i=0}^{k} \omega_i f(t_{n-i})  + \int_{0}^{t_{n-k}} f(s) \ ds
 \end{equation}
-for some quadrature weights $\omega_i$, $i=1,\dots,k$ with $k\ll n$. Thus, time integration of (\ref{eq:2.10.a})-(\ref{eq:2.10.c}), requires storing only $k$ evaluations of $f$.
+for some quadrature weights $\omega_i$, $i=1,\dots,k$ with $k\ll n$. Thus, time integration of (\ref{eq:2.10.a}-\ref{eq:2.10.c}), requires storing only $k$ evaluations of $f$.

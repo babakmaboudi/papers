@@ -33,16 +33,13 @@ where $z = (q_1,\dots,q_{N_{\Delta x}},p_1,\dots,p_{N_{\Delta x}})$ and $K$ and 
 \end{equation}
 with $D_x^TD_x = D_{xx}$ the central finite differences matrix operator. Writing (\ref{eq:4.2}) in a TDD formulation gives
 \begin{equation} \label{eq:4.4}
-\begin{aligned}
-	& \dot z = \mathbb J_{2n} K^T f(t) \\
-	& f(t) + R \int_0^t f(t) = K z.
-\end{aligned}
+	\dot z = \mathbb J_{2n} K^T f(t), \quad f(t) + R \int_0^t f(t) = K z.
 \end{equation}
 Here, since $R$ is not time dependent, it commutes with the integration operator. The Hamiltonian extension of (\ref{eq:4.4}), then takes the form (\ref{eq:2.10.a})-(\ref{eq:2.10.c}).
 
 The initial condition used is given by
 \begin{equation} \label{eq:4.5}
-	q_i(0) = h( 10\times|x_i - \frac{1}{2}| ), \quad p_i = 0, \quad i=1,\dots,N
+	q_i(0) = h( 10\times|x_i - \frac{1}{2}| ), \quad p_i = 0, \quad i=1,\dots,N,
 \end{equation}
 where $h(s)$ is the cubic spline function
 \begin{equation} \label{eq:4.6}
@@ -56,7 +53,7 @@ h(s) =
 \right.
 \end{equation}
 
-For the numerical time integration of the extended Hamiltonian system, the Str\"omer-Verlet time stepping scheme (\ref{eq:2.3}) is used. Further in each time step, the system of linear equations (\ref{eq:2.4.1}) is solved to recover $z$. System parameters are summarized below.
+For the numerical time integration of the extended Hamiltonian system, the Str\"omer-Verlet time stepping scheme (\ref{eq:2.3}) is used. Further in each time step, the system of linear equations (\ref{eq:2.11}) is solved to recover $z$. System parameters are summarized below.
 \vspace{0.5cm}
 \begin{center}
 \begin{tabular}{|l|l|}
@@ -64,7 +61,7 @@ For the numerical time integration of the extended Hamiltonian system, the Str\"
 Domain length & $L = 1$ \\
 No. grid points & $N = 500$ \\
 Space discretization size & $\Delta x = 0.002$ \\
-Time discretization size & $\Delta t = 0.01$ \\
+Time discretization size & $\Delta t = 0.002$ \\
 Wave speed & $c^2 = 0.1$ \\
 \hline
 \end{tabular}
@@ -75,13 +72,13 @@ The first numerical experiment, corresponds to an inhomogeneous dissipative medi
 
 Figure \ref{fig:4.1}.a shows the solution of the original dissipative wave equation (\ref{eq:4.1}) at $t \in \{0,2.5,5,7.5\}$. For a nonzero $r_\Delta$ the solution will converge to $(q(t=\infty,x),p(t=\infty,x)) = (\rho,0)$ where $\rho$ is the center of mass of $q_0$. 
 
-To construct the reduced basis for different methods, we gather the snapshots of (\ref{eq:4.1}). We construct RDH reduced system according to the Algorithm \ref{alg:3.1}. The cotangent lift is used to construct an ortho-symplectic reduced basis $A$ (\ref{eq:3.5}). The performance of the RDH method is then compared to the POD, and the method proposed in \cite{peng2016geometric} referred to as the PSD.
+To construct the reduced basis for different methods, we gather the snapshots of (\ref{eq:4.1}). We construct the RDH reduced system according to the Algorithm \ref{alg:3.1}. The cotangent lift is used to construct an ortho-symplectic reduced basis $A$ (\ref{eq:3.5}). The performance of the RDH method is then compared to the POD, and the method proposed in \cite{peng2016geometric} referred to as the PSD.
 
 Figure \ref{fig:4.1}.b Shows the decay of the singular values of the snapshot matrix for the POD, PSD and the RDH methods. Note that the snapshots for the PSD and the RDH are different since they have different canonical representations. The fast decay of the eigenvalues in all methods is a strong indicator for the existence of a low dimensional reduced system. The reduced bases are then constructed using 20, 40 and 60 number of modes.
 
-The $L^2$ error between the full systems and the RDH, the PSD and the POD method are presented in Figure \ref{fig:4.1}.c. We notice that symplectic methods provide a more accurate solution with respect to the POD method. In fact, the POD method does not yield a stable reduced system.  Further it is seen that enriching the PSD reduced basis does not yield a significant enhancement in the accuracy of the reduced system. This is because in the PSD method, a non-conservative system is being numerically integrated with a symplectic integrator. This results in an incorrect evolution of energy and eventually, in a qualitatively wrong numerical solution.
+The $L^2$ error between the full systems and the RDH, the PSD and the POD methods are presented in Figure \ref{fig:4.1}.c. We notice that symplectic methods provide a more accurate solution with respect to the POD method. In fact, the POD method does not yield a stable reduced system.  Further it is seen that enriching the PSD reduced basis does not yield a significant enhancement in the accuracy of the reduced system. This is because in the PSD method, a non-conservative system is being numerically integrated with a symplectic integrator. This results in an incorrect evolution of energy and eventually, in a qualitatively wrong numerical solution.
 
-On the other hand, We notice that the RDH method with 40 modes provides a significantly more accurate solution compared to the PSD method with 60 modes. The RDH method provides a conservative reduced system where the dissipated energy is trapped in the hidden strings. The conservation of energy is then guaranteed using a symplectic integrator. Due to this reason, we observe remarkable increase in the accuracy by enriching the RDH reduced basis.
+On the other hand, We notice that the RDH method with 40 modes provides a significantly more accurate solution compared to the PSD method with 60 modes. The RDH method provides a conservative reduced system where the dissipated energy is absorbed by the hidden strings. The conservation of energy is then guaranteed using a symplectic integrator. Due to this reason, we observe remarkable increase in the accuracy by enriching the RDH reduced basis.
 
 Figure \ref{fig:4.1}.d shows the preservation of the energy in different methods. The conservation law expressed in theorem \ref{theorem:2.1} is destroyed through the POD model reduction. That is why we observe the blow-up of the system energy. The symplectic methods however, preserves the energy significantly better. Due to the reason discussed above, enriching the PSD basis does not significantly affect the preservation of energy. On the contrary, The RDH not only provides a noteworthy accuracy in preserving the energy, but also provides significant improvement under enrichment.
 
@@ -99,7 +96,7 @@ In Figure \ref{fig:4.1}.e we show the transfer of the energy from the TDD system
 \includegraphics[width=0.45\textwidth]{./figs/wave/error_homo} \\
 (e) & (f) 
 \end{tabular}
-\caption{(a) The solution to the original dissipative wave equation (\ref{eq:4.1}), (b) The decay of the singular values for the POD, the PSD and the RDH methods, (c) The $L^2$ error for the different methods, (d) Energy preservation for different methods, (e) Energy preservation of the Hamiltonian extension for the original and the reduced system. ``FM'' and ``RM'' stand for the full model and the reduced model respectively. (f) The $L^2$ error between the solution to the reduced system and the full in a near-zero dissipation regime.} \label{fig:4.1}
+\caption{(a) The solution to the original dissipative wave equation (\ref{eq:4.1}), (b) The decay of the singular values for the POD, the PSD and the RDH methods, (c) The $L^2$ error for the different methods, (d) Energy preservation for different methods, (e) Energy preservation of the Hamiltonian extension for the original and the reduced system. ``FM'' and ``RM'' stand for the full model and the reduced model respectively. (f) The $L^2$ error between the solution to the reduced system and the full system in a near-zero dissipation regime.} \label{fig:4.1}
 \end{figure}
 
 The second numerical experiment is the dissipative wave equation (\ref{eq:4.1}) in a near-zero dissipation regime. The numerical setting is taken to be identical to the previous numerical experiment, but with the difference that $r_i = 10^{-5}$, for $i=1,\dots,N_{\Delta x}$. Figure \ref{fig:4.1}.f shows the $L^2$ error between the solution to the reduced system and the full system, for the POD, the PSD and the RDH methods. We notice that the POD does not yield a reduced system as the symplectic structure is lost via model reduction. Further we notice that error for the PSD and the RDH coincide since the two methods become identical as $\| \chi \|_{\infty}\to 0$.
@@ -133,15 +130,15 @@ where $\tilde Q = QT$, $\tilde R = T^{-1}RT^{-T}Q^TQ$ and $\tilde u = T^{-1} u$.
 \begin{equation} \label{eq:4.9}
 	\dot{\tilde x} = \mathbb{J}_{2n} \tilde Q^T f(t) + \tilde u, \quad f(t) + \tilde R \int_0^t f(t) = \tilde Q \tilde x.
 \end{equation}
-The extended Hamiltonian formulation (\ref{eq:2.10.a})-(\ref{eq:2.10.c}) with a quadratic Hamiltonian $H_{\text{ex}}$ can be then carried out according to section \ref{??}. We note that due to the input $\tilde u$, the Hamiltonian $H_{\text{ex}}$ is time dependent. As the matter of fact $\frac{d}{dt} H_{\text{ex}} = \tilde u^T\tilde Q^T \tilde Q \tilde x$. If we define $\overset{\circ}{H}_{\text{ex}} : \mathbb R^{2n}\times \mathcal H^{2n}\times \mathbb R^{2}\to \mathbb R$ as
+The extended Hamiltonian formulation (\ref{eq:2.10.a}-\ref{eq:2.10.c}) with a quadratic Hamiltonian $H_{\text{ex}}$ can be then carried out according to section \ref{sec:2.2}. We note that due to the input $\tilde u$, the Hamiltonian $H_{\text{ex}}$ is time dependent. As the matter of fact $\frac{d}{dt} H_{\text{ex}} = \tilde u^T\tilde Q^T \tilde Q \tilde x$. If we define $\overset{\circ}{H}_{\text{ex}} : \mathbb R^{2n}\times \mathcal H^{2n}\times \mathbb R^{2}\to \mathbb R$ as
 \begin{equation} \label{eq:4.10}
 	\overset{\circ}{H}_{\text{ex}}(\tilde x,\phi,\theta,t,e) = H_{\text{ex}}(\tilde x,\phi,\theta,t) + e, \quad \dot e = - \partial_t H_{\text{ex}},
 \end{equation}
 it is easily checked that $\frac d {dt} \overset{\circ}{H}_{\text{ex}} =0$ \cite{Hairer:1250576}. However for the time integration of the Hamiltonian system related to $\overset{\circ}{H}_{\text{ex}}$, since the evolution of $\tilde x$, $\phi$ and $\theta$ does not explicitly depend on $e$, we can apply a symplectic integrator directly on (\ref{eq:4.10}). Thus, the passivity of (\ref{eq:4.7}) will be preserved through a symplectic time integration of (\ref{eq:4.9}).
 
-Using an ortho-symplectic reduced basis $A$ The reduced dissipative Hamiltonian method can be applied to (\ref{eq:4.9}) to construct a reduced system of the form (\ref{eq:3.12.a})-(\ref{eq:3.12.c}) together with the extended Hamiltonian $\tilde H_{\text{ex}}$. We immediately notice that $\frac{d}{dt} \tilde H_{\text{ex}} = (A^+ \tilde u)^T A^T \tilde Q^T \tilde Q A y$, meaning that the reduced system is passive. Further the dissipative Hamiltonian structure of the reduced system indicates that the reduced system also carries a port-Hamiltonian structure.
+Using an ortho-symplectic reduced basis $A$ The Reduced Dissipative Hamiltonian method can be applied to (\ref{eq:4.9}) to construct a reduced system of the form (\ref{eq:3.12.a}-\ref{eq:3.12.c}) together with the extended Hamiltonian $\tilde H_{\text{ex}}$. We immediately notice that $\frac{d}{dt} \tilde H_{\text{ex}} = (A^+ \tilde u)^T A^T \tilde Q^T \tilde Q A y$, meaning that the reduced system is passive. Further the dissipative Hamiltonian structure of the reduced system indicates that the reduced system also carries a port-Hamiltonian structure.
 
-We consider a 100-dimensional ($n=50$) port-Hamiltonian system for the ladder network discussed above. We take $C_i=1$, $L_i = 1$, $R_i=0.2$ for $i=1,\dots,50$, and $R_{51} = 0.4$. The cotangent lift is used to construct a reduced basis and the RDH method is used to construct a reduced system according to Algorithm (\ref{alg:3.1}). 
+We consider a 100-dimensional ($n=50$) port-Hamiltonian system for the ladder network discussed above. We take $C_i=1$, $L_i = 1$, $R_i=0.2$ for $i=1,\dots,50$, and $R_{51} = 0.4$. The cotangent lift is used to construct a reduced basis and the RDH method is used to construct a reduced system according to Algorithm \ref{alg:3.1}. 
 
 The solution of the RDH method is compared to the main results of \cite{Polyuga:2010gj}, where a passivity-preserving model reduction is developed using a moment matching method at infinity. The charge in $C_1$ is chosen to be the single out put for the moment matching method.
 
@@ -156,9 +153,9 @@ The solution of the RDH method is compared to the main results of \cite{Polyuga:
 \caption{Error between the full model and the reduced model obtained by the reduced dissipating Hamiltonian method ``RDH'' and the moment matching method ``MM''. (a) The average error of charge in capacitors in time. (b) the average error of the flux in inductors in time. (c) Error in $C_1$.} \label{fig:4.3}
 \end{figure}
 
-Reduced bases of size $2k = 10$, $2k = 20$ and $2k = 30$ are constructed with the RDH and the moment matching method. Figure \ref{fig:4.3}.c shows the error in the charge in $C_1$ for the two methods. We observe that although the moment matching method is bounded, over long-time integration, the RDH method provides a significantly more accurate solution. This is because in the moment matching method, passivity of the reduced system implies that the energy of the system will be bounded by the input energy. However, there is no guarantee that the dissipation of energy in the reduced system mimics the one of the original system. On the other hand, the RDH method allows correct dissipation of energy through the hidden strings. Also the symplectic time integration in the RDH method guarantees that the total energy will be preserved.
+Reduced bases of size $2k = 10$, $2k = 20$ and $2k = 30$ are constructed with the RDH and the moment matching method. Figure \ref{fig:4.3}.c shows the error in the charge in $C_1$ for the two methods. We observe that although the moment matching method is bounded, over long-time integration, the RDH method provides a significantly more accurate solution. This is because in the moment matching method, the passivity of the reduced system implies that the energy of the system will be bounded by the input energy. However, there is no guarantee that the dissipation of energy in the reduced system mimics the one of the original system. On the other hand, the RDH method allows correct dissipation of energy through the hidden strings. Also the symplectic time integration in the RDH method guarantees that the total energy will be preserved.
 
 Over short-time integration, we notice that the moment matching method with 10 modes provides a more accurate solution than the RDH with 10 modes. Further, the moment matching method with 20 and 30 modes provide a comparable accuracy to the RDH method with 20 and 30 modes. But, the RDH method maintains the high accuracy over the long-time integration, while the moment matching method loses up to 3 orders of magnitude in the accuracy independent of the number of modes.
 
-Figure \ref{fig:4.3}.a and Figure \ref{fig:4.3}.b show the average error in the charge and flux of the capacitors and inductors respectively, for these methods. The RDH method provides a significantly better accuracy compared to the moment matching method. This is because the charge of $C_1$ is specified as the output of interest in the moment matching method so it is expected that that method provides low accuracy for computing other outputs. On the other hand, the RDH method not only provides high accuracy in computing the charge for $C_1$ but also it has high accuracy for computing other outputs of interest.
+Figure \ref{fig:4.3}.a and Figure \ref{fig:4.3}.b show the average error in the charge and flux of the capacitors and inductors respectively. The RDH method provides a significantly better accuracy compared to the moment matching method. This is because the charge of $C_1$ is specified as the output of interest in the moment matching method and so it is expected that that method provides low accuracy for computing other outputs. On the other hand, the RDH method not only provides high accuracy in computing the charge for $C_1$ but also it has high accuracy for computing other outputs of interest.
 
