@@ -48,7 +48,7 @@ For parametric problems, evaluation of the projection error in (\ref{eq:3.4}) fo
 \begin{equation}
 	\omega^{k+1} := \underset{\omega\in \Omega}{\text{argmax }} | H(z(\omega)) - H(AA^+z(\omega)) |.
 \end{equation}
-Here $\Omega$ is a closed and bounded set of parameters for the original Hamiltonian system. Note that since the Hamiltonian function is constant in time, then $\omega^{k+1}$ can be identified prior to time integration, i.e. $H(z) = H(z_0)$ and $H(AA^+z) = H(AA^+z_0)$. We summarize the greedy method for symplectic basis generation in Algorithm \ref{alg:added1} and refer the reader to \cite{Maboudi:2016} for further details.
+Here $\Omega$ is a closed and bounded set of parameters for the original Hamiltonian system. Note that $\omega^{k+1}$ can be identified prior to time integration since the Hamiltonian function is constant in time, i.e. $H(z) = H(z_0)$ and $H(AA^+z) = H(AA^+z_0)$. We summarize the greedy method for symplectic basis generation in Algorithm \ref{alg:added1} and refer the reader to \cite{Maboudi:2016} for further details.
 
 
 
@@ -164,4 +164,4 @@ This is a symplectic transformation, since $\mathcal A^T \mathcal J_{2n} \mathca
 
 Note that Algorithm \ref{alg:3.1} does not depend on the choice of the method to construct an ortho-symplectic basis $A$. Thus, for basis generation, the greedy approach introduced in section \ref{sec:3.2} or an SVD-based method, e.g. the cotangent lift \cite{Peng:2014di}, can be applied.
 
-The main advantage of the RDH method compared to the existing method is that it enables the reduced system to be integrated using a symplectic integrator. The reduced system constructed using the RDH is a closed Hamiltonian system, therefore the conservation law in Theorem \ref{theorem:2.1} holds and a symplectic integrator guarantees that the total energy is preserved in the reduced system. Alternative methods, e.g. \cite{peng2016geometric,Polyuga:2010gj,beattie2011structure}, either integrate the reduced system with a non-symplectic integrator, or do not construct a closed reduced system which result in accumulation of local errors or unstable solution during long time integration respectively.
+The main advantage of the RDH method compared to the existing methods is that it enables the reduced system to be integrated using a symplectic integrator. The reduced system constructed using the RDH is a closed Hamiltonian system, therefore the conservation law in Theorem \ref{theorem:2.1} holds and a symplectic integrator guarantees that the total energy is preserved in the reduced system. Alternative methods, e.g. \cite{peng2016geometric,Polyuga:2010gj,beattie2011structure}, either integrate the reduced system with a non-symplectic integrator, or do not construct a closed reduced system which result in accumulation of local errors or unstable solution during long time integration respectively \cite{Hairer:1250576}.
