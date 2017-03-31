@@ -153,8 +153,8 @@ The RDH reduced system is constructed following Algorithm \ref{alg:3.1}. To redu
 
 \begin{figure}[t]
 \begin{tabular}{cc}
-\includegraphics[width=0.5\textwidth]{./figs/wave_nonlin/error} & 
-\includegraphics[width=0.5\textwidth]{./figs/wave_nonlin/energy} \\
+\includegraphics[width=0.5\textwidth]{./figs/wave_nonlin/error_nonlin} & 
+\includegraphics[width=0.5\textwidth]{./figs/wave_nonlin/energy_nonlin} \\
 (a) & (b)
 \end{tabular}
 \caption{(a) The $L^2$-error for the different methods, (a) Evolution of error in the kinetic energy for different methods.} \label{fig:added4.1}
@@ -162,7 +162,7 @@ The RDH reduced system is constructed following Algorithm \ref{alg:3.1}. To redu
 
 Figure \ref{fig:added4.1}.(a) shows the The $L^2$-error between the full system and the RDH, the PSD, and the POD methods. Although the Hamiltonian system of the sine-Gordon equation is nonlinear, the errors for the different methods show a similar behavior as those in Section (\ref{sec:4.1}). We observe that the POD does not yield a stable reduce system while the symplectic methods provide a high accuracy. Furthermore, we notice that enriching the PSD basis does not significantly enhance the accuracy of the method.
 
-The evolution of error in the kinetic energy $K(p) = \|p\|_2^2/2$ is illustrated in Figure \ref{fig:added4.1}.(b). We see that the POD does not conserve the evolution of the kinetic energy. The RDH method conserves the kinetic energy of the system with higher accuracy than the PSD method. Furthermore, the accuracy of the RDH method is better scaled under enrichment of the reduced basis, compared to the PSD method. 
+The evolution of error in the kinetic energy $K(p) = \|p\|_2^2/2$ is illustrated in Figure \ref{fig:added4.1}.(b). We see that the POD does not conserve the evolution of the kinetic energy. The RDH method conserves the kinetic energy of the system with a higher accuracy than the PSD method. Furthermore, the accuracy of the RDH method is better scaled under enrichment of the reduced basis, compared to the PSD method. 
 
 It is observed in Figure 1 that the symplectic treatment of the nonlinear terms is essential in correct model reduction of Hamiltonian systems. In addition, the SDEIM can be combined with the RDH method to construct a reduced Hamiltonian system that can be integrated using a symplectic integrator. Thus, the combination preserves the system energy and the symplectic symmetry of Hamiltonian systems.
 

@@ -126,7 +126,7 @@ Note that the time integration of (\ref{eq:2.10.a})-(\ref{eq:2.10.c}) involves t
 \begin{equation} \label{eq:2.14}
 	\int_{0}^{t_n} f(s) \ ds \approx \frac{\Delta t}{2} f(t_n) + \frac{\Delta t}{2} f(t_{n-1}) + \int_{0}^{t_{n-1}} f(s) \ ds,
 \end{equation}
-where $\Delta t$ is the time step. The recursive relation in (\ref{eq:2.12}) suggests that storing the value of the integral term together with the state of $f$ in the previous time step suffices to evaluate the integral for the new time step. For other interpolation based quadrature rules, we can construct similar recursive rules of the form
+where $\Delta t$ is the time step. The recursive relation in (\ref{eq:2.14}) suggests that storing the value of the integral term together with the state of $f$ in the previous time step suffices to evaluate the integral for the new time step. For other interpolation based quadrature rules, we can construct similar recursive rules of the form
 \begin{equation}
 	\int_{0}^{t_n} f(s) \ ds \approx \sum_{i=0}^{k} \omega_i f(t_{n-i})  + \int_{0}^{t_{n-k}} f(s) \ ds
 \end{equation}

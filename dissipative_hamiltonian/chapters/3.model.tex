@@ -141,7 +141,7 @@ Equations (\ref{eq:3.12.a})-(\ref{eq:3.12.b}) is a Hamiltonian system on the sym
 \begin{equation}
 	\dot {y} = \mathbb J_{2k} \tilde L^T \tilde f(t), \quad \tilde f(t) + \int_0^t \tilde \chi\cdot \tilde f(s)\ ds = \tilde L y.
 \end{equation}
-Therefore, the system energy will be conserved along integral curves of (\ref{eq:3.12.a})-(\ref{eq:3.12.c}).
+Therefore, the system energy will be conserved along integral curves of (\ref{eq:3.12.a})-(\ref{eq:3.12.b}).
 
 We point out that the transformation that connects (\ref{eq:2.10.a})-(\ref{eq:2.10.b}) to (\ref{eq:3.12.a})-(\ref{eq:3.12.b}) is given by
 \begin{equation}
@@ -164,4 +164,4 @@ This is a symplectic transformation, since $\mathcal A^T \mathcal J_{2n} \mathca
 
 Note that Algorithm \ref{alg:3.1} does not depend on the choice of the method to construct an ortho-symplectic basis $A$. Thus, for basis generation, the greedy approach introduced in section \ref{sec:3.2} or an SVD-based method, e.g. the cotangent lift \cite{Peng:2014di}, can be applied.
 
-The main advantage of the RDH method compared to the existing methods is that it enables the reduced system to be integrated using a symplectic integrator. The reduced system constructed using the RDH is a closed Hamiltonian system, therefore the conservation law in Theorem \ref{theorem:2.1} holds and a symplectic integrator guarantees that the total energy is preserved in the reduced system. Alternative methods, e.g. \cite{peng2016geometric,Polyuga:2010gj,beattie2011structure}, either integrate the reduced system with a non-symplectic integrator, or do not construct a closed reduced system which result in accumulation of local errors or unstable solution during long time integration respectively \cite{Hairer:1250576}.
+The main advantage of the RDH method compared to the existing methods is that it enables the reduced system to be integrated using a symplectic integrator. The reduced system constructed using the RDH is a closed Hamiltonian system, therefore the conservation law in Theorem \ref{theorem:2.1} holds and a symplectic integrator guarantees that the total energy is preserved in the reduced system. Alternative methods, e.g. \cite{peng2016geometric,Polyuga:2010gj,beattie2011structure}, either integrate the reduced system with a non-symplectic integrator, or do not construct a closed reduced system which result in accumulation of local errors or unstable solution during long time integration, respectively \cite{Hairer:1250576}.
