@@ -1,0 +1,174 @@
+\section{Hamiltonian Systems and Symplectic Geometry} \label{chap:Hasy:1}
+Let $\edit \mathcal M$ be a manifold and $\edit \Omega:\mathcal M \times \mathcal M \to \mathbb R$ be a closed, nondegenerate {\edit and skew-symmetric} 2-form on $\edit \mathcal M$. The pair $\edit (\mathcal M,\Omega)$ is called a \emph{symplectic manifold} {\edit \cite{Marsden:1999ck}}. 
+
+
+{\edit Let $(\mathcal M,\Omega)$ be a symplectic manifold and suppose that $H:\mathcal M \to \mathbb R$ is a smooth scalar function. The differential of $H$, denoted by $\mathbf dH$, defines a 1-form on $\mathcal M$. {\blue The nondegeneracy of $\Omega$ implies that there is a unique vector field $X_H$, \emph{the Hamiltonian vector field }\cite{da2003introduction,Marsden:1999ck}, on $\mathcal M$ such that}
+\begin{equation} \label{eq:Hasy:1}
+	\edit i_{X_H} \Omega = \mathbf dH. 
+\end{equation}
+}
+{\blue Here $i_{X_H} \Omega$ is the interior product of $X_H$ with $\Omega$, i.e.,}
+\begin{equation}
+	\edit \Omega(X_H,Y) = \mathbf dH(Y),
+\end{equation}
+{\edit for any vector field $Y$ on $\mathcal M$.} Note that when $\edit \mathcal M$ belongs to a Euclidean space then $\mathbf d H = \nabla_z H$. The equations of evolution are then defined by
+\begin{equation} \label{eq:Hasy:2}
+	\dot z = X_H(z)
+\end{equation}
+and known as \emph{Hamilton's equation} \cite{Marsden:1999ck}. A fundamental feature of Hamiltonian systems is the conservation of the Hamiltonian along integral curves on $\edit \mathcal M$. To emphasize the importance of this property we recall {\edit \cite{Marsden:1999ck}}
+
+\begin{theorem} \label{theorem:Hasy:1}
+Suppose that $X_H$ is a Hamiltonian vector field with the flow $\phi_t$ on a symplectic manifold $\mathcal M$. Then $H\circ \phi_t = H$.
+\end{theorem}
+
+\begin{proof}
+$H$ is constant along integral curves since
+\begin{equation} \label{eq:Hasy:3}
+\begin{aligned}
+	\frac{d}{dt}(H\circ \phi_t)(z) &= \mathbf d H(\phi_t(z)) \cdot( \frac{d}{dt} \phi_t(z) ) \\
+	&= \mathbf d H (\phi_t(z))\cdot X_H(\phi_t(z)) \\
+	&= \Omega_z( X_H(\phi_t(z)), X_H(\phi_t(z)) ) = 0,
+\end{aligned}
+\end{equation}
+{\edit by using} the chain rule and bilinearity of $\Omega$ in the argument.
+\end{proof}
+
+For the case where the symplectic manifold is also a linear vector space, the pair $({\edit \mathcal M},\Omega)$ is also referred to as a \emph{symplectic vector space}. We {\edit need} the following theorems regarding symplectic vector spaces and refer the reader to \cite{de2006symplectic,Marsden:1999ck,Silva01lectureson} for detailed proofs.
+
+{\edit
+\begin{theorem} \label{theorem:Hasy:1.1} \cite{Marsden:1999ck}
+If $(V,\Omega)$ is a symplectic vector space then $\Omega$ is a constant form, that is $\Omega_z$ is independent of $z\in V$. 
+\end{theorem}
+\begin{theorem} \label{theorem:Hasy:1.2} \cite{Marsden:1999ck}
+If $(V,\Omega)$ is a finite-dimensional symplectic manifold then $V$ is even dimensional.
+\end{theorem}
+\begin{theorem} \label{theorem:Hasy:1.3} \cite{de2006symplectic}
+(The Symplectic Gram-Schmidt) If $(V,\Omega)$ is a $2n$-dimensional symplectic vector space, then there is a basis $e_1,\dots e_n,f_1, \dots , f_n$ of $V$ such that
+\begin{equation} \label{eq:Hasy:4}
+\begin{aligned}
+	& \Omega(e_i,e_j) = 0 = \Omega(f_i,f_j), \quad & i\neq j,\\
+	& \Omega(e_i,f_j) = \delta_{ij}, & i\leq i,j \leq n.
+\end{aligned}
+\end{equation}
+where $\delta$ is the Kronecker's delta function. {\blue Moreover, if $V = \mathbb{R}^{2n}$ then} we can choose basis vectors $\{e_i,f_i\}_{i=1}^n$ such that
+\begin{equation} \label{eq:Hasy:5}
+	\Omega(v_1,v_2) = v_1^T \mathbb J_{2n} v_2, \qquad v_1,v_2\in \mathbb R^n,
+\end{equation}
+with $\mathbb J_{2n}$ being the {\blue standard} symplectic matrix, defined as
+\begin{equation} \label{eq:Hasy:6}
+	\mathbb{J}_{2n} = 
+	\begin{pmatrix}
+		0_n & I_n \\
+		-I_n & 0_n
+	\end{pmatrix}.
+\end{equation}
+Here $I_n$ and $0_n$ is the identity matrix and the zero square matrix of size $n$, respectively.
+\end{theorem}
+\begin{theorem} \label{theorem:Hasy:1.4} \cite{Marsden:1999ck}
+The classical inner product $\langle \cdot,\cdot \rangle:\mathbb R^{2n}\times \mathbb R^{2n}\to \mathbb R$ can be written in terms of the 2-form as
+\begin{equation}
+	\langle v,u \rangle = \Omega(\mathbb J_{2n}v,u),\quad \forall u,v \in \mathbb R^{2n}.
+\end{equation}
+\end{theorem}
+}
+
+{\edit 
+\begin{definition}  \cite{de2006symplectic}
+Suppose $(V,\Omega)$ is a finite dimensional symplectic vector space and $E\subset V$ is a subspace. Then the symplectic complement of $E$ inside $V$ is defined as
+\[
+	E^{\perp} := \{ v\in V |\ \Omega(v,e) = 0,\ \forall e\in E \}
+\]
+\end{definition}
+Note that $E \cap E^{\perp}$ is not empty in general. 
+\begin{definition} \cite{de2006symplectic}
+Suppose $(V,\Omega)$ is a finite dimensional symplectic vector space. A subspace $E\subset V$ is called a Lagrangian subspace inside $V$ if $E = E^\perp$.
+\end{definition}
+\begin{theorem} \label{theorem:Hasy:1.5} \cite{abraham1978foundations}
+Suppose $(V,\Omega)$ is a finite dimensional symplectic vector space. If $E\subset V$ is a Lagrangian subspace then $dim(E)=\frac 1 2dim(V)$. Here $dim$ denotes the dimension of the subspace.
+\end{theorem}
+\begin{definition}
+A basis of $(V,\Omega)$ is called orthosymplectic if it is both a symplectic basis and an orthogonal basis with respect to the classical scalar product.
+\end{definition}
+\begin{theorem} \label{theorem:Hasy:1.6}  \cite{mehl2009perturbation,da2003introduction}
+Suppose $(V,\Omega)$ is a $2n$ dimensional symplectic vector space and $E\subset V$ is a Lagrangian subspace. Then there is an orthosymplectic basis for $V$.
+\end{theorem}
+\begin{proof}
+{\blue A detailed proof can be found in \cite{mehl2009perturbation}. Since the proof contains an insight to the construction of symplectic bases, we are going to restate the proof.} Starting from a Lagrangain subspace in $E \subset V$ an orthosymplectic basis can be easily constructed. By Theorem \ref{theorem:Hasy:1.5} $E$ is $n$ dimensional. Suppose that $\{ e'_1,\dots, e'_n \}$ is a basis for $E$, using the classical Gram-Schmidt orthogonalization process we can construct an orthonormal basis $\{ e_1,\dots,e_n \}$. Define a new set of vectors $f_1 = \mathbb J_{2n}^Te_1$, $f_2 =\mathbb J_{2n}^T e_2$, $\dots$, $f_n= \mathbb J_{2n}^Te_n$. We have
+\begin{equation}
+	\langle f_i, f_j \rangle = e_i^T \mathbb J_{2n} {\mathbb J_{2n}}^T e_j = \delta_{ij}, \quad \langle f_i, e_j \rangle = e_i^T \mathbb J_{2n} e_j = 0, \quad i,j=1,\dots,n,
+\end{equation}
+where we used the fact that $\mathbb J_{2n} {\mathbb J_{2n}}^T = I_{2n}$ in the first identity and the second identity is due to the fact that the basis $\{ e_1,\dots,e_n \}$ forms a Lagrangian subspace. This shows that the set $\{ e_1,\dots,e_n \}\cup \{ f_1,\dots,f_n \}$ forms an orthonormal basis. Also, it can be easily verified that this is a symplectic basis. Thus $\{ e_1,\dots,e_n \}\cup \{ f_1,\dots,f_n \}$ is an orthosymplectic basis.
+\end{proof}
+\begin{theorem} \label{theorem:Hasy:1.7} \cite{Marsden:1999ck}
+On a finite-dimensional symplectic vector space the relationship (\ref{eq:Hasy:1}) becomes 
+\begin{equation} \label{eq:Hasy:7}
+\left\{
+\begin{aligned}
+	&\dot {\mathbf z} = \mathbb{J}_{2n} \nabla_{\mathbf z} H(\mathbf z), \\
+	& \mathbf z(0) = \mathbf z_0.
+\end{aligned}
+\right.
+\end{equation}
+or, by introducing the canonical coordinates $\mathbf z = (\mathbf q^T, \mathbf p^T)^T$,
+\begin{equation} \label{eq:Hasy:8}
+\left\{
+\begin{aligned}
+	&\dot {\mathbf q} = \nabla_{\mathbf p} H(\mathbf q,\mathbf p),\\
+	&\dot {\mathbf p} = - \nabla_{\mathbf q} H(\mathbf q,\mathbf p).
+\end{aligned}
+\right.
+\end{equation}
+\end{theorem}
+}
+
+{\edit Let} us now introduce \emph{symplectic transformations}, i.e., mappings between symplectic manifolds which preserve the 2-form $\Omega$. The accurate numerical treatment of Hamiltonian systems often requires preservation of the symmetry expressed in Theorem \ref{theorem:Hasy:1}. Symplectic transformations can be used to construct such symmetry preserving numerical methods. 
+
+{\edit
+\begin{definition}
+Let $(V,\Omega)$ and $(W,\Pi)$ be two linear symplectic vector spaces of dimensions $2n$ and $2k$, respectively. A linear mapping $\phi:V \to W$ is called \emph{symplectic} or \emph{canonical} if
+\begin{equation} \label{eq:Hasy:9}
+	\Omega = \phi^* \Pi
+\end{equation}
+where $\phi^* \Pi$ is the pullback of $\Pi$ by $\phi$, i.e. for all $\mathbf{z}_1, \mathbf{z}_2\in V$
+\begin{equation}
+	\Omega(\mathbf{z}_1,\mathbf{z}_2) = \Pi(\phi(\mathbf{z}_1),\phi(\mathbf{z}_2)).
+\end{equation}
+\end{definition}
+
+Note that if we represent the transformation $\phi$ as a matrix $A\in \mathbb R^{2n\times 2k}$ condition (\ref{eq:Hasy:9}) is equivalent to \cite{Marsden:1999ck}}
+
+\begin{equation} \label{eq:Hasy:11}
+	A^T \mathbb{J}_{2n}A = \mathbb{J}_{2k}.
+\end{equation}
+A matrix of size $2n\times 2k$ satisfying (\ref{eq:Hasy:11}) is called a \emph{symplectic matrix}.
+
+\begin{definition}
+	The \emph{symplectic inverse} of a matrix $A\in \mathbb{R}^{2n\times 2k}$ is denoted by $A^+$ and defined by {\edit \cite{Peng:2014di}}
+\begin{equation}\label{eq:Hasy:12}
+	A^+ := \mathbb{J}_{2k}^T A^T \mathbb{J}_{2n}.
+\end{equation}
+\end{definition}
+We point out the properties of the symplectic inverse and refer the reader to \cite{Peng:2014di} for detailed proof.
+\begin{lemma} \label{lemma:Hasy:1}
+Let $A\in \mathbb{R}^{2n\times 2k}$ be a symplectic matrix and $A^+$ its symplectic inverse as defined in (\ref{eq:Hasy:12}). Then ${(A^+)}^T$ is a symplectic matrix and $A^+A = I_{2k}$.
+\end{lemma}
+
+{\edit A straight-forward calculation verifies} that $AA^+$ is idempotent, i.e., a symplectic projection onto the column span of $A$.
+
+{\edit It is natural to expect a numerical integrator that solves (\ref{eq:Hasy:7}) to also satisfy the conservation law in Theorem \ref{theorem:Hasy:1}. Common numerical integrators e.g., Runge-Kutta methods, do not generally preserve the Hamiltonian which results in a qualitative wrong behavior of the solution \cite{Hairer:1250576}. Symplectic integrators are a class of numerical integrators for Hamiltonian systems that preserve the symplectic structure and ensure stability in long-time integration.} The Str\"omer-Verlet time stepping scheme is an example of symplectic integrators and is given by
+\begin{equation} \label{eq:Hasy:13}
+\begin{aligned}
+	q_{n+1/2} &= q_n + \frac{\Delta t}{2} \nabla_pH(q_{n+1/2},p_n), \\
+	p_{n+1} &= p_n - \frac{\Delta t}{2} \left( \nabla_qH(q_{n+1/2},p_n) + \nabla_qH(q_{n+1/2},p_{n+1}) \right),\\
+	q_{n+1} &= q_{n+1/2} + \frac{\Delta t}{2} \nabla_pH(q_{n+1/2},p_{n+1}),
+\end{aligned}
+\end{equation}
+and
+\begin{equation} \label{eq:Hasy:14}
+\begin{aligned}
+	p_{n+1/2} &= p_n - \frac{\Delta t}{2} \nabla_qH(q_{n},p_{n+1/2}), \\
+	q_{n+1} &= q_n + \frac{\Delta t}{2} \left( \nabla_pH(q_{n},p_{n+1/2}) + \nabla_pH(q_{n+1},p_{n+1/2}) \right),\\
+	p_{n+1} &= p_{n+1/2} - \frac{\Delta t}{2} \nabla_qH(q_{n+1},p_{n+1/2}).
+\end{aligned}
+\end{equation}
+For a general Hamiltonian system, the Str\"omer-Verlet scheme is implicit. However, for separable Hamiltonians, i.e. $H(q,p) = K(p) + U(q)$, this {\edit scheme becomes} explicit. We refer the reader to \cite{Hairer:1250576} for more information about the construction and applications of symplectic and geometric numerical integrators. 
