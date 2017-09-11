@@ -60,7 +60,7 @@ h(s) =
 \end{equation}
 This will result in waves propagating in both directions on the torus.
 
-For numerical time integration we {\edit use} the Str\"omer-Verlet (\ref{eq:Hasy:13}) scheme, {\edit which is explicit since} the Hamiltonian is separable for the linear wave-equation. The full model uses the following parameter set \vspace{0.5cm}
+For numerical time integration we {\edit use} the St\"ormer-Verlet (\ref{eq:Hasy:13}) scheme, {\edit which is explicit since} the Hamiltonian is separable for the linear wave-equation. The full model uses the following parameter set \vspace{0.5cm}
 \begin{center}
 \begin{tabular}{|l|l|}
 \hline
@@ -73,7 +73,7 @@ Wave speed & $c^2 = 0.1$ \\
 \end{tabular}
 \end{center}
 \vspace{0.5cm}
-We compare the reduced system obtained by the greedy algorithm with the methods based on SVD. To generate snapshots, we discretize the parameter space $[0,1]^4$ into in total of $5^4$ equidistant grid points. For the SVD based methods and POD, snapshots are gathered in the snapshot matrices $S$, $S_{\text{combined}}$ and $S_{\text{complex}}$, respectively, and the SVD is performed to construct the reduced basis. The greedy method is applied following Algorithm \ref{alg:SyMo:3}; as input, the tolerance for the error in the Hamiltonian is set to $\delta = 5 \times 10^{-3}$. All reduced systems are taken to have an identical size ($k=80$ for POD and $k=40$ for the symplectic methods). We use the {\edit Str\"omer-Verlet} scheme for symplectic methods and a second order Runge-Kutta method for the POD. {\edit The choice of different time integration routines is due to the fact that the POD destroys the canonical form of the original equations and a symplectic integrator cannot be applied. One can alternatively use separate reduced subspaces for the potential and the momentum spaces, which however is not a standard model reduction approach and requires further analysis.} Finally we use transformation (\ref{eq:SyMo:1}) to transfer the solution of the reduced systems into the high-dimensional space for illustration purposes.
+We compare the reduced system obtained by the greedy algorithm with the methods based on SVD. To generate snapshots, we discretize the parameter space $[0,1]^4$ into in total of $5^4$ equidistant grid points. For the SVD based methods and POD, snapshots are gathered in the snapshot matrices $S$, $S_{\text{combined}}$ and $S_{\text{complex}}$, respectively, and the SVD is performed to construct the reduced basis. The greedy method is applied following Algorithm \ref{alg:SyMo:3}; as input, the tolerance for the error in the Hamiltonian is set to $\delta = 5 \times 10^{-3}$. All reduced systems are taken to have an identical size ($k=80$ for POD and $k=40$ for the symplectic methods). We use the {\edit St\"ormer-Verlet} scheme for symplectic methods and a second order Runge-Kutta method for the POD. {\edit The choice of different time integration routines is due to the fact that the POD destroys the canonical form of the original equations and a symplectic integrator cannot be applied. One can alternatively use separate reduced subspaces for the potential and the momentum spaces, which however is not a standard model reduction approach and requires further analysis.} Finally we use transformation (\ref{eq:SyMo:1}) to transfer the solution of the reduced systems into the high-dimensional space for illustration purposes.
 
 
 
@@ -249,7 +249,7 @@ We discretize the Hamiltonian to obtain
 \begin{equation}  \label{eq:NuRe:17}
 	H_{\Delta x}(\mathbf z) = {\Delta x}\sum_{i=1}^{N} \left( \frac{q_i q_{i-1} - q_i^2}{\Delta x ^2} + \frac{p_i p_{i-1} - p_i^2}{\Delta x ^2} + \frac \epsilon 4 (p_i^2 + q_i^2)^2  \right),
 \end{equation}
-and use a Str\"omer-Verlet (\ref{eq:Hasy:13}) scheme for time integration. Since the Hamiltonian function (\ref{eq:NuRe:17}) is non-separable, this scheme becomes implicit so in each time iteration, a system of nonlinear equations is solved using Newton's iteration. We summarize the physical and numerical parameters for the full model in the following table
+and use a St\"ormer-Verlet (\ref{eq:Hasy:13}) scheme for time integration. Since the Hamiltonian function (\ref{eq:NuRe:17}) is non-separable, this scheme becomes implicit so in each time iteration, a system of nonlinear equations is solved using Newton's iteration. We summarize the physical and numerical parameters for the full model in the following table
 
 \vspace{0.5cm}
 \begin{center}

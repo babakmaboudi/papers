@@ -22,7 +22,7 @@ Jan S. Hesthaven
 
 In our paper we present a greedy method for generation of a structure preserving reduced systems for Hamiltonian systems. The main goal of the method is to save computational costs in the generation of a reduced system. This is done by avoiding possibly a large scale structured eigenvalue problem. 
 
-It seems that the main concern of the reviewer is the comparison of the greedy method with the CS-decomposition proposed by Mehrmann and Poloni. The CS-decomposition method is used to construct eigen-spaces (sometimes Lagrangian subspaces) for Hamiltonian and other structured matrices. However, the eigen-decomposition of the snapshot matrix is not the only step in a model reduction routine. Although the CS-decomposition is a nice idea for structured model reduction, but it is not a model reduction technique by itself and it needs further investigation and analysis. For example in most of the references mentioned by the reviewer the CS-decomposition method are applied on a Hamiltonian matrix in the context of the Riccati equation while the snapshot matrix of a parametric Hamiltonian system is not of this form. 
+It seems that the main concern of the reviewer is the comparison of the greedy method with the CS-decomposition proposed by Mehrmann and Poloni. The CS-decomposition method is used to construct eigen-spaces (sometimes Lagrangian subspaces) for Hamiltonian and other structured matrices. However, the eigen-decomposition of the snapshot matrix is not the only step in a model reduction routine. Although the CS-decomposition is a nice idea for structured model reduction, it is not a model reduction technique by itself and it needs further investigation and analysis. For example in most of the references mentioned by the reviewer the CS-decomposition method is applied on a Hamiltonian matrix in the context of the Riccati equation while the snapshot matrix of a parametric Hamiltonian system is not of this form. 
 
 Furthermore, the CS-decomposition is generally expensive when dealing with high dimensional parameter domains since the evaluation of the entire snapshot matrix is required. This is precisely what the greedy method is avoiding. Thus, comparison between the two methods is not meaningful in the context of model reduction.
 
@@ -31,7 +31,7 @@ Further reponses to the reviewers comments are below:
 Unfortunately still the revised version of the paper is prepared in a very sloppy way, this concerns a lot of typos, the lack of explanation of terminology and still a missing reflection of the existing literature. While a number of references have been added to the previous work, in several parts the paper is still not given full credit to previous work.
 \ereview
 
-Some references regarding the CS-decomposition is added specially regarding computing the eigen-spaces of a structured matrix. The review does not reflect further absences of the existing literature.
+We have again revised the paper and corrected some typos and added further explanations to the terminology. Some references regarding the CS-decomposition is added specially regarding computing the eigen-spaces of a structured matrix.
 
 
 \breview
@@ -39,7 +39,7 @@ I recall my previous comments: There are also some mathematical questions that n
 I do not see the reflection of this unboundedness in the convergence proof, I guess it is reflected in the constant, but this should be analyzed.
 \ereview
 
-The existence of Lagrangian subspaces and subsequently the boundedness of the reduced basis and the stability of the reduced system was analysed excessively in the first revision of the paper. Theorem 10 guarantees the boundedness of a symplectic basis, and further in section 4.1.2 it is shown that the basis obtained by the greedy method contains a Lagrangian subspace and hence, norm-bounded by construction. We understand the reviewer's concern about backward instability of symplectic ortho-normalization of the basis. However we believe that the choice of an ortho-normalization routine can be done by the user upon application. This was explicitly pointed out in the first revision of the paper in lines 462-463 (468-469 in the new revision). As the matter of fact some of the reviewer's suggestions, e.g. the isotropic Arnoldi, were introduced as a backward stable replacement for the SR method.
+The existence of Lagrangian subspaces and subsequently the boundedness of the reduced basis and the stability of the reduced system was analysed extensively in the paper. Theorem 10 guarantees the boundedness of a symplectic basis, and further in section 4.1.2 it is shown that the basis obtained by the greedy method contains a Lagrangian subspace and hence, is norm-bounded by construction. We appreciate the reviewer's concern about backward instability of symplectic ortho-normalization of the basis. However, the choice of an ortho-normalization routine can be done by the user upon application. This was explicitly pointed out in the first revision of the paper in lines 462-463 (468-469 in the new revision). Some of the reviewer's suggestions, e.g. the isotropic Arnoldi, were introduced as a backward stable replacement for the SR method.
 
 \breview
 line 61: this is a biased point of view that should be elaborated.
@@ -51,7 +51,7 @@ Further comments and proper references to support the argument is added.
 line 247: Proof of thm 10 not needed, it has been shown in work by C. Mehl (SIMAX)
 \ereview
 
-The proof of this theorem contains some intuition about the constructive approach of the greedy method. Therefore we decided to restate the proof while citing the original proof.
+The proof of this theorem yields some intuition about the constructive approach of the greedy method. Therefore we decided to restate the proof while citing the original proof.
 
 \breview
 line 279: this is not a good definition, symplectic matrices should be square. This is an isotropic matric
@@ -65,20 +65,20 @@ Indeed symplectic matrices are conventionally square matrices. But referring to 
 line 462: SR is bad, here is exactly where isotropic Arnoldi is used, and this is exactly what the authors do.
 \ereview
 
-As mentioned before different ortho-normalization routines can be used in the greedy method. The choice of the SR method is due to the simplicity of the mthod. However, there are suggestions to backward stable routines such as the isotropic Arnoldi in lines 468-470.
+As mentioned before different ortho-normalization routines can be used in the greedy method. The choice of the SR method is due to the simplicity of the method. However, suggestions to backward stable routines such as the isotropic Arnoldi are included, see lines 468-470.
 
 \breview
 Line 513: It can be made unique via the CS decomposition
 \ereview
 
-Greedy approaches to reduce basis generation do not usually result a unique reduced basis. This is because the uniqueness is compromised with affordability and lower computation cost of the reduced basis. Therefore uniqueness is not really a concerning issue. 
+Greedy approaches to reduce basis generation do not usually result a unique reduced basis. This is because the uniqueness is balanced with affordability and lower computation cost of the reduced basis. Uniqueness is not really an issue of concern in this context. 
 
 
 \breview
 Line 621: here is the critical step of the new method, what happens if the function is not of this form?
 \ereview
 
-Further comments are added to remove the concern.
+To accelerate the assembling of the Jacobian matrix for the reduced system, we assumed that the interpolating index matrix $P$ can commute with the nonlinear function $\mathbf g$. The assumption holds for many Hamiltonian system. This leads to a simple expression for the Jacobian matrix and also a great acceleration in the assembly of the Jacobian matrix. However, the assembling of the Jacobian matrix (used in Newton's iterations) does not affect the symplectic structure of the reduced system. Therefore, one can use other existing methods to assemble the Jacobian matrix, such as the MDEIM method. This is addressed in the revision of the paper, see line 632 and 633.
 
 \breview
 line 669: if POD is done with a orthosymplectic basis then it is keeping the structure. Here is where the paper gets a bit off the track. POD can be done structure preserving as well, see work by Beattie/Gugercin, Polyuga, Van der Schaft. This should be the method to compare with. Unstructured POD compared with structured reduced basis is not fair.
@@ -88,7 +88,7 @@ Line 698: here is where a well elaborated comparison should be done.
 line 124: Also here Petrov Galerkin could be used if $W^T V = I$, in particular $W = V^T J$ could be used.
 \ereview
 
-As the matter fact the greedy method is compared with the Cotangent Lift method and the Complex SVD method which are structure preserving POD-based model reduction methods. Extensive comparison between the methods are presented in Section 5.
+The greedy method is compared with the Cotangent Lift method and the Complex SVD method which are structure preserving POD-based model reduction methods. Extensive comparison between the methods are presented in Section 5.
 
-The references mentioned by the reviewer are mostly concerning model reduction of port-Hamiltonian systems. These systems are actually not a Hamiltonian system since the energy is not preserved and consequently there is no symplectic structure. Therefore, applying these methods to a Hamiltonian system is not straight forward and requires further investigation.
+The references mentioned by the reviewer are mostly concerning model reduction of port-Hamiltonian systems. These systems are not Hamiltonian systems since the energy is not preserved and consequently there is no symplectic structure. Therefore, applying these methods to a Hamiltonian system is not straight forward and requires further investigation.
 \end{document}

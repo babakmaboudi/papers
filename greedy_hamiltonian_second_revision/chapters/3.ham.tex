@@ -155,7 +155,7 @@ Let $A\in \mathbb{R}^{2n\times 2k}$ be a symplectic matrix and $A^+$ its symplec
 
 {\edit A straight-forward calculation verifies} that $AA^+$ is idempotent, i.e., a symplectic projection onto the column span of $A$.
 
-{\edit It is natural to expect a numerical integrator that solves (\ref{eq:Hasy:7}) to also satisfy the conservation law in Theorem \ref{theorem:Hasy:1}. Common numerical integrators e.g., Runge-Kutta methods, do not generally preserve the Hamiltonian which results in a qualitative wrong behavior of the solution \cite{Hairer:1250576}. Symplectic integrators are a class of numerical integrators for Hamiltonian systems that preserve the symplectic structure and ensure stability in long-time integration.} The Str\"omer-Verlet time stepping scheme is an example of symplectic integrators and is given by
+{\edit It is natural to expect a numerical integrator that solves (\ref{eq:Hasy:7}) to also satisfy the conservation law in Theorem \ref{theorem:Hasy:1}. Common numerical integrators e.g., Runge-Kutta methods, do not generally preserve the Hamiltonian which results in a qualitative wrong behavior of the solution \cite{Hairer:1250576}. Symplectic integrators are a class of numerical integrators for Hamiltonian systems that preserve the symplectic structure and ensure stability in long-time integration.} The St\"ormer-Verlet time stepping scheme is an example of symplectic integrators and is given by
 \begin{equation} \label{eq:Hasy:13}
 \begin{aligned}
 	q_{n+1/2} &= q_n + \frac{\Delta t}{2} \nabla_pH(q_{n+1/2},p_n), \\
@@ -171,4 +171,4 @@ and
 	p_{n+1} &= p_{n+1/2} - \frac{\Delta t}{2} \nabla_qH(q_{n+1},p_{n+1/2}).
 \end{aligned}
 \end{equation}
-For a general Hamiltonian system, the Str\"omer-Verlet scheme is implicit. However, for separable Hamiltonians, i.e. $H(q,p) = K(p) + U(q)$, this {\edit scheme becomes} explicit. We refer the reader to \cite{Hairer:1250576} for more information about the construction and applications of symplectic and geometric numerical integrators. 
+For a general Hamiltonian system, the St\"ormer-Verlet scheme is implicit. However, for separable Hamiltonians, i.e. $H(q,p) = K(p) + U(q)$, this {\edit scheme becomes} explicit. We refer the reader to \cite{Hairer:1250576} for more information about the construction and applications of symplectic and geometric numerical integrators. 
