@@ -1,0 +1,8 @@
+\section{Conclusion} \label{sec:5}
+
+In this paper we present the Reduced Dissipative Hamiltonian method. The method preserves the symplectic structure of dissipative Hamiltonian systems and guarantees the correct dissipation of energy through time integration. The RDH method couples the reduced system with a canonical heat bath such that the reduced system forms a closed system.
+
+The main advantage of the RDH method compared to the existing methods is that it enables the reduced system to be integrated using a symplectic integrator which naturally preserves the Hamiltonian structure and the symplectic symmetry of the Hamiltonian systems. Applying a symplectic integrator to a non-conservative system or using a non-symplectic integrator for the reduced system can cause accumulation of local errors or wrong qualitative solution over long-time integration, respectively.
+
+The numerical simulations illustrate that the RDH method preserves the system energy with significantly higher accuracy than other methods. Furthermore, it is shown that the hidden strings assure that the dissipation of energy in the reduce system mimics the dissipation of energy in the full system. This ensures that the local error do not accumulate over long-time integration.
+

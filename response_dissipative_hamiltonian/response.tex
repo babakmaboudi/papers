@@ -1,0 +1,63 @@
+\documentclass[a4paper]{article}
+\usepackage{url}
+\usepackage[margin=1in]{geometry}
+\newcommand{\breview}{\begin{quotation}\begin{bf}\noindent}
+\newcommand{\ereview}{\end{bf}\end{quotation}}
+\newcommand{\reviewbullet}[1]{\breview \begin{itemize}\item #1 \end{itemize}\ereview}
+
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+
+\begin{document}
+
+Dear Editor, \\[1cm]
+
+Bellow you will find the response to the review of the manuscript \#JOMP-D-17-00165, titled ``Structure-Preserving Model-Reduction of Dissipative Hamiltonian Systems".
+
+Yours Sincerely,\\[1.0cm]
+Babak Maboudi Afkham and
+Jan S. Hesthaven
+\\[1cm]
+
+\section*{Response to the Review}
+
+\breview
+1- In the abstract, the authors emphasize that this method ``allows the reduced system to be integrated with a symplectic integrator, resulting in a correct dissipation of energy, preservation of the total energy and, ultimately, in the stability of the solution.''
+
+I agree that by applying a symplectic integrator, the reduced system preserves Hex (the Hamiltonian of the TDD system) as time evolution. However, I am not convinced that the reduced system has stability guarantee. The preservation of Hex (defined in Equation 18) is merely a necessary condition of stability, not an efficient one. In general, a  Hamiltonian system does not necessarily to be stable unless certain conditions can be satisfied (such as conditions in Theorem 3). Without a clarification of the merits of this method with more strict language, I can not recommend the publication of the material in its current form. 
+\ereview
+
+Stability is a very important aspect, not only in the context of model reduction, but also in time integration of Hamiltonian systems. Therefore the concern of the reviewer with stability is understandable and appreciated.
+
+Although model reduction of unstable Hamiltonian system is very interesting, e.g. to study Hamiltonian systems containing bifurcation or chaotic behaviour, this paper assumes stability in the high fidelity system prior to model reduction. This step is an important step in the model reduction of Hamiltonian systems since standard techniques such as POD do not guarantee a stable reduced system, even if the high fidelity system is stable as seen in [20,22,23].
+
+To address the concern of the reviewer, we have added Theorem 4 and Theorem 5 that discuss the stability of the reduced system starting from a stable and bounded high fidelity system. These two theorems show that under proper assumptions on the high fidelity system, the solution of the reduced system remains bounded and the stable equilibrium points of the extended system remains locally stable. This is a strong indication of the preservation of the stability in the reduced system and is supported by the numerical experiments.
+
+Finally, the claims in the abstract are corrected to remove any confusion of stability and to resemble the evidence presented in this article.
+
+\breview
+
+2- The proof of theorem 2 has already been shown in reference [8]. It should be cited without a proof.
+
+\ereview
+
+The suggestion of the reviewer is applied with the proper citation.
+
+\breview
+3- In model reduction community, not everyone is very familiar with the (TDD) system. Thus, in example 1, it would be nice if the authors can clarify how K, f, and $\chi$ in TDD systems be represented in the parameters of the damped harmonic oscillator. If the f in the damped harmonic equation does not correspond the f of the TDD system, it might cause  confusions. 
+\ereview
+
+This is corrected in the revision of the article and hopefully the confusion is removed.
+
+\breview
+4- In the numerical examples with the RHD framework, which method is used to construct basis? Cotangent lift or the greedy approach method 1 in section 3.2? I would suggest authors test both methods and make a comparison. 
+\ereview
+
+The symplectic greedy method and the cotangent lift method has been compared extensively in [20]. The comparison of the two methods, other than restating the findings in [20] (suggested by the numerical experiments), does not add a significantly novel insight into the performance of the RDH method. However, usage of the greedy and the cotangent lift is mentioned clearly in the revision of the article and proper citations has been added to remove possible confusions.
+
+\breview
+5- The authors mention a particular form of Hex for the sine-Gordon equation. Is it possible to prove that the conservation of Hex related to the stability for this particular example?
+\ereview
+
+The Sine-Gordon equation is a proof of concept, and is brought as an example for model reduction of nonlinear systems with the RDH method. However, model reduction of general nonlinear dissipative systems requires a deeper study and is left for future works. The suggestion of the reviewer, although very interesting, is difficult to address and is beyond the scope of the paper.
+
+\end{document}
