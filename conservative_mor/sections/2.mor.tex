@@ -1,0 +1,50 @@
+\section{Model Order Reduction for Time Dependent Problems} \label{sec:mor}
+
+Consider a dynamical system of the form
+\begin{equation} \label{eq:1}
+	\left\{
+	\begin{aligned}
+		\frac{d}{dt} u(t) &= f(t,u(t)),\\
+		u(0) &= u_0.
+	\end{aligned}
+	\right.
+\end{equation}
+Here, $u(t),u_0\in \mathbb R^{n}$ and $f: [0,T]\times \mathbb R^{n} \to \mathbb R^{n}$, for some $T<\infty$, is a Lipschitz function. We may apply the \emph{method of lines} \cite{Edsberg:2008:ICM:1477735} to a system of partial differential equations to obtain a dynamical system of the form \eqref{eq:1}. The \emph{solution manifold} for \eqref{eq:1} is defined as
+\begin{equation} \label{eq:2}
+	\mathcal M_u := \{ u(t) | t \in [0,T] \}.
+\end{equation}
+When $\mathcal M_u$ has a low-dimensional representation, it is referred to as \emph{reducible}. Assume that $\mathcal M_u$ can be well approximated by $k$-dimensional linear subspace $\mathcal V_k$, with $k\ll n$ and let $E_k = \{ v_1,\dots,v_k \}$ be the basis vectors for $\mathcal V_k$ and $V_k$ the basis matrix that contains these vectors in its columns. A reduced basis (RB) method assumes that $u \approx \tilde u = V_k v$, where $v$ is the expansion coefficients of $\tilde u$ in the basis $E_k$. Substituting this into \eqref{eq:1} yields
+\begin{equation} \label{eq:3}
+	V_k \frac{d}{dt} v(t) = f(t,V_{k}v) + r(t,u).	
+\end{equation}
+Here, $r$ is the error vector in this approximation. The Petrov-Galerkin projection of \eqref{eq:1} onto $\mathcal V_k$ requires $r$ to be orthogonal to a $k$-dimensional subspace $\mathcal W_k$. One can construct a projection operator $P_{\mathcal V_{k},\mathcal W_k}$ that projects elements of $\mathbb R^{n}$ onto $\mathcal V_k$, orthogonal to $\mathcal W_k$ as $P_{\mathcal V_{k},\mathcal W_k} = V_k(W_k^TV_k)^{-1}W_k^T$, where $W_k$ is the basis matrix that contains the basis vectors of $\mathcal W_k$ in its columns and $W_k^TV_k$ is assumed to be invertible. With this projection, \eqref{eq:1} reduces to
+\begin{equation} \label{eq:4}
+	\left\{
+	\begin{aligned}
+		\frac{d}{dt} v(t) &= (W_k^TV_k)^{-1} f(t,V_{k}v),\\
+		v(0) &= (W_k^TV_k)^{-1}u_0.
+	\end{aligned}
+	\right.
+\end{equation}
+When we require $W_k=V_k$, then \eqref{eq:4} is referred to as the \emph{Galerkin} projection of \eqref{eq:1} onto $\mathcal V_k$. Since \eqref{eq:4} has a smaller size, as compared to \eqref{eq:1}, one can expect accelerated evaluation. To numerically identify the best possible subspace $\mathcal V_{k}$ we first discretize the solution manifold to obtain
+\begin{equation} \label{eq:5}
+	\mathcal M_{u}^{\Delta} = \{ u(t_i) | i\in \{ 1,\dots,N_t \} \}.
+\end{equation}
+Members of $M_{u}^{\Delta}$ are referred to as \emph{snapshots} of \eqref{eq:1}. One can obtain these snapshots by applying a time-integration scheme, e.g. the Runge-Kutta methods, to \eqref{eq:1} to obtain $\tilde {\mathcal M}_{u}^{\Delta}$ an approximation to $\mathcal M_{u}^{\Delta}$. Throughout this paper, we assume that we can choose $\tilde{\mathcal M}_{u}^{\Delta}$ arbitrary close to $\mathcal M_{u}^{\Delta}$, therefore, by an abuse of notation, we may drop the overscript ``\textasciitilde''. For a Galerkin projection, the best possible basis $V_k$ is the one that minimizes the collective projection error \cite{hesthaven2015certified}, i.e., the solution to the minimization problem
+\begin{equation} \label{eq:6}
+\begin{aligned}
+&  \underset{V_k\in\mathbb R^{n\times k}}{\text{minimize}}
+& &  \| S - V_kV_k^TS\|_F, \\
+& \text{subject to}
+& & V_k^TV_k=I_k.
+\end{aligned}
+\end{equation}
+Here $S$ collects vectors in $\mathcal M_{u}^{\Delta}$ in its columns, referred to as the \emph{snapshot matrix}, $\|\cdot \|_F$ is the Frobenius norm \cite{trefethen97}, and $I_{k}$ is the identity matrix of size $k$. Note that the constraint in \eqref{eq:6} requires $V_k$ to be orthonormal. The basis matrix $V_k$ that solves the minimization problem \eqref{eq:6} is referred to as the \emph{proper orthogonal decomposition} (POD) of $S$ of size $k$ \cite{hesthaven2015certified}, and, according to the Schmidt-Mirsky theorem, can be constructed using the left singular vectors of $S$ as
+\begin{equation}
+	V_{k} = [u_i]_{i=1}^{k}.
+\end{equation}
+Here $u_i$, for $i=1,\dots k$, are the first $k$ singular vectors of $S$.
+
+Often MOR is studied in the parametric setting, where the vector $u,u_0$, and the right hand side $f$ of \eqref{eq:1} are of the form $u(t;\mu)$, $u_0(\mu)$, and $f(t,u;\mu)$, respectively. Here $\mu$ belongs to $\mathbb P$ a closed subset of $\mathbb R^d$. In this case, the reduced system can approximate the quantities of interest at an accelerated rate. Since the nature of time, as a parameter, is different from other spacial and physical parameters, in this paper we solely focus on $t$ as the parameter. Nevertheless, it is straight forward to extend the results of this paper to the parameter setting by using POD in time and parameter space, or by using the POD-greedy \cite{haasdonk2013convergence,hesthaven2015certified,quarteroni2015reduced} method to generate a basis $V_k$.
+
+Since the approximated solution $\tilde u$ is a linear combination of the POD basis vectors, $\tilde u$ inherits linear properties of these basis vectors. However, when the solution $u$ to \eqref{eq:1} satisfies some nonlinear invariants, there is no guarantee that, in general, $\tilde u$ also satisfy such invariants \cite{doi:10.1137/140959602,doi:10.1137/140978922,doi:10.1137/17M1111991,MaboudiAfkham2018}. This results in a qualitatively wrong and often unstable solution. In the later sections, we discuss how the skew-symmetric formulation of the fluid flow allows conservation of quadratic invariants, e.g. the kinetic energy, at the level of the reduced system.

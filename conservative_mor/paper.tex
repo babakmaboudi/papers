@@ -1,0 +1,92 @@
+%%%%%%%%%%%%%%%%%%%% author.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% sample root file for your "contribution" to a contributed volume
+%
+% Use this file as a template for your own input.
+%
+%%%%%%%%%%%%%%%% Springer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% RECOMMENDED %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[graybox]{svmult}
+
+% choose options for [] as required from the list
+% in the Reference Guide
+
+\usepackage{mathptmx}       % selects Times Roman as basic font
+\usepackage{helvet}         % selects Helvetica as sans-serif font
+\usepackage{courier}        % selects Courier as typewriter font
+\usepackage{type1cm}        % activate if the above 3 fonts are
+                            % not available on your system
+%
+\usepackage{makeidx}         % allows index generation
+\usepackage{graphicx}        % standard LaTeX graphics tool
+                             % when including figure files
+\usepackage{subfigure}
+\usepackage{epstopdf}
+
+\usepackage{multicol}        % used for the two-column index
+\usepackage[bottom]{footmisc}% places footnotes at page bottom
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+%\usepackage[linesnumbered, ruled, vlined]{algorithm2e}
+%\usepackage{algorithm}% http://ctan.org/pkg/algorithms
+%\usepackage{algorithmicx} 
+%\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+%\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+%\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage{cleveref}
+
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+\usepackage{booktabs} % Horizontal rules in tables
+\usepackage{float} % Required for tables and figures in the multi-column environment - they need to be placed in specific locations with the [H] (e.g. \begin{table}[H])
+%\usepackage{hyperref} % For hyperlinks in the PDF
+
+% see the list of further useful packages
+% in the Reference Guide
+
+\makeindex             % used for the subject index
+                       % please use the style svind.ist with
+                       % your makeindex program
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title*{Model Order Redcution of Fluid Flow While Preserving Quadratic Invariants}
+% Use \titlerunning{Short Title} for an abbreviated version of
+% your contribution title if the original one is too long
+\author{Bababk Maboudi Afkham, Nicol\`o Ripamonti, Qian Wang, Jan S. Hesthaven and Karen E. Willcox}
+% Use \authorrunning{Short Title} for an abbreviated version of
+% your contribution title if the original one is too long
+\institute{Name of First Author \at Name, Address of Institute, \email{name@email.address}
+\and Name of Second Author \at Name, Address of Institute \email{name@email.address}}
+%
+% Use the package "url.sty" to avoid
+% problems with special characters
+% used in your e-mail or web address
+%
+\maketitle
+
+%\abstract*{Each chapter should be preceded by an abstract (10--15 lines long) that summarizes the content. The abstract will appear \textit{online} at \url{www.SpringerLink.com} and be available with unrestricted access. This allows unregistered users to read the abstract as a teaser for the complete chapter. As a general rule the abstracts will not appear in the printed version of your book unless it is the style of your particular book or that of the series to which your book belongs.
+%Please use the 'starred' version of the new Springer \texttt{abstract} command for typesetting the text of the online abstracts (cf. source file of this chapter template \texttt{abstract}) and include them with the source files of your manuscript. Use the plain \texttt{abstract} command if the abstract is also to appear in the printed version of the book.}
+
+\abstract{In the context of model order reduction, conservation of stability in the reduced order systems of partial differential equation, especially with a strong advection term, remains a challenge. Recently preserving structures, invariants and conservation laws, in order to help with stability, and ensure robustness in long-time integrations, has been an area of active research. Energy conservation is a fundamental feature of fluid flows which is often violated in the course of model reduction. In this paper we discuss a model reduction routine, that exploits skew-symmetry of conservative and centered discretization schemes, to recover conservation of energy at the level of reduced system. This results in an, overall, correct evolution of the fluid and ensures robustness of the reduced system. We evaluate the performance of the proposed method through numerical simulation of various fluid flows, and also in a numerical simulation of continuous variable resonance combustor model.}
+
+
+% sections are added here
+
+\input{./sections/1.intro.tex}
+\input{./sections/2.mor.tex}
+\input{./sections/3.skew.tex}
+\input{./sections/4.mor_skew.tex}
+\input{./sections/5.res.tex}
+\input{./sections/6.con.tex}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

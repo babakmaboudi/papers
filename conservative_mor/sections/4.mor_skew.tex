@@ -1,0 +1,68 @@
+\section{Model Reduction of Fluid Flow} \label{sec:mor_skew}
+Straight forward model reduction of \eqref{eq:3.8} and \eqref{eq:3.18} does not generally preserves symmetries and conservation laws that were presented in \Cref{sec:skew}. In this section we discuss how to exploit the discrete skew-symmetric structure of \eqref{eq:3.13} and \eqref{eq:3.21} to recover conservation of mass, momentum, and energy at the level of reduced system.
+
+Let $V_{\mathbf r}$, $V_{\mathbf r \mathbf u}$, and $V_{\mathbf u_i}$ be the reduced bases for the snapshots of $\mathbf r$, $R \mathbf u$, and $\mathbf u$, respectively. For the purpose of simplicity, we assume that all bases have the size $k$. In case of an incompressible fluid, $V_{ \mathbf r}$ and $V_{\mathbf r \mathbf u}$ are omitted. We seek to project $S_{\mathbf u}$ and $S_{\mathbf r \mathbf u}$ onto the reduced space, such that the projection preserves the skew-symmetry property. The projected operators, using a Galerkin projection, read
+\begin{equation} \label{eq:4.1}
+	S^r _{\mathbf u} = V_{ \mathbf u_i}^T S _{\mathbf u} V_{ \mathbf u_i}, \quad i=1,\dots,d,
+\end{equation}
+and
+\begin{equation} \label{eq:4.2}
+	S^r_{\mathbf r ,\partial_t} =V_{\mathbf r \mathbf u}^T  S_{\mathbf r ,\partial_t} V_{\mathbf u}, \quad S^r _{\mathbf r \mathbf u} = V_{\mathbf r \mathbf u}^T  S _{\mathbf r \mathbf u} V_{\mathbf u}.
+\end{equation}
+Note that $S^r_{\mathbf r ,\partial_t}$ is not computed explicitly. It is seen that the $S^r _{\mathbf u}$ is already in a skew-symmetric form. On the other hand, $S^r_{\mathbf r ,\partial_t}$ and $S^r _{\mathbf r \mathbf u}$ are not, in general, skew-adjoint and skew-symmetric, respectively. This can be ensured, however, by requiring $V_{\mathbf r \mathbf u} = V_{\mathbf u}$. We denote such a basis by $V_{\mathbf r \mathbf u, \mathbf u}$.Using \eqref{eq:4.1} and \eqref{eq:4.2}, the Galerkin projection of momentum equation in \eqref{eq:3.13} and equations governing the compressible fluid in \eqref{eq:3.21} take the form
+\begin{equation} \label{eq:4.3}
+	\frac{d}{dt} {\mathbf u^r}_i + S^r_{\mathbf u} \mathbf u^r_i + V_{\mathbf u_i} ^T D_i \mathbf p = \sum_{j=1}^d V_{k_3, \mathbf u_i}^T D_j T_{ij}(V_{ \mathbf u_i} \mathbf u^r_i), \quad i=1,\dots,d,
+\end{equation}
+and
+\begin{equation} \label{eq:4.4}
+\left\{
+\begin{aligned}
+	& \frac{d}{dt} \mathbf r^r + \sum_{i=1}^k V^T_{\mathbf r}DU_iV_{\mathbf r}\mathbf r^r = 0, \\
+	& S^r_{\mathbf r ,\partial_t} + S^r _{\mathbf r \mathbf u} \mathbf u^r + V_{\mathbf r \mathbf u, \mathbf u}^T D \mathbf V_{\mathbf p} \mathbf p^r = V_{\mathbf r \mathbf u, \mathbf u}^T D T, \\
+	&\frac{1}{\gamma -1} \frac{d}{dt} \mathbf p^r + \frac{\gamma}{\gamma -1} \mathbf V_{\mathbf p}^T D U V_{\mathbf p} \mathbf p^r - \mathbf V_{\mathbf p}^T UD V_{\mathbf p} \mathbf p^r = - V_{\mathbf p}^T UDT + V_{\mathbf p}^T D(UT - \mathbf \phi).
+\end{aligned}
+\right.
+\end{equation}
+Note that in \eqref{eq:4.4}, dependency of $T$ on $V_{\mathbf r \mathbf u , \mathbf u}$ is not shown for abbreviation. In \eqref{eq:4.3} and \eqref{eq:4.4}, $D_i$ is always multiplied from left with a basis matrix or a diagonal matrix. Therefore, the telescoping sum discussed in condition 2 in \Cref{sec:skew.1} cannot be used to show conservation of mass and momentum. However, POD preserves linear properties of snapshots. To demonstrate, let the overscript ``\textasciitilde'' denote the representation of a reduced variable in the high fidelity space. A reduced variable, e.g. density, can be represented as a linear combination of some snapshots as $\mathbf r \approx \tilde{\mathbf r} = \sum_{i=1}^k c_i \mathbf r_i$, for some snapshots $\mathbf r_i$ and some coefficients $c_i \in \mathbb R$, for $i=1,\dots,k$. The conservation mass for the reduced system reads
+\begin{equation} \label{eq:4.5}
+	\frac{d}{dt} \mathbf 1^T \tilde {\mathbf r} = \sum_{i=1}^k c_i  \left( \mathbf 1^T \frac{d}{dt} \mathbf r_i \right) = - \sum_{i=1}^k c_i  \left( \mathbf 1^T DR_i\mathbf u_i \right) = 0.
+\end{equation}
+Here we used the fact that $\mathbf 1^T D = \mathbf 0^T$. Similarly, we recover conservation of momentum
+\begin{equation} \label{eq:4.6}
+\begin{aligned}
+	\frac{d}{dt}(\tilde {\mathbf r}^T \tilde{\mathbf u}) &= \frac{1}{2} \frac{d}{dt}(\tilde{\mathbf r}^T \tilde{\mathbf u}) + \frac{1}{2} \left( \tilde{ \mathbf r }^T \frac d{dt} \tilde{ \mathbf u } + \tilde {\mathbf u}^T \frac{d}{dt} \tilde {\mathbf r} \right)\\
+	&= \sum_{i,j=1}^k d_i c_j \left( \mathbf u_i^T \frac{d}{dt} \mathbf r_j + \left( \mathbf r_j^T \frac d{dt} \mathbf u_i +\mathbf u_i^T \frac{d}{dt} \mathbf r_j \right)\right) = 0.\\
+\end{aligned}
+\end{equation}
+Here, $\tilde{\mathbf u} = \sum_{i=1}^k d_i \mathbf u_i$, for some snapshot $\mathbf u_i$ and coefficients $d_i \in \mathbb R$. Denoting by $\{ R \mathbf u\}^r$ the reduced representation of $R\mathbf u$ in basis $V_{\mathbf r \mathbf u , \mathbf u}$, the evolution of kinetic energy reads
+\begin{equation} \label{eq:4.7}
+	\begin{aligned}
+	\frac{d}{dt}\left( \frac 1 2 \tilde{\mathbf u}^T \tilde{ R } \tilde {\mathbf u} \right) &= \frac{d}{dt}\left( \frac 1 2 {\mathbf u^r}^T V_{\mathbf r \mathbf u , \mathbf u}^T V_{\mathbf r \mathbf u , \mathbf u} \{ R \mathbf u\}^r \right) = \frac{d}{dt}\left( \frac 1 2 {\mathbf u^r}^T \{ R \mathbf u\}^r \right) \\
+	&= \frac 1 2 \left( {\mathbf u^r}^T \frac{d}{dt} \{ R \mathbf u \}^r + \{ R \mathbf u \}^r \frac{d}{dt} \mathbf u^r \right) \\
+	&= \frac 1 2 \left( {\mathbf u^r}^T V_{\mathbf r \mathbf u , \mathbf u}^T V_{\mathbf r \mathbf u , \mathbf u} \frac{d}{dt} \{ R \mathbf u \}^r + \{ R \mathbf u \}^r \frac{d}{dt} V_{\mathbf r \mathbf u , \mathbf u}^T V_{\mathbf r \mathbf u , \mathbf u} \mathbf u^r \right) \\
+	&= {\mathbf u^r}^T S^r_{\mathbf r, \partial_t} \mathbf u^r = { \mathbf u^r }^T V_{\mathbf r \mathbf u , \mathbf u} D V_{\mathbf p} \mathbf P^r + { \mathbf u^r }^T V_{\mathbf r \mathbf u , \mathbf u}^T D T.
+	\end{aligned}
+\end{equation}
+In the missing steps in the last line, the skew-symmetry of $S_{\mathbf r \mathbf u}^r$ is used. Note, that only the reduced pressure and the viscous term contribute to the evolution of kinetic energy. Furthermore, the quantity $ \frac 1 2 {\mathbf u^r}^T \{ R \mathbf u\}^r$ is the kinetic energy associated with the reduced system \eqref{eq:4.4} that approximates the kinetic energy of the high-fidelity system \eqref{eq:3.21} and is a quadratic form with respect to the reduced variables. Conservation of kinetic energy for \eqref{eq:4.3} follows similarly. With what discussed above, it is  straight forward to check that
+\begin{equation} \label{eq:4.8}
+	\frac{d}{dt} \left( \frac{1}{\gamma - 1} \mathbf 1^T \tilde{\mathbf p} + \frac{1}{2} \tilde{\mathbf u}^T \tilde R \tilde{\mathbf u} \right) = 0,
+\end{equation}
+i.e., the total energy is conserved. We can immediately recognize that $ \mathbf p^r /(\gamma - 1)$ is the total internal energy of the reduced system. However, the internal energy of the system is a weighted sum, $ b^T\mathbf p^r /(\gamma - 1)$, with $b = V_{\mathbf p}^T \mathbf 1$ which is an approximation of the internal energy of \eqref{eq:3.21}. From \eqref{eq:4.5}, \eqref{eq:4.6}, \eqref{eq:4.7}, and \eqref{eq:4.8} we conclude the following proposition.
+\begin{proposition}
+	The loss in the mass, momentum and energy associated with model reduction in \eqref{eq:4.4} is constant in time, and therefore, bounded.
+\end{proposition}
+
+\subsection{Assembling Nonlinear Terms and Time Integration}
+Nonlinear terms that appear in \eqref{eq:4.3} and \eqref{eq:4.4} are of quadratic nature. These terms can be evaluated exactly using a set of precomputed matrices as proposed in \cite{Benner2018}. As an example, consider, for simplicity, in one dimension
+\begin{equation}
+	S_{\mathbf u}^r = V^T_{\mathbf u} ( DU + UD ) V^T_{\mathbf u}.
+\end{equation}
+We write $U$ as a linear combination of matrices as $U = \sum_{j=1}^k \mathbf u ^r_j U_j$, where $\mathbf u ^r_j$ is the $j$th component of $\mathbf u ^r$, and $U_j$ contains the $j$th column of $V_{\mathbf u}$ on its diagonal. It follows
+\begin{equation}
+	S_{\mathbf u}^r = \sum_{j=1}^k \mathbf u ^r_j \left( V^T_{\mathbf u} ( DU_j + U_jD ) V^T_{\mathbf u} \right),
+\end{equation}
+and the matrices $V^T_{\mathbf u} ( DU_j + U_jD ) V^T_{\mathbf u}$ can be computed prior to the time integration of the reduced system. However, the form of the fully discrete system in \eqref{eq:3.27} introduces cubic and even quartic terms. Although, in principle, the same method can be applied to assemble the nonlinear terms, however, the number of precomputed matrices can grow proportional to the order of nonlinear term. 
+
+To accelerate the assembly of the nonlinear terms that require a large number of precomputed matrices, we may approximately evaluate them using the discrete empirical interpolation method (DEIM). This approximation can affect the accuracy of conserved quantities in \eqref{eq:4.4}. Therefore, the accuracy of DEIM approximation should be chosen considerably higher than the one from POD.
+
+To integrate \eqref{eq:4.4} in time, the fully discrete system \eqref{eq:3.27} is modified prior to model reduction, by multiplying the mass and momentum equation with $\sqrt{\mathbf r}^{n+1}$. Note that since the new form is identical to \eqref{eq:3.27}, it does not affect the conserved quantities. Subsequently, a basis for $\sqrt{\mathbf r}$, denoted by $V_{\sqrt{\mathbf r}}$, is constructed. The nonlinear terms, are evaluated exactly using the quadratic expansion or approximated using the DEIM.
